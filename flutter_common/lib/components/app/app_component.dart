@@ -44,7 +44,7 @@ class _AppComponentState extends State<AppComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.brown,
+      child: Image.asset('images/icon_welcome_bg.png', fit: BoxFit.fill),
     );
   }
 }
