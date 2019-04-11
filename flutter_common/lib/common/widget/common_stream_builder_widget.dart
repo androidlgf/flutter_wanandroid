@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+//带网络相关Widget/
 class CommonStreamBuilder<T> extends StatefulWidget {
   const CommonStreamBuilder(
       {Key key,

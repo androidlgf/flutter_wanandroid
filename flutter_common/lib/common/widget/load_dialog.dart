@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+//菊花loading/
 class LoadDialog extends Dialog {
   LoadDialog({this.title});
 

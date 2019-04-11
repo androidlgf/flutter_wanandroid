@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+//上拉刷新 下拉加载更多 带Header Footer/
 class PullToRefreshListView extends StatefulWidget {
   PullToRefreshListView(
       {@required this.itemCount,

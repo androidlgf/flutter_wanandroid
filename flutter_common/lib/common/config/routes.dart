@@ -8,8 +8,9 @@
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_common/common/config/route_handlers.dart';
+import 'package:flutter_common/common/common_index.dart';
 
+//页面跳转标识 后面页面跳转创建在此处控制/
 class Routes {
   static String root = '/';
   static String doHome = '/home';

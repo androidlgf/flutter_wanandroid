@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/components/app/app_component.dart';
 
-//根布局/
+//跳转Handler相关 后面页面跳转创建在此处控制/
 var rootHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return AppComponent();

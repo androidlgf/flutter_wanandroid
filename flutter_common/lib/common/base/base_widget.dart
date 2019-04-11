@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_common/common/component_index.dart';
-import 'package:flutter_common/common/widget/load_dialog.dart';
-import 'package:flutter_common/common/utils/network_connect_util.dart';
+import 'package:flutter_common/common/common_index.dart';
 
+//基类Widget/
 abstract class BaseStatelessWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
