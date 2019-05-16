@@ -30,7 +30,7 @@ dependencies:
   flutter_spinkit: ^3.1.0 #https://pub.dartlang.org/packages/flutter_spinkit
   connectivity: ^0.4.2 #https://pub.dartlang.org/packages/connectivity
   pull_to_refresh: ^1.1.6 #https://pub.dartlang.org/packages/pull_to_refresh
-  dio: ^1.0.13 # https://github.com/flutterchina/dio
+  dio: ^2.0.4 # https://github.com/flutterchina/dio
   rxdart: ^0.21.0  #rxdart https://github.com/ReactiveX/rxdart
   common_utils: ^1.1.1 # Dart 常用工具类库 https://github.com/Sky24n/common_utils
   # https://caijinglong.github.io/json2dart/index_ch.html
