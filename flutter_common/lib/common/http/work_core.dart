@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 
 import 'communication.dart';
 import '_print.dart';
+import 'http_extra_plugin.dart';
 
 /// [Work]返回的数据包装类
 ///
@@ -311,6 +312,10 @@ abstract class Work<D, T extends WorkData<D>> {
   /// 网络请求方法
   @protected
   HttpMethod get httpMethod => HttpMethod.get;
+
+  ///网络业务请求判断插件
+  @protected
+  HttpExtraPlugin get httpExtraPlugin => null;
 
   /// 网络请求完整地址
   ///

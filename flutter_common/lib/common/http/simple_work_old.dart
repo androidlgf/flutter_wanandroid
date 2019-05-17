@@ -1,7 +1,9 @@
 import 'package:meta/meta.dart';
 import 'communication.dart';
-import 'http_extra_plugin.dart';
 import 'work_core.dart';
+
+/// 用于获取响应json数据协议中"result"字段
+const String result = "result";
 
 /// 简化的[WorkData]类实现
 ///
@@ -53,15 +55,12 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
 
   @override
   D onResponseSuccess(response, SimpleWorkData<D> data) =>
-      onExtractResult(response, data);
+      response[result] == null
+          ? onDefaultResult(response, data)
+          : onExtractResult(response[result], data);
 
   @override
-  bool onResponseResult(response) {
-    if (httpExtraPlugin == null) {
-      return true;
-    }
-    return httpExtraPlugin.isSuccess();
-  }
+  bool onResponseResult(response) => response["state"];
 
   @mustCallSuper
   @override
@@ -96,9 +95,6 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
   /// * [data]为将要返回的数据包装类，包含有传入的参数[data.params]
   @protected
   D onDefaultResult(resultData, SimpleWorkData<D> data) => null;
-
-  @override
-  HttpExtraPlugin get httpExtraPlugin => null;
 }
 
 /// 简化的下载专用[Work]类
