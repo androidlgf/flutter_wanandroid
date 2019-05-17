@@ -38,6 +38,10 @@ dependencies:
   json_annotation: ^2.0.0 #https://pub.dartlang.org/packages/json_annotation
   fluro: ^1.4.0 #https://pub.dartlang.org/packages/fluro
   scoped_model: ^1.0.1 #https://pub.dartlang.org/packages/scoped_model
+  device_info: ^0.4.0+1 #https://pub.dev/packages/device_info#-installing-tab-
+  get_ip: ^0.3.0 #https://pub.dev/packages/get_ip#-installing-tab-
+  devicelocale: ^0.1.1 #https://pub.dev/packages/devicelocale#-installing-tab-
+  flutter_user_agent: ^1.0.1 #https://pub.dev/packages/flutter_user_agent#-installing-tab-
 #  flutter_statusbar_manager: ^1.0.2 #https://pub.dev/packages/flutter_statusbar_manager#-installing-tab-
 
 dev_dependencies:
