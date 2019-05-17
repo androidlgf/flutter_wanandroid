@@ -1,5 +1,3 @@
-
-
 import 'package:meta/meta.dart';
 import 'communication.dart';
 import 'work_core.dart';
@@ -58,7 +56,7 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
   @override
   D onResponseSuccess(response, SimpleWorkData<D> data) =>
       response[result] == null
-          ? onDefaultResult(data)
+          ? onDefaultResult(response, data)
           : onExtractResult(response[result], data);
 
   @override
@@ -96,7 +94,7 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
   /// * 当请求成功且返回结果不存在[result]标签或值为null时被调用，默认实现为null
   /// * [data]为将要返回的数据包装类，包含有传入的参数[data.params]
   @protected
-  D onDefaultResult(SimpleWorkData<D> data) => null;
+  D onDefaultResult(resultData, SimpleWorkData<D> data) => null;
 }
 
 /// 简化的下载专用[Work]类

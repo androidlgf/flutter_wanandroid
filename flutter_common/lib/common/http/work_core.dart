@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:meta/meta.dart';
 
@@ -148,7 +147,7 @@ abstract class Work<D, T extends WorkData<D>> {
 
     completer.complete(data);
 
-    return completer.future;
+    return data;
   }
 
   /// 创建数据模型对象的实例
