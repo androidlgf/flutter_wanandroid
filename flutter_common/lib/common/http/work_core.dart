@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'communication.dart';
 import '_print.dart';
 import 'http_extra_plugin.dart';
+import 'http_default_headers.dart';
 
 /// [Work]返回的数据包装类
 ///
@@ -118,8 +119,17 @@ abstract class Work<D, T extends WorkData<D>> {
     }
 
     if (!_cancelMark && next) {
+      final Map<String, dynamic> defaultHeaders =
+          await HttpDefaultHeaders().buildDefaultHeaders();
+      if (headers != null) {
+        defaultHeaders.addAll(headers);
+      }
+      if (onHeaders() != null) {
+        defaultHeaders.addAll(onHeaders());
+      }
       // 构建http请求选项
-      final options = _onCreateOptions(params, retry, onProgress);
+      final options =
+          _onCreateOptions(params, defaultHeaders, retry, onProgress);
       // 执行核心任务
       await _onDoWork(options, data);
     }
@@ -177,10 +187,9 @@ abstract class Work<D, T extends WorkData<D>> {
   }
 
   /// 构建请求选项参数
-  Options _onCreateOptions(
-      Map<String, dynamic> params, int retry, OnProgress onProgress) {
+  Options _onCreateOptions(Map<String, dynamic> params,
+      Map<String, dynamic> headers, int retry, OnProgress onProgress) {
     log(tag, "_onCreateOptions");
-
     final data = Map<String, dynamic>();
     onPreFillParams(data, params);
     onFillParams(data, params);
@@ -189,7 +198,7 @@ abstract class Work<D, T extends WorkData<D>> {
       ..retry = retry
       ..onProgress = onProgress
       ..method = httpMethod
-      ..headers = onHeaders(params)
+      ..headers = headers
       ..params = data
       ..url = onUrl(params);
 
@@ -296,7 +305,7 @@ abstract class Work<D, T extends WorkData<D>> {
   ///
   /// [params]为任务传入的参数
   @protected
-  Map<String, dynamic> onHeaders(Map<String, dynamic> params) => null;
+  Map<String, dynamic> onHeaders() => null;
 
   /// 拦截创建网络请求工具
   ///

@@ -9,9 +9,9 @@ class BaseHttpWork<V extends Object> extends SimpleWork<V> {
   }
 
   @override
-  Map<String, dynamic> onHeaders( Map<String, dynamic> params) {
+  Map<String, dynamic> onHeaders() {
     // TODO: implement onHeaders
-    return super.onHeaders(params);
+    return super.onHeaders();
   }
 
 //  @override
@@ -29,12 +29,13 @@ class BaseHttpWork<V extends Object> extends SimpleWork<V> {
 //  }
   // 装配请求参数，data为最终要发送的参数集合，params为[Work]调用处端传入的参数列表
   @override
-  void onFillParams(Map<String, dynamic> data,  Map<String, dynamic> params) {
+  void onFillParams(Map<String, dynamic> data, Map<String, dynamic> params) {
     // TODO: implement onFillParams
   }
+
   // 地址必须为完整地址，没有baseUrl支持，项目代码必须集中拼接和管理所有接口地址，便于维护和查找
   @override
-  String onUrl( Map<String, dynamic> params) {
+  String onUrl(Map<String, dynamic> params) {
     return null;
   }
 
