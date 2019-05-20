@@ -115,12 +115,12 @@ abstract class SimpleDownloadWork extends Work<Null, SimpleWorkData<Null>> {
 
   @mustCallSuper
   @override
-  void onConfigOptions(Options options, List params) {
+  void onConfigOptions(Options options,  Map<String, dynamic> params) {
     options.downloadPath = onDownloadPath(params);
   }
 
   /// 设置下载文件路径
   ///
   /// [params]为任务传入参数，返回下载文件要保存的位置路径
-  String onDownloadPath(List params);
+  String onDownloadPath( Map<String, dynamic> params);
 }

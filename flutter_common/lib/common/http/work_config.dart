@@ -10,6 +10,6 @@ Dio dio = Dio(
   BaseOptions(
     connectTimeout: 30000,
     receiveTimeout: 30000,
-    contentType: ContentType.parse("application/x-www-form-urlencoded"),
+    contentType: ContentType.parse("application/json"),
   ),
 );

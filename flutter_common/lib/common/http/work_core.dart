@@ -21,7 +21,7 @@ class WorkData<T> {
   int _code = 0;
 
   /// 任务传入参数列表
-  List _params;
+  Map<String, dynamic> _params;
 
   /// 任务结果数据
   T _result;
@@ -39,7 +39,7 @@ class WorkData<T> {
   int get code => _code;
 
   /// 获取任务传入的参数列表
-  List get params => _params;
+  Map<String, dynamic> get params => _params;
 
   /// 获取处理完成的最终结果数据(用户接口协议中定义的有效数据转化成的本地类)
   T get result => _result;
@@ -86,7 +86,10 @@ abstract class Work<D, T extends WorkData<D>> {
   /// 在[HttpMethod.download]请求中为下载进度，在其他类型请求中为上传/发送进度。
   /// * 同一个[Work]可以多次启动任务，多次启动的任务会顺序执行。
   Future<T> start(
-      [List params = const [], int retry = 0, OnProgress onProgress]) async {
+      {dynamic params,
+      Map<String, dynamic> headers,
+      int retry = 0,
+      OnProgress onProgress}) async {
     final counter = ++_counter;
 
     log(tag, "No.$counter work start");
@@ -174,7 +177,8 @@ abstract class Work<D, T extends WorkData<D>> {
   }
 
   /// 构建请求选项参数
-  Options _onCreateOptions(List params, int retry, OnProgress onProgress) {
+  Options _onCreateOptions(
+      Map<String, dynamic> params, int retry, OnProgress onProgress) {
     log(tag, "_onCreateOptions");
 
     final data = Map<String, dynamic>();
@@ -254,7 +258,7 @@ abstract class Work<D, T extends WorkData<D>> {
   /// 且后续网络请求任务不再执行，任务任然可以正常返回并执行生命周期[onFailed]，[onFinish]。
   /// * 参数合法返回true，非法返回false。
   @protected
-  bool onCheckParams(List params) => true;
+  bool onCheckParams(Map<String, dynamic> params) => true;
 
   /// 参数检测不合法时调用
   ///
@@ -262,20 +266,24 @@ abstract class Work<D, T extends WorkData<D>> {
   /// 但是任务任然可以正常返回并执行生命周期[onFailed]，[onFinish]。
   /// * 返回错误消息内容，将会设置给[WorkData.message]
   @protected
-  String onParamsError(List params) => null;
+  String onParamsError(Map<String, dynamic> params) => null;
 
   /// 填充请求所需的前置参数
   ///
   /// * 适合填充项目中所有接口必须传递的固定参数（通过项目中实现的定制[Work]基类完成）
   /// * [data]为请求参数集（http请求要发送的参数），[params]为任务传入的参数列表
   @protected
-  void onPreFillParams(Map<String, dynamic> data, List params) {}
+  void onPreFillParams(Map<String, dynamic> data, Map<String, dynamic> params) {
+    if (params != null) {
+      data.addAll(params);
+    }
+  }
 
   /// 填充请求所需的参数
   ///
   /// [data]为请求参数集（http请求要发送的参数），[params]为任务传入的参数列表
   @protected
-  void onFillParams(Map<String, dynamic> data, List params);
+  void onFillParams(Map<String, dynamic> data, Map<String, dynamic> params);
 
   /// 填充请求所需的后置参数
   ///
@@ -288,7 +296,7 @@ abstract class Work<D, T extends WorkData<D>> {
   ///
   /// [params]为任务传入的参数
   @protected
-  Map<String, dynamic> onHeaders(List params) => null;
+  Map<String, dynamic> onHeaders(Map<String, dynamic> params) => null;
 
   /// 拦截创建网络请求工具
   ///
@@ -307,7 +315,7 @@ abstract class Work<D, T extends WorkData<D>> {
   /// [onHeaders]中创建的请求头，
   /// 以上属性都可以在这里被覆盖可以被覆盖。
   @protected
-  void onConfigOptions(Options options, List params) {}
+  void onConfigOptions(Options options, Map<String, dynamic> params) {}
 
   /// 网络请求方法
   @protected
@@ -321,7 +329,7 @@ abstract class Work<D, T extends WorkData<D>> {
   ///
   /// [params]任务传入的参数
   @protected
-  String onUrl(List params);
+  String onUrl(Map<String, dynamic> params);
 
   /// 解析响应数据
   void _onParseResponse(Response response, T data) {
