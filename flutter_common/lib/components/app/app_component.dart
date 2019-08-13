@@ -44,7 +44,17 @@ class _AppComponentState extends State<AppComponent> {
 
   @override
   Widget build(BuildContext context) {
-    BaseHttpWork().start(params: {},headers:{},retry: 1).toString();
+    BaseHttpWork().start(params: {'username':"张三","password":"12345678"},headers:{},retry: 1).then((data){
+      if (data.success){
+        // 登录成功
+        print("==stat==="+data.toString());
+        final user = data.result;
+        print("==stat==="+data.result.toString());
+      }else{
+        // 登录失败
+        print("==stat==error="+data.result.toString());
+      }
+    });
     return Container(
       child: Image.asset('images/icon_welcome_bg.png', fit: BoxFit.fill),
     );

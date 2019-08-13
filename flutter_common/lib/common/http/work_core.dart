@@ -124,10 +124,6 @@ abstract class Work<D, T extends WorkData<D>> {
       if (headers != null) {
         defaultHeaders.addAll(headers);
       }
-      Map<String, dynamic> onPreHeaders = onPreFillHeaders();
-      if (onPreHeaders != null) {
-        defaultHeaders.addAll(onPreHeaders);
-      }
       // 构建http请求选项
       final options =
           _onCreateOptions(params, defaultHeaders, retry, onProgress);
@@ -192,9 +188,17 @@ abstract class Work<D, T extends WorkData<D>> {
       Map<String, dynamic> headers, int retry, OnProgress onProgress) {
     log(tag, "_onCreateOptions");
     final data = Map<String, dynamic>();
-    onPreFillParams(data, params);
-    onFillParams(data, params);
-
+    final preFillParams = onPreFillParams();
+    if (preFillParams != null) {
+      data.addAll(preFillParams);
+    }
+    if (params != null) {
+      data.addAll(params);
+    }
+    final preHeaders = onPreFillHeaders();
+    if (preHeaders != null) {
+      headers.addAll(preHeaders);
+    }
     final options = Options()
       ..retry = retry
       ..onProgress = onProgress
@@ -283,17 +287,7 @@ abstract class Work<D, T extends WorkData<D>> {
   /// * 适合填充项目中所有接口必须传递的固定参数（通过项目中实现的定制[Work]基类完成）
   /// * [data]为请求参数集（http请求要发送的参数），[params]为任务传入的参数列表
   @protected
-  void onPreFillParams(Map<String, dynamic> data, Map<String, dynamic> params) {
-    if (params != null) {
-      data.addAll(params);
-    }
-  }
-
-  /// 填充请求所需的参数
-  ///
-  /// [data]为请求参数集（http请求要发送的参数），[params]为任务传入的参数列表
-  @protected
-  void onFillParams(Map<String, dynamic> data, Map<String, dynamic> params);
+  Map<String, dynamic> onPreFillParams() => null;
 
   /// 填充请求所需的后置参数
   ///
@@ -320,7 +314,6 @@ abstract class Work<D, T extends WorkData<D>> {
   /// * [options]为请求将要使用的配置选项，[params]为任务参数
   /// 修改[options]的属性以定制http行为。
   /// * [options]包含[httpMethod]返回的请求方法，
-  /// [onFillParams]填充的参数，
   /// [onUrl]返回的请求地址，
   /// [start]中传传递的[retry]和[onProgress]，
   /// [onHeaders]中创建的请求头，
