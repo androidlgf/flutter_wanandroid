@@ -6,6 +6,7 @@ import 'package:flutter_common/common/config/routes.dart';
 import 'package:flutter_common/common/config/application.dart';
 import 'package:flutter_common/common/model/account_model.dart';
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter_common/common/dio/base_dio.dart';
 
 //启动页+登录+首页逻辑跳转/
 class AppComponent extends StatefulWidget {
@@ -43,6 +44,7 @@ class _AppComponentState extends State<AppComponent> {
 
   @override
   Widget build(BuildContext context) {
+    BaseHttpWork().start(params: {},headers:{},retry: 1).toString();
     return Container(
       child: Image.asset('images/icon_welcome_bg.png', fit: BoxFit.fill),
     );

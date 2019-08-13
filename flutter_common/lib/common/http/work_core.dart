@@ -87,7 +87,7 @@ abstract class Work<D, T extends WorkData<D>> {
   /// 在[HttpMethod.download]请求中为下载进度，在其他类型请求中为上传/发送进度。
   /// * 同一个[Work]可以多次启动任务，多次启动的任务会顺序执行。
   Future<T> start(
-      {dynamic params,
+      {Map<String, dynamic> params,
       Map<String, dynamic> headers,
       int retry = 0,
       OnProgress onProgress}) async {
@@ -124,8 +124,9 @@ abstract class Work<D, T extends WorkData<D>> {
       if (headers != null) {
         defaultHeaders.addAll(headers);
       }
-      if (onHeaders() != null) {
-        defaultHeaders.addAll(onHeaders());
+      Map<String, dynamic> onPreHeaders = onPreFillHeaders();
+      if (onPreHeaders != null) {
+        defaultHeaders.addAll(onPreHeaders);
       }
       // 构建http请求选项
       final options =
@@ -301,11 +302,12 @@ abstract class Work<D, T extends WorkData<D>> {
   @protected
   void onPostFillParams(Map<String, dynamic> data, List params) {}
 
-  /// 创建并填充请求头
+  /// 填充请求所需的前置参数
   ///
-  /// [params]为任务传入的参数
+  /// * 适合填充项目中所有接口必须传递的固定参数（通过项目中实现的定制[Work]基类完成）
+  /// * [data]为请求参数集（http请求要发送的参数），[params]为任务传入的参数列表
   @protected
-  Map<String, dynamic> onHeaders() => null;
+  Map<String, dynamic> onPreFillHeaders() => null;
 
   /// 拦截创建网络请求工具
   ///

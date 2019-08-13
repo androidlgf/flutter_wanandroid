@@ -2,16 +2,16 @@ import 'package:flutter_common/common/http/http_index.dart';
 
 //网络请求集成类
 class BaseHttpWork<V extends Object> extends SimpleWork<V> {
-  // 解析响应数据
+  // 地址必须为完整地址，没有baseUrl支持，项目代码必须集中拼接和管理所有接口地址，便于维护和查找 必复写
+  @override
+  String onUrl(Map<String, dynamic> params) {
+    return null;
+  }
+
+  // 解析响应数据 必复写
   @override
   V onExtractResult(resultData, SimpleWorkData<V> data) {
     return resultData;
-  }
-
-  @override
-  Map<String, dynamic> onHeaders() {
-    // TODO: implement onHeaders
-    return super.onHeaders();
   }
 
 //  @override
@@ -27,20 +27,29 @@ class BaseHttpWork<V extends Object> extends SimpleWork<V> {
 //  bool onCheckResponse(response) {
 //    return true;
 //  }
-  // 装配请求参数，data为最终要发送的参数集合，params为[Work]调用处端传入的参数列表
+  //适合填充项目中所有接口必须传递的固定参数Body
   @override
-  void onFillParams(Map<String, dynamic> data, Map<String, dynamic> params) {
-    // TODO: implement onFillParams
+  void onPreFillParams(Map<String, dynamic> data, Map<String, dynamic> params) {
+    super.onPreFillParams(data, params);
   }
 
-  // 地址必须为完整地址，没有baseUrl支持，项目代码必须集中拼接和管理所有接口地址，便于维护和查找
+  //适合填充项目中所有接口必须传递的固定参数Headers
   @override
-  String onUrl(Map<String, dynamic> params) {
-    return null;
+  Map<String, dynamic> onPreFillHeaders() {
+    return super.onPreFillHeaders();
   }
 
-  // 使用post请求
+  //自定义配置http请求选择项
   @override
-  // TODO: implement httpMethod
+  void onConfigOptions(Options options, Map<String, dynamic> params) {
+    super.onConfigOptions(options, params);
+  }
+
+  // 装配请求参数，data为最终要发送的参数集合，params为[Work]调用处端传入的参数列表 暂时用不到
+  @override
+  void onFillParams(Map<String, dynamic> data, Map<String, dynamic> params) {}
+
+  // 默认post请求
+  @override
   HttpMethod get httpMethod => super.httpMethod;
 }
