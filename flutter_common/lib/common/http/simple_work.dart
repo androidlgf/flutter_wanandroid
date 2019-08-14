@@ -77,11 +77,11 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
 
   @override
   String onRequestSuccessMessage(response, SimpleWorkData<D> data) =>
-      response["message"];
+      response.toString();
 
   @override
   String onRequestFailedMessage(response, SimpleWorkData<D> data) =>
-      response["message"];
+      response.toString();
 
   /// 生成响应成功的结果数据
   ///

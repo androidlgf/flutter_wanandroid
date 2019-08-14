@@ -20,7 +20,6 @@ class BaseHttpWork<V extends Object> extends SimpleWork<V> {
   }
 
   @override
-  // TODO: implement httpExtraPlugin
   HttpExtraPlugin httpExtraPlugin() {
     return HttpStatusPlugin();
   }

@@ -365,13 +365,13 @@ abstract class Work<D, T extends WorkData<D>> {
           "_onParseResponse network request false onNetworkRequestFailed invoke");
 
       // 网络请求失败回调
-      data._message = onNetworkRequestFailed(data);
+      data._message = onNetworkRequestFailed(response.data);
     } else {
       // 网络连接失败
       log(tag, "_onParseResponse network error onNetworkError invoke");
 
       // 网络错误回调
-      data._message = onNetworkError(data);
+      data._message = onNetworkError("network error onNetworkError invoke");
     }
   }
 
@@ -430,13 +430,13 @@ abstract class Work<D, T extends WorkData<D>> {
   ///
   /// 即响应码不是200，返回网络请求失败时的消息，即[WorkData.message]字段
   @protected
-  String onNetworkRequestFailed(T data) => null;
+  dynamic onNetworkRequestFailed(dynamic data) => data.toString();
 
   /// 网络连接建立失败时调用，即网络不可用
   ///
   /// 返回设置网络无效时的消息，即[WorkData.message]字段
   @protected
-  String onNetworkError(T data) => null;
+  String onNetworkError(dynamic data) => data;
 
   /// 检测响应结果是否符合预期（数据类型或是否包含特定字段），也可以做验签
   ///
