@@ -327,7 +327,7 @@ abstract class Work<D, T extends WorkData<D>> {
 
   ///网络业务请求判断插件
   @protected
-  HttpExtraPlugin get httpExtraPlugin => null;
+  HttpExtraPlugin httpExtraPlugin() => null;
 
   /// 网络请求完整地址
   ///

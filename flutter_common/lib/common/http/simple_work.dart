@@ -57,10 +57,12 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
 
   @override
   bool onResponseResult(response) {
-    if (httpExtraPlugin == null) {
+    HttpExtraPlugin httpPlugin = httpExtraPlugin();
+    if (httpPlugin == null) {
       return true;
     }
-    return httpExtraPlugin.isSuccess();
+    httpPlugin.setResponseResult(response);
+    return httpPlugin.isSuccess();
   }
 
   @mustCallSuper
@@ -98,7 +100,7 @@ abstract class SimpleWork<D> extends Work<D, SimpleWorkData<D>> {
   D onDefaultResult(resultData, SimpleWorkData<D> data) => null;
 
   @override
-  HttpExtraPlugin get httpExtraPlugin => null;
+  HttpExtraPlugin httpExtraPlugin() => null;
 }
 
 /// 简化的下载专用[Work]类
@@ -119,12 +121,12 @@ abstract class SimpleDownloadWork extends Work<Null, SimpleWorkData<Null>> {
 
   @mustCallSuper
   @override
-  void onConfigOptions(Options options,  Map<String, dynamic> params) {
+  void onConfigOptions(Options options, Map<String, dynamic> params) {
     options.downloadPath = onDownloadPath(params);
   }
 
   /// 设置下载文件路径
   ///
   /// [params]为任务传入参数，返回下载文件要保存的位置路径
-  String onDownloadPath( Map<String, dynamic> params);
+  String onDownloadPath(Map<String, dynamic> params);
 }

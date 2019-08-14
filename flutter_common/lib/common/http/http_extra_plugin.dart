@@ -11,6 +11,6 @@ abstract class HttpExtraPlugin {
 
   //获取Http Response
   dynamic getResponseResult() {
-    return mResponseResult;
+    return this.mResponseResult;
   }
 }
