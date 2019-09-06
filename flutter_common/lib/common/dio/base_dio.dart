@@ -6,7 +6,7 @@ class BaseHttpWork<V extends Object> extends SimpleWork<V> {
   // 地址必须为完整地址，没有baseUrl支持，项目代码必须集中拼接和管理所有接口地址，便于维护和查找 必复写
   @override
   String onUrl(Map<String, dynamic> params) {
-    return "https://www.wanandroid.com/user/login";
+    return null;
   }
 
 // 默认get请求
