@@ -1,12 +1,9 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_common/generated/i18n.dart';
 import 'package:flutter_common/common/config/routes.dart';
 import 'package:flutter_common/common/config/application.dart';
-import 'package:flutter_common/common/model/account_model.dart';
-import 'package:common_utils/common_utils.dart';
-import 'package:flutter_common/common/dio/base_dio.dart';
 
 //启动页+登录+首页逻辑跳转/
 class AppComponent extends StatefulWidget {
@@ -32,31 +29,36 @@ class _AppComponentState extends State<AppComponent> {
       return;
     }
     _hasInit = true;
-    final accountModel = ScopedModel.of<AccountModel>(context);
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      if (ObjectUtil.isEmptyString(accountModel.token)) {
-        //去登录
-      } else {
-        //去首页
-      }
-    });
+//    final accountModel = ScopedModel.of<AccountModel>(context);
+//    Future.delayed(Duration(seconds: 1)).then((value) {
+//      if (ObjectUtil.isEmptyString(accountModel.token)) {
+//        //去登录
+//      } else {
+//        //去首页
+//      }
+//    });
   }
 
   @override
   Widget build(BuildContext context) {
-    BaseHttpWork().start(params: {'username':"张三","password":"12345678"},headers:{},retry: 1).then((data){
-      if (data.success){
-        // 登录成功
-        print("==stat==="+data.toString());
-        final user = data.result;
-        print("==stat==="+data.result.toString());
-      }else{
-        // 登录失败
-        print("==stat==error="+data.result.toString());
-      }
-    });
+//    LoginWork().start(
+//        params: {'sellerid': "8", "userid": "3", 'sign': '', 'id': '0'},
+//        headers: {}).then((data) {
+//      if (data.success) {
+//        // 登录成功
+//        print("==stat===" + data.toString());
+//        print("==stat===" + data.result.toString());
+//      } else {
+//        // 登录失败
+//        print("==stat==message=" + data.message.toString());
+//        print("==stat==result=" + data.result.toString());
+//      }
+//    });
     return Container(
-      child: Image.asset('images/icon_welcome_bg.png', fit: BoxFit.fill),
+      child: GestureDetector(
+//        child: Image.asset('images/icon_welcome_bg.png', fit: BoxFit.fill),
+        child: Text('${S.of(context).abc}'),
+      ),
     );
   }
 }
