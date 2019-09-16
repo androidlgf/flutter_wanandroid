@@ -73,4 +73,12 @@ class DeviceUtil {
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.padding.top;
   }
+
+  static void delayed(int milliseconds, ValueChanged onDelayed) {
+    Future.delayed(Duration(milliseconds: milliseconds)).then((value) {
+      if (onDelayed != null) {
+        onDelayed(value);
+      }
+    });
+  }
 }

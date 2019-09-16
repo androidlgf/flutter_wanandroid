@@ -319,3 +319,8 @@ const Color blackColor = const Color(0xFF000000);
 
 //White
 const Color whiteColor = const Color(0xFFffffff);
+
+const Color colorPrimary = const Color(0xFF6200EE);
+const Color colorPrimaryDark = const Color(0xFF3700B3);
+const Color colorAccent = const Color(0xFFBB86FC);
+const Color scaffoldBackgroundColor=const Color(0xFFffffff);

@@ -3,14 +3,14 @@ import 'package:flutter_common/common/res/colors.dart';
 import 'package:flutter_common/common/utils/sp_util.dart';
 
 class ConfigProvider extends ChangeNotifier {
-  final String _spIsTheme = 'theme';
+  final String _spIsTheme = 'colorPrimaryTheme';
   int _localIndex = 4;
 
   ConfigProvider() {
     getTheme();
   }
 
-  int _theme = Colors.blue.value;
+  int _theme = colorPrimary.value;
 
   int get theme => _theme;
 
@@ -18,7 +18,7 @@ class ConfigProvider extends ChangeNotifier {
 
   //获取主题
   void getTheme() {
-    _theme = SpUtil.getInt(_spIsTheme, defValue: Colors.blue.value);
+    _theme = SpUtil.getInt(_spIsTheme, defValue: colorPrimary.value);
     notifyListeners();
   }
 

@@ -1,11 +1,17 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_common/generated/i18n.dart';
+import 'package:flutter_common/common/config/config.dart';
 import 'package:flutter_common/common/config/routes.dart';
+import 'package:flutter_common/common/delegates/fallback_cupertino_localisations_delegate.dart';
+import 'package:flutter_common/common/global/provider_store.dart';
+import 'package:flutter_common/common/provider/config_provider.dart';
+import 'package:flutter_common/common/res/styles.dart';
+import 'package:flutter_common/components/splash/splash_commponent.dart';
+import 'package:flutter_common/generated/i18n.dart';
 import 'package:flutter_common/common/config/application.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-//启动页+登录+首页逻辑跳转/
 class AppComponent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -14,8 +20,6 @@ class AppComponent extends StatefulWidget {
 }
 
 class _AppComponentState extends State<AppComponent> {
-  bool _hasInit = false;
-
   _AppComponentState() {
     final router = new Router();
     Routes.configureRoutes(router);
@@ -23,42 +27,52 @@ class _AppComponentState extends State<AppComponent> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_hasInit) {
-      return;
-    }
-    _hasInit = true;
-//    final accountModel = ScopedModel.of<AccountModel>(context);
-//    Future.delayed(Duration(seconds: 1)).then((value) {
-//      if (ObjectUtil.isEmptyString(accountModel.token)) {
-//        //去登录
-//      } else {
-//        //去首页
-//      }
-//    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-//    LoginWork().start(
-//        params: {'sellerid': "8", "userid": "3", 'sign': '', 'id': '0'},
-//        headers: {}).then((data) {
-//      if (data.success) {
-//        // 登录成功
-//        print("==stat===" + data.toString());
-//        print("==stat===" + data.result.toString());
-//      } else {
-//        // 登录失败
-//        print("==stat==message=" + data.message.toString());
-//        print("==stat==result=" + data.result.toString());
-//      }
-//    });
-    return Container(
-      child: GestureDetector(
-//        child: Image.asset('images/icon_welcome_bg.png', fit: BoxFit.fill),
-        child: Text('${S.of(context).abc}'),
-      ),
+    return Store.connect<ConfigProvider>(
+      builder: (BuildContext context, ConfigProvider provider, Widget child) {
+        return MaterialApp(
+          /// 任务管理器显示的标题
+          title: 'Flutter App',
+
+          /// 您可以通过配置ThemeData类轻松更改应用程序的主题
+          theme: AppTheme.getThemeData(provider.theme),
+
+          /// 右上角显示一个debug的图标
+          debugShowCheckedModeBanner: false,
+
+          /// 主页
+          /// 主页
+          home: Builder(
+            builder: (BuildContext context) {
+              return SplashComponent();
+            },
+          ),
+          onGenerateRoute: Application.router.generator,
+
+          /// localizationsDelegates 列表中的元素时生成本地化集合的工厂
+          localizationsDelegates: [
+            // 为Material Components库提供本地化的字符串和其他值
+            GlobalMaterialLocalizations.delegate,
+            // 定义widget默认的文本方向，从左往右或从右往左
+            GlobalWidgetsLocalizations.delegate,
+            S.delegate,
+
+            /// 解决 ‘使用CupertinoAlertDialog 报 'alertDialogLabel' was called on null’ 的BUG
+            const FallbackCupertinoLocalisationsDelegate(),
+          ],
+
+          ///
+          supportedLocales: S.delegate.supportedLocales,
+
+          ///
+          locale: mapLocales[SupportLocale.values[provider.localIndex]],
+
+          /// 不存对应locale时，默认取值Locale('zh', 'CN')
+          /// 如果需要强制使用某种语言可以添加如下代码
+          localeResolutionCallback:
+              S.delegate.resolution(fallback: const Locale('zh', 'CN')),
+        );
+      },
     );
   }
 }
