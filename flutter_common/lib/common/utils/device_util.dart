@@ -1,13 +1,11 @@
 import 'dart:io';
-
-import 'package:devicelocale/devicelocale.dart';
-import 'package:flutter/material.dart';
-import 'package:get_ip/get_ip.dart';
 import 'dart:async';
-import 'package:flutter_user_agent/flutter_user_agent.dart';
-import 'package:flutter/services.dart';
-
+import 'package:get_ip/get_ip.dart';
 import 'dart:ui' as ui show window;
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:devicelocale/devicelocale.dart';
+import 'package:flutter_user_agent/flutter_user_agent.dart';
 
 class DeviceUtil {
   static Future<String> getUserAgent() async {

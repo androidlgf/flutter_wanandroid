@@ -1,17 +1,10 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_common/common/config/config.dart';
-import 'package:flutter_common/common/config/routes.dart';
-import 'package:flutter_common/common/delegates/fallback_cupertino_localisations_delegate.dart';
-import 'package:flutter_common/common/global/provider_store.dart';
-import 'package:flutter_common/common/provider/config_provider.dart';
-import 'package:flutter_common/common/res/styles.dart';
-import 'package:flutter_common/components/splash/splash_commponent.dart';
-import 'package:flutter_common/generated/i18n.dart';
-import 'package:flutter_common/common/config/application.dart';
+import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+//启动页配置信息+splash
 class AppComponent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -40,7 +33,6 @@ class _AppComponentState extends State<AppComponent> {
           /// 右上角显示一个debug的图标
           debugShowCheckedModeBanner: false,
 
-          /// 主页
           /// 主页
           home: Builder(
             builder: (BuildContext context) {

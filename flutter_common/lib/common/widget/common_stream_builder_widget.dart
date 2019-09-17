@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 //带网络相关Widget/
 class CommonStreamBuilder<T> extends StatefulWidget {
   const CommonStreamBuilder(
@@ -98,7 +99,10 @@ class _CommonStreamBuilderState extends State<CommonStreamBuilder> {
 
   Widget _buildConnectedNoneWidget(BuildContext context) {
     return Center(
-      child: Text('网络不可用',style: TextStyle(color: Colors.black),),
+      child: Text(
+        '网络不可用',
+        style: TextStyle(color: Colors.black),
+      ),
     );
   }
 

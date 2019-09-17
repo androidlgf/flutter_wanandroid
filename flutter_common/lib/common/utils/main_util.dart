@@ -1,7 +1,7 @@
 //main.dart 入口函数初始化方法
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class MainUtil {
   //Flutter 页面渲染错误显示页面

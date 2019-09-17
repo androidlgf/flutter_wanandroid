@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_common/common/res/colors.dart';
-import 'package:flutter_common/common/utils/sp_util.dart';
+import 'package:flutter_common/common/common_index.dart';
 
 class ConfigProvider extends ChangeNotifier {
   final String _spIsTheme = 'colorPrimaryTheme';

@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_common/common/global/provider_store.dart';
-import 'package:flutter_common/common/utils/main_util.dart';
-import 'package:flutter_common/components/app/app_component.dart';
+import 'package:flutter_common/common/common_index.dart';
 
 void main() async {
   MainUtil.setCustomErrorPage();

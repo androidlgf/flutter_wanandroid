@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 //启动页 圆形跳过控件
 class SkipDownTimeProgress extends StatefulWidget {

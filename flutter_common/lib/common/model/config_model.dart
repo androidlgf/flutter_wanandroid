@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
-import 'package:flutter_common/common/utils/sp_util.dart';
 
 //配置信息 全局Theme
 class ConfigModel extends ChangeNotifier {

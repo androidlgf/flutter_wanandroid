@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/services.dart' show SystemChrome;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart' show SystemChrome;
 
 //状态栏管理工具栏/
 class StatusBarUtil {

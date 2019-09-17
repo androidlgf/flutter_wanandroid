@@ -1,9 +1,8 @@
 //Provider管理类
 
 import 'package:flutter/material.dart';
-import 'package:flutter_common/common/provider/config_provider.dart';
-import 'package:flutter_common/common/provider/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_common/common/common_index.dart';
 
 class Store {
   //  初始化

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_common/common/utils/sp_util.dart';
+import 'package:flutter_common/common/common_index.dart';
 
 class UserProvider extends ChangeNotifier {
   final String _spIsLogin = 'isLogin';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
 import '../res/dimens.dart';
 import '../res/colors.dart';
 
