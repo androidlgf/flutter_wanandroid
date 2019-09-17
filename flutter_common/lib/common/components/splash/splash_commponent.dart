@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_common/components/index_component.dart';
 
 //启动页
 class SplashComponent extends StatefulWidget {
@@ -13,6 +15,7 @@ class _SplashComponentState extends State<SplashComponent> {
 
   /// 是否登录
   bool isLogin = false;
+  SharedPreferences _prefs;
 
   @override
   void initState() {
@@ -64,14 +67,15 @@ class _SplashComponentState extends State<SplashComponent> {
   }
 
   Future checkFirstSeen(context) async {
-    firstOpen = SpUtil.getBool('first_open', defValue: true);
+    _prefs = await SharedPreferences.getInstance();
+    firstOpen = _prefs.getBool("first_open") ?? true;
   }
 
   void goToHomePage() {
     if (!firstOpen) {
-      pushAndRemovePage(context, IntroSlideComponent());
+      pushAndRemovePage(context, IndexComponent());
     } else {
-      SpUtil.setBool("first_open", false);
+      _prefs.setBool("first_open", false);
       pushAndRemovePage(context, IntroSlideComponent());
     }
   }

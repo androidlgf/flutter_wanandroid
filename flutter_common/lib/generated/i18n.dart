@@ -22,6 +22,7 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get abc => "flutter in18";
+  String get get_v_code => "get code";
 }
 
 class $en_US extends S {
@@ -32,6 +33,8 @@ class $en_US extends S {
 
   @override
   String get abc => "flutter in18";
+  @override
+  String get get_v_code => "get code";
 }
 
 class $en extends S {
@@ -44,6 +47,8 @@ class $zh_CN extends S {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  @override
+  String get get_v_code => "获取验证码";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

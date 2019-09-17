@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_common/components/index_component.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:flutter_common/common/common_index.dart';
 
 //首次启动页面
 class IntroSlideComponent extends StatefulWidget {
@@ -84,13 +86,19 @@ class _IntroSlideComponentState extends State<IntroSlideComponent> {
       renderDoneBtn: this.renderDoneBtn(),
       // Show or hide status bar
       shouldHideStatusBar: true,
+      // On tab change completed
+      onTabChangeCompleted: this.onTabChangeCompleted,
     );
   }
 
   void onDonePress() {
     debugPrint('intro silde click with onDonePress');
+    pushAndRemovePage(context, IndexComponent());
   }
-
+  void onTabChangeCompleted(index) {
+    // Index of current tab is focused
+    pushAndRemovePage(context, IndexComponent());
+  }
   Widget renderSkipBtn() {
     return Icon(
       Icons.skip_next,
