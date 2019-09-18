@@ -92,7 +92,7 @@ class _ClassicalErrorView extends StatelessWidget {
                     style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))),
             Padding(padding: EdgeInsets.only(bottom: 10)),
             Button(
-                text: reloadText ?? "重新加载",
+                text: reloadText ?? '${S.of(context).get_reload}',
                 onPressed: onReload,
                 height: 30,
                 width: 80,
@@ -116,7 +116,7 @@ class _ClassicalNoDataView extends StatelessWidget {
                 size: 70, color: Colors.grey[300]),
             Padding(
                 padding: EdgeInsets.only(top: 10),
-                child: Text(emptyTip ?? '暂无数据',
+                child: Text(emptyTip ?? '${S.of(context).no_data}',
                     style: TextStyle(fontSize: 12.0, color: Colors.grey[400])))
           ]));
 }

@@ -22,7 +22,10 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get abc => "flutter in18";
+  String get get_reload => "reload";
+  String get get_search => "search";
   String get get_v_code => "get code";
+  String get no_data => "Countless according to oh~";
   String get no_network_connect => "Ah oh, network is not very smooth oh ~";
 }
 
@@ -38,6 +41,12 @@ class $en_US extends S {
   String get no_network_connect => "Ah oh, network is not very smooth oh ~";
   @override
   String get get_v_code => "get code";
+  @override
+  String get no_data => "Countless according to oh~";
+  @override
+  String get get_reload => "reload";
+  @override
+  String get get_search => "search";
 }
 
 class $en extends S {
@@ -54,6 +63,12 @@ class $zh_CN extends S {
   String get no_network_connect => "啊哦,网络不太顺畅哦~";
   @override
   String get get_v_code => "获取验证码";
+  @override
+  String get no_data => "暂无数据哦~";
+  @override
+  String get get_reload => "重新加载";
+  @override
+  String get get_search => "搜索";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

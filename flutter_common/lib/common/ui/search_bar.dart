@@ -108,7 +108,7 @@ class _SearchBarState extends State<SearchBar> {
                       color: Color(0xff4688FA),
                       textColor: Colors.white,
                       onPressed: () => widget.onPressed(_controller.text),
-                      child: Text("搜索", style: TextStyle(fontSize: 14)),
+                      child: Text('${S.of(context).get_search}', style: TextStyle(fontSize: 14)),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4.0))))
             ])));

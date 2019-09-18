@@ -71,7 +71,13 @@ class DeviceUtil {
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.padding.top;
   }
-
+  /// 文字转颜色
+  static Color strToColor(String name) {
+    assert(name.length > 1);
+    final int hash = name.hashCode & 0xffff;
+    final double hue = (360.0 * hash / (1 << 15)) % 360.0;
+    return HSVColor.fromAHSV(1.0, hue, 0.4, 0.90).toColor();
+  }
   static void delayed(int milliseconds, ValueChanged onDelayed) {
     Future.delayed(Duration(milliseconds: milliseconds)).then((value) {
       if (onDelayed != null) {
