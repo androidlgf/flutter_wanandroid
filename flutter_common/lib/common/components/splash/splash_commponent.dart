@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/components/wanandroid/index_wanandroid_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_common/components/index_component.dart';
 
@@ -73,7 +74,7 @@ class _SplashComponentState extends State<SplashComponent> {
 
   void goToHomePage() {
     if (!firstOpen) {
-      pushAndRemovePage(context, IndexComponent());
+      pushAndRemovePage(context, IndexWanAndroidComponent());
     } else {
       _prefs.setBool("first_open", false);
       pushAndRemovePage(context, IntroSlideComponent());

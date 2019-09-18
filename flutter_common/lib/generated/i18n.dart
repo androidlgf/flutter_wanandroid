@@ -21,7 +21,6 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get abc => "flutter in18";
   String get get_reload => "reload";
   String get get_search => "search";
   String get get_v_code => "get code";
@@ -35,8 +34,6 @@ class $en_US extends S {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  @override
-  String get abc => "flutter in18";
   @override
   String get no_network_connect => "Ah oh, network is not very smooth oh ~";
   @override
