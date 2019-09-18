@@ -11,6 +11,7 @@ export 'package:flutter_common/common/model/account_model.dart';
 
 export 'package:flutter_common/common/provider/user_provider.dart';
 export 'package:flutter_common/common/provider/config_provider.dart';
+export 'package:flutter_common/common/provider/net_connect_provider.dart';
 
 export 'package:flutter_common/common/res/colors.dart';
 export 'package:flutter_common/common/res/dimens.dart';

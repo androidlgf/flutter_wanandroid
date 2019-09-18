@@ -1,6 +1,7 @@
 //Provider管理类
 
 import 'package:flutter/material.dart';
+import 'package:flutter_common/common/provider/net_connect_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_common/common/common_index.dart';
 
@@ -12,7 +13,7 @@ class Store {
       providers: [
         ChangeNotifierProvider(builder: (_) => UserProvider()),
         ChangeNotifierProvider(builder: (_) => ConfigProvider()),
-//        ChangeNotifierProvider(builder: (_) => UserModel()),
+        ChangeNotifierProvider(builder: (_) => NetworkConnectProvider()),
 //        ChangeNotifierProvider(builder: (_) => ArticleModel()),
 //        ChangeNotifierProvider(builder: (_) => ReaderSettingModel()),
 //        ChangeNotifierProvider(builder: (_) => BookModel()),

@@ -3,7 +3,7 @@ import 'package:flutter_common/common/common_index.dart';
 
 class ConfigProvider extends ChangeNotifier {
   final String _spIsTheme = 'colorPrimaryTheme';
-  int _localIndex = 4;
+  int _localIndex = 0;
 
   ConfigProvider() {
     getTheme();

@@ -1,4 +1,5 @@
 {
   "name": "flutter in18",
-  "get_v_code": "获取验证码"
+  "get_v_code": "获取验证码",
+  "no_network_connect": "啊哦,网络不太顺畅哦~"
 }

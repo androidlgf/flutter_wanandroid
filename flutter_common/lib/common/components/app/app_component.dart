@@ -12,11 +12,34 @@ class AppComponent extends StatefulWidget {
   }
 }
 
-class _AppComponentState extends State<AppComponent> {
+class _AppComponentState extends State<AppComponent>
+    with WidgetsBindingObserver {
   _AppComponentState() {
     final router = new Router();
     Routes.configureRoutes(router);
     Application.router = router;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      Store.value<NetworkConnectProvider>(context).pause();
+    } else if (state == AppLifecycleState.inactive) {
+      Store.value<NetworkConnectProvider>(context).resume();
+    }
   }
 
   @override

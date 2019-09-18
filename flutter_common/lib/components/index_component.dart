@@ -29,6 +29,10 @@ class IndexComponent extends StatefulWidget {
 class _IndexComponentState extends State<IndexComponent> {
   TextEditingController _passwordController = TextEditingController();
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -56,6 +60,7 @@ class _IndexComponentState extends State<IndexComponent> {
             SectionView("电影榜单", hiddenMore: false),
             LineViewLine(),
             CustomTextField(isInputPwd: true,hintText:'123456',controller: _passwordController,),
+            LoaderContainer(loaderState: LoaderState.Loading,)
           ],
         ),
       ),

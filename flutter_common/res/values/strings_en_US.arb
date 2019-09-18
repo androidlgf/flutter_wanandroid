@@ -1,4 +1,5 @@
 {
   "abc": "flutter in18",
-  "get_v_code": "get code"
+  "get_v_code": "get code",
+  "no_network_connect": "Ah oh, network is not very smooth oh ~"
 }

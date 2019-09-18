@@ -23,6 +23,7 @@ class S implements WidgetsLocalizations {
 
   String get abc => "flutter in18";
   String get get_v_code => "get code";
+  String get no_network_connect => "Ah oh, network is not very smooth oh ~";
 }
 
 class $en_US extends S {
@@ -33,6 +34,8 @@ class $en_US extends S {
 
   @override
   String get abc => "flutter in18";
+  @override
+  String get no_network_connect => "Ah oh, network is not very smooth oh ~";
   @override
   String get get_v_code => "get code";
 }
@@ -47,6 +50,8 @@ class $zh_CN extends S {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  @override
+  String get no_network_connect => "啊哦,网络不太顺畅哦~";
   @override
   String get get_v_code => "获取验证码";
 }
