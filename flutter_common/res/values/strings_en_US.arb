@@ -1,5 +1,7 @@
 {
-  "abc": "flutter in18",
   "get_v_code": "get code",
+  "get_reload": "reload",
+  "get_search": "search",
+  "no_data": "Countless according to oh~",
   "no_network_connect": "Ah oh, network is not very smooth oh ~"
 }
