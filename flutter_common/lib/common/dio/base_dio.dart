@@ -11,7 +11,7 @@ class BaseHttpWork<V extends Object> extends SimpleWork<V> {
 
 // 默认get请求
   @override
-  HttpMethod get httpMethod => HttpMethod.post;
+  HttpMethod get httpMethod => HttpMethod.get;
 
   // 解析响应数据 必复写
   @override

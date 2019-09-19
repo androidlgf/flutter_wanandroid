@@ -11,13 +11,18 @@ import 'package:flutter_common/res/json_strings.dart';
 import 'local_tab_data.dart';
 
 class IndexWanAndroidComponent extends StatefulWidget {
+  IndexWanAndroidComponent({Key key}) : super(key: key) {}
+
   @override
   _IndexWanAndroidComponentState createState() =>
       _IndexWanAndroidComponentState();
 }
 
+//BottomNavigationBar+IndexedStack 保持状态
 class _IndexWanAndroidComponentState extends State<IndexWanAndroidComponent>
-    with SingleTickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   int currentIndex = 0;
 
   List<Widget> listOfWidgetObjects = [];
@@ -47,7 +52,10 @@ class _IndexWanAndroidComponentState extends State<IndexWanAndroidComponent>
         appBar: AppBar(
           title: Text('${listOfLocalTabObjects[currentIndex].tab}'),
         ),
-        body: listOfWidgetObjects[currentIndex],
+        body: IndexedStack(
+          index: currentIndex,
+          children: listOfWidgetObjects,
+        ),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: changePage,
