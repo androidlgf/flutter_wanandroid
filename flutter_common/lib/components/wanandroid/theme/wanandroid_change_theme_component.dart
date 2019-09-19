@@ -16,6 +16,8 @@ class ChangeThemeWanAndroidComponent extends StatefulWidget {
 
 class _ChangeThemeWanAndroidComponentState
     extends State<ChangeThemeWanAndroidComponent> {
+  int _curIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     final localThemeJson = json.decode(JsonStrings.wanAndroidTheme);
@@ -35,35 +37,50 @@ class _ChangeThemeWanAndroidComponentState
   }
 
   Widget _buildBodyItemWidget(obj, index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
+    return Material(
+      child: InkWell(
+        onTap: () {
+          _curIndex = index;
           Store.value<ConfigProvider>(context)
               .setTheme(int.parse('${obj?.theme}'));
-        });
-      },
-      child: Container(
-        margin: EdgeInsets.all(10.0),
+          setState(() {});
+        },
         child: Row(
           children: <Widget>[
             Container(
-              width: 40.0,
-              height: 40.0,
-              color: Color(int.parse('${obj?.theme}')),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Text(
-                '${obj?.themeName}',
-                style: TextStyle(color: Color(int.parse('${obj?.theme}'))),
+              height: 60.0,
+              width: DeviceUtil.width * 0.7,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(10.0),
+                    width: 40.0,
+                    height: 40.0,
+                    color: Color(int.parse('${obj?.theme}')),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      '${obj?.themeName}',
+                      style:
+                          TextStyle(color: Color(int.parse('${obj?.theme}'))),
+                    ),
+                  )
+                ],
               ),
             ),
-            Offstage(
-                offstage: true,
-                child: Icon(
-                  Icons.check,
-                  color: Colors.red,
-                ))
+            Container(
+              height: 60.0,
+              width: DeviceUtil.width * 0.3,
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.only(right: 10.0),
+              child: Offstage(
+                  offstage: _curIndex != index,
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.red,
+                  )),
+            )
           ],
         ),
       ),
