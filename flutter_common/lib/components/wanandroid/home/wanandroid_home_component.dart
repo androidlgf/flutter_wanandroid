@@ -6,6 +6,8 @@ import 'package:flutter_common/common/ui/web_view.dart';
 import 'package:flutter_common/components/wanandroid/dio/home_article_work.dart';
 import 'package:flutter_common/components/wanandroid/dio/home_banner_work.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'data/home_article_data.dart';
@@ -22,10 +24,11 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  int _page = 0;
   HomeBannerWork _bannerWork;
   HomeArticleWork _articleWork;
   HomeBannerData _bannerData;
-  HomeArticleData _articleData;
+  List<Datas> _listOfArticleData = [];
 
   @override
   void initState() {
@@ -47,18 +50,25 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   }
 
   Widget _buildBodyWidget() {
-    if (_bannerData == null || _articleData == null) {
+    if (_bannerData == null || _listOfArticleData.length <= 0) {
       return Container();
     }
     return Container(
       child: EasyRefresh(
+          header: MaterialHeader(),
+          footer: MaterialFooter(),
+          onRefresh: () async {},
+          onLoad: () async {
+            _page++;
+            loadMore();
+          },
           child: CustomScrollView(
-        shrinkWrap: true,
-        slivers: <Widget>[
-          _buildBannerWidget(_bannerData?.bannerData),
-          _buildArticleWidget(_articleData?.articleData?.datas)
-        ],
-      )),
+            shrinkWrap: true,
+            slivers: <Widget>[
+              _buildBannerWidget(_bannerData?.bannerData),
+              _buildArticleWidget(_listOfArticleData)
+            ],
+          )),
     );
   }
 
@@ -68,7 +78,12 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
       child: Container(
         height: DeviceUtil.width * 0.5,
         child: Swiper(
-          onTap: (int index)=>pushNewPage(context, WebViewPage(url: '${objs[index].url}',title: '${objs[index].title}',)),
+          onTap: (int index) => pushNewPage(
+              context,
+              WebViewPage(
+                url: '${objs[index].url}',
+                title: '${objs[index].title}',
+              )),
           autoplay: objs.length != 1,
           itemCount: objs.length,
           itemBuilder: (BuildContext context, int index) {
@@ -198,10 +213,14 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   }
 
   void loadMore() {
-    if (_articleWork == null) _articleWork = HomeArticleWork();
+    if (_articleWork == null) _articleWork = HomeArticleWork(_page);
     _articleWork.start().then((value) {
       if (value.success) {
-        _articleData = value.result;
+        HomeArticleData homeArticleData = value.result;
+        if (homeArticleData == null) return;
+        ArticleData articleData = homeArticleData.articleData;
+        if (articleData == null) return;
+        _listOfArticleData.addAll(articleData.datas);
         setState(() {});
       }
     });

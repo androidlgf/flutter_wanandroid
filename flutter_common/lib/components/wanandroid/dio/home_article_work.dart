@@ -7,9 +7,15 @@ import 'package:flutter_common/components/wanandroid/home/data/home_banner_data.
 
 //1.1 首页文章列表
 class HomeArticleWork extends BaseHttpWork<HomeArticleData> {
+  int _page = 0;
+
+  HomeArticleWork(int page) {
+    this._page = page;
+  }
+
   @override
   String onUrl(Map<String, dynamic> params) {
-    return Api.WAN_ARTICLE;
+    return Api.WAN_ARTICLE + _page.toString() + '/json';
   }
 
   //数据解析返回
@@ -18,6 +24,7 @@ class HomeArticleWork extends BaseHttpWork<HomeArticleData> {
       resultData, SimpleWorkData<HomeArticleData> data) {
     return HomeArticleData.fromJson(resultData);
   }
+
   @override
   HttpExtraPlugin httpExtraPlugin() {
     return null;
