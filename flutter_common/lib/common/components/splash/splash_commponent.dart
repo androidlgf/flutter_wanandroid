@@ -29,10 +29,10 @@ class _SplashComponentState extends State<SplashComponent> {
     return Stack(children: <Widget>[
       ConstrainedBox(
           constraints: BoxConstraints.expand(),
-          child: Image.asset("images/icon_welcome_bg.png", fit: BoxFit.cover)),
+          child: Image.asset("images/icon_welcome_bg.jpg", fit: BoxFit.cover)),
       Positioned(
           child: SkipDownTimeProgress(
-              color: Colors.red,
+              color: grey800Color,
               radius: 22.0,
               duration: Duration(seconds: 5),
               size: Size(25.0, 25.0),
