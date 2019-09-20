@@ -8,6 +8,7 @@ import 'package:flutter_common/components/wanandroid/home/data/home_article_data
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:like_button/like_button.dart';
 
 //玩android 体系文章详情
 class HomeWanAndroidWidget extends StatefulWidget {
@@ -122,8 +123,7 @@ class _HomeWanAndroidWidgetState extends State<HomeWanAndroidWidget>
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(right: 20.0),
-                              child: Icon(Icons.favorite_border,
-                                  color: grey500Color),
+                              child: LikeButton(),
                             ),
                             Icon(Icons.share, color: grey500Color)
                           ],

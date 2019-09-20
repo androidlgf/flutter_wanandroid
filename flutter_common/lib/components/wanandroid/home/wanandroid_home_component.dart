@@ -9,6 +9,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:like_button/like_button.dart';
 
 import 'data/home_article_data.dart';
 import 'data/home_banner_data.dart';
@@ -155,8 +156,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(right: 20.0),
-                              child: Icon(Icons.favorite_border,
-                                  color: grey500Color),
+                              child: LikeButton(),
                             ),
                             Icon(Icons.share, color: grey500Color)
                           ],
