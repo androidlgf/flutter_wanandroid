@@ -31,6 +31,9 @@ export 'package:flutter_common/common/widget/async_future_builder.dart';
 export 'package:flutter_common/common/widget/skip_down_time_progress.dart';
 export 'package:flutter_common/common/widget/common_stream_builder_widget.dart';
 
+export 'package:flutter_common/common/custom_widgets/animated_rotation_box.dart';
+export 'package:flutter_common/common/custom_widgets/gradient_circular_progress_indicator.dart';
+
 export 'package:flutter_common/common/ui/line.dart';
 export 'package:flutter_common/common/ui/button.dart';
 export 'package:flutter_common/common/ui/loader.dart';
@@ -58,6 +61,7 @@ export 'package:flutter_common/common/utils/sp_util.dart';
 export 'package:flutter_common/common/utils/main_util.dart';
 export 'package:flutter_common/common/utils/route_util.dart';
 export 'package:flutter_common/common/utils/device_util.dart';
+export 'package:flutter_common/common/utils/loading_util.dart';
 export 'package:flutter_common/common/utils/status_bar_util.dart';
 export 'package:flutter_common/common/utils/orientation_screen.dart';
 export 'package:flutter_common/common/utils/network_connect_util.dart';

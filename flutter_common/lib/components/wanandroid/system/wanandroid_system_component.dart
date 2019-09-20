@@ -1,8 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/res/colors.dart';
 import 'package:flutter_common/components/wanandroid/dio/home_system_work.dart';
+import 'package:flutter_common/components/wanandroid/system/wanandroid_system_article_component.dart';
 
 import 'data/tree_data.dart';
 
@@ -89,9 +91,20 @@ class _SystemWanAndroidComponentState extends State<SystemWanAndroidComponent> {
               textDirection: TextDirection.ltr,
               children: obj.children.map((childrenObj) {
                 return InkWell(
-                  onTap: () {},
-                  child: Padding(padding: EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),child: Text('${childrenObj.name}'),),
+                  onTap: () {
+                    pushNewPage(
+                        context,
+                        SystemArticleWanAndroidComponent(
+                          '${obj.name}',
+                          tabs: obj.children,
+                          index: obj.children.indexOf(childrenObj),
+                        ));
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),
+                    child: Text('${childrenObj.name}'),
+                  ),
                 );
               }).toList(),
             ),

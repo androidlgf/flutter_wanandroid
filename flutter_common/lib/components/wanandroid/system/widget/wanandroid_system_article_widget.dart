@@ -5,42 +5,41 @@ import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/ui/web_view.dart';
 import 'package:flutter_common/components/wanandroid/dio/home_article_work.dart';
 import 'package:flutter_common/components/wanandroid/dio/home_banner_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/home_system_article_work.dart';
+import 'package:flutter_common/components/wanandroid/home/data/home_article_data.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-import 'data/home_article_data.dart';
-import 'data/home_banner_data.dart';
+//玩android 体系文章详情
+class HomeWanAndroidWidget extends StatefulWidget {
+  final int cid;
 
-//玩android 首页 CustomScrollView使用
-class HomeWanAndroidComponent extends StatefulWidget {
+  HomeWanAndroidWidget(this.cid, {Key key}) : super(key: key);
+
   @override
-  _HomeWanAndroidComponentState createState() =>
-      _HomeWanAndroidComponentState();
+  _HomeWanAndroidWidgetState createState() =>
+      _HomeWanAndroidWidgetState();
 }
 
-class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
+class _HomeWanAndroidWidgetState extends State<HomeWanAndroidWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   int _page = 0;
-  HomeBannerWork _bannerWork;
-  HomeArticleWork _articleWork;
-  HomeBannerData _bannerData;
+  HomeSystemArticleWork _articleWork;
   List<Datas> _listOfArticleData = [];
 
   @override
   void initState() {
     super.initState();
-    loadBannerData();
     loadMore();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _bannerWork?.cancel();
     _articleWork?.cancel();
   }
 
@@ -50,7 +49,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   }
 
   Widget _buildBodyWidget() {
-    if (_bannerData == null || _listOfArticleData.length <= 0) {
+    if (_listOfArticleData.length <= 0) {
       return Container(
         child: getLoadingWidget(),
       );
@@ -66,37 +65,8 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
           },
           child: CustomScrollView(
             shrinkWrap: true,
-            slivers: <Widget>[
-              _buildBannerWidget(_bannerData?.bannerData),
-              _buildArticleWidget(_listOfArticleData)
-            ],
+            slivers: <Widget>[_buildArticleWidget(_listOfArticleData)],
           )),
-    );
-  }
-
-  //SliverToBoxAdapter Banner控件
-  Widget _buildBannerWidget(List<BannerData> objs) {
-    return SliverToBoxAdapter(
-      child: Container(
-        height: DeviceUtil.width * 0.5,
-        child: Swiper(
-          onTap: (int index) => pushNewPage(
-              context,
-              WebViewPage(
-                url: '${objs[index].url}',
-                title: '${objs[index].title}',
-              )),
-          autoplay: objs.length != 1,
-          itemCount: objs.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Hero(
-                tag: '${objs[index].imagePath}',
-                child: ImageLoadView(
-                  '${objs[index].imagePath}',
-                ));
-          },
-        ),
-      ),
     );
   }
 
@@ -204,18 +174,8 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     );
   }
 
-  void loadBannerData() {
-    if (_bannerWork == null) _bannerWork = HomeBannerWork();
-    _bannerWork.start().then((value) {
-      if (value.success) {
-        _bannerData = value.result;
-        setState(() {});
-      }
-    });
-  }
-
   void loadMore() {
-    if (_articleWork == null) _articleWork = HomeArticleWork(_page);
+    _articleWork = HomeSystemArticleWork(_page, widget.cid);
     _articleWork.start().then((value) {
       if (value.success) {
         HomeArticleData homeArticleData = value.result;

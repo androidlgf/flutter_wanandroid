@@ -8,4 +8,6 @@ class Api {
   static const WAN_ARTICLE = WAN_HOST + '/article/list/';
   //2.1 体系数据
   static const WAN_SYSTEM = WAN_HOST + '/tree/json';
+  //2.2 知识体系下的文章
+  static const WAN_SYSTEM_ARTICLE = WAN_HOST + '/article/list/';
 }
