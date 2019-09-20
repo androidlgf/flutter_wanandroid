@@ -92,7 +92,7 @@ class _SearchBarState extends State<SearchBar> {
                                 child: Icon(Icons.search,
                                     color: Color(0xFFcccccc))),
                             hintText: "${widget.hintText}",
-                            hintStyle: TextStyles.textGreyC14,
+                            hintStyle: TextStyles.textGrey14,
                             suffixIcon: !showClear
                                 ? SizedBox()
                                 : InkWell(
@@ -105,7 +105,7 @@ class _SearchBarState extends State<SearchBar> {
                   width: 44.0,
                   child: FlatButton(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      color: Color(0xff4688FA),
+                      color: Color(Store.value<ConfigProvider>(context).theme),
                       textColor: Colors.white,
                       onPressed: () => widget.onPressed(_controller.text),
                       child: Text('${S.of(context).get_search}', style: TextStyle(fontSize: 14)),

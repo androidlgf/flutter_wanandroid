@@ -16,6 +16,10 @@ class Api {
 
   //4.1 项目分类
   static const WAN_PROJECT = WAN_HOST + '/project/tree/json';
+
   //4.2 项目列表数据
   static const WAN_PROJECT_LIST = WAN_HOST + '/project/list/';
+
+  //1.4 搜索热词
+  static const WAN_SEARCH_HOT = WAN_HOST + '/hotkey/json';
 }
