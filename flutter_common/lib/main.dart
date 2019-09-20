@@ -8,6 +8,7 @@ import 'package:flutter_common/common/common_index.dart';
 void main() async {
   MainUtil.setCustomErrorPage();
   MainUtil.setTargetPlatformForDesktop();
+  await SpUtil.getInstance();
   runZoned(() {
     /// 强制竖屏
     SystemChrome.setPreferredOrientations(

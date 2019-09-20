@@ -23,7 +23,6 @@ class _AppComponentState extends State<AppComponent>
   @override
   void initState() {
     super.initState();
-    _initAsync();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -90,8 +89,5 @@ class _AppComponentState extends State<AppComponent>
         );
       },
     );
-  }
-  _initAsync() async {
-    await SpUtil.getInstance();
   }
 }
