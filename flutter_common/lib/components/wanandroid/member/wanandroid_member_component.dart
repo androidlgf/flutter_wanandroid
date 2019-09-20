@@ -18,7 +18,17 @@ class _MemberWanAndroidComponentState extends State<MemberWanAndroidComponent> {
         children: <Widget>[
           Container(
             height: 100.0,
-            color: Colors.red,
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.supervised_user_circle,
+                  size: 60.0,
+                  color: grey500Color,
+                ),
+                Padding(padding: EdgeInsets.only(left: 10.0),child: Text('点击登录',style: TextStyle(fontSize: 18.0),),)
+              ],
+            ),
           ),
           Line(
             margin: EdgeInsets.all(0.0),
