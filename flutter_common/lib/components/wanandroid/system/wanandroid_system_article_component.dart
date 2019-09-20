@@ -34,10 +34,10 @@ class _SystemArticleWanAndroidComponentState
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.index;
     widget.tabs.map((childTab) {
       listOfPageWidget.add(HomeWanAndroidWidget(childTab.id));
     }).toList();
-    currentIndex = widget.index;
     pageController = new PageController(initialPage: currentIndex);
     tabController = TabController(
         length: widget.tabs.length, initialIndex: currentIndex, vsync: this);

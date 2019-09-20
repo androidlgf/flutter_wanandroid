@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/ui/web_view.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_article_work.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_banner_work.dart';
 import 'package:flutter_common/components/wanandroid/dio/home_system_article_work.dart';
 import 'package:flutter_common/components/wanandroid/home/data/home_article_data.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 //玩android 体系文章详情
 class HomeWanAndroidWidget extends StatefulWidget {
