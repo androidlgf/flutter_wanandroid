@@ -215,7 +215,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   }
 
   void loadMore() {
-    if (_articleWork == null) _articleWork = HomeArticleWork(_page);
+    _articleWork = HomeArticleWork(_page);
     _articleWork.start().then((value) {
       if (value.success) {
         HomeArticleData homeArticleData = value.result;
