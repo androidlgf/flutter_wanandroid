@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/components/index_component.dart';
+import 'package:flutter_common/components/wanandroid/index_wanandroid_component.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:flutter_common/common/common_index.dart';
@@ -93,11 +94,11 @@ class _IntroSlideComponentState extends State<IntroSlideComponent> {
 
   void onDonePress() {
     debugPrint('intro silde click with onDonePress');
-    pushAndRemovePage(context, IndexComponent());
+    pushAndRemovePage(context, IndexWanAndroidComponent());
   }
   void onTabChangeCompleted(index) {
     // Index of current tab is focused
-    pushAndRemovePage(context, IndexComponent());
+    pushAndRemovePage(context, IndexWanAndroidComponent());
   }
   Widget renderSkipBtn() {
     return Icon(
