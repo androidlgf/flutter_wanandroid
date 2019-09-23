@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:meta/meta.dart';
+import 'build_url_params.dart';
 import 'communication.dart';
 import '_print.dart';
 import 'http_extra_plugin.dart';
@@ -86,7 +87,8 @@ abstract class Work<D, T extends WorkData<D>> {
   /// 在[HttpMethod.download]请求中为下载进度，在其他类型请求中为上传/发送进度。
   /// * 同一个[Work]可以多次启动任务，多次启动的任务会顺序执行。
   Future<T> start(
-      {Map<String, dynamic> params,
+      {String url,
+      Map<String, dynamic> params,
       Map<String, dynamic> headers,
       int retry = 0,
       OnProgress onProgress}) async {
@@ -125,7 +127,7 @@ abstract class Work<D, T extends WorkData<D>> {
       }
       // 构建http请求选项
       final options =
-          _onCreateOptions(params, defaultHeaders, retry, onProgress);
+          _onCreateOptions(url, params, defaultHeaders, retry, onProgress);
       // 执行核心任务
       await _onDoWork(options, data);
     }
@@ -183,7 +185,7 @@ abstract class Work<D, T extends WorkData<D>> {
   }
 
   /// 构建请求选项参数
-  Options _onCreateOptions(Map<String, dynamic> params,
+  Options _onCreateOptions(String url, Map<String, dynamic> params,
       Map<String, dynamic> headers, int retry, OnProgress onProgress) {
     log(tag, "_onCreateOptions");
     final data = Map<String, dynamic>();
@@ -198,13 +200,22 @@ abstract class Work<D, T extends WorkData<D>> {
     if (preHeaders != null) {
       headers.addAll(preHeaders);
     }
+    String needUrl;
+    if (url != null && url.isNotEmpty) {
+      needUrl = url;
+    } else {
+      needUrl = onUrl(params);
+    }
+    if (httpMethod == HttpMethod.get) {
+      needUrl = BuildUrlParams.buildUrlWithParams(needUrl, params);
+    }
     final options = Options()
       ..retry = retry
       ..onProgress = onProgress
       ..method = httpMethod
       ..headers = headers
       ..params = data
-      ..url = onUrl(params);
+      ..url = needUrl;
 
     onConfigOptions(options, params);
 
