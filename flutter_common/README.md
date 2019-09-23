@@ -1,7 +1,7 @@
 
 # FlutterCommon
 
-A new Flutter application.
+wanAndroid Flutter 版本客户端..
 
 ## Android APK 下载地址
 
