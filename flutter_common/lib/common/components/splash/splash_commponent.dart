@@ -74,7 +74,7 @@ class _SplashComponentState extends State<SplashComponent> {
 
   void goToHomePage() {
     if (!firstOpen) {
-      pushAndRemovePage(context, IndexWanAndroidComponent());
+      pushAndRemovePage(context, IntroSlideComponent());
     } else {
       _prefs.setBool("first_open", false);
       pushAndRemovePage(context, IntroSlideComponent());

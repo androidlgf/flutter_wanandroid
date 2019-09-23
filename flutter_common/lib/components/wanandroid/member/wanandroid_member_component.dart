@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/components/wanandroid/author/author_wanandroid_component.dart';
 import 'package:flutter_common/components/wanandroid/theme/wanandroid_change_theme_component.dart';
 
 //玩android 个人中心
@@ -26,7 +27,13 @@ class _MemberWanAndroidComponentState extends State<MemberWanAndroidComponent> {
                   size: 60.0,
                   color: grey500Color,
                 ),
-                Padding(padding: EdgeInsets.only(left: 10.0),child: Text('点击登录',style: TextStyle(fontSize: 18.0),),)
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    '点击登录',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                )
               ],
             ),
           ),
@@ -43,13 +50,14 @@ class _MemberWanAndroidComponentState extends State<MemberWanAndroidComponent> {
           Gaps.line,
           ListTile(
               title: Text('切换主题'),
-              onTap: () => pushNewPage(context, ChangeThemeWanAndroidComponent()),
+              onTap: () =>
+                  pushNewPage(context, ChangeThemeWanAndroidComponent()),
               leading: Icon(Icons.language),
               trailing: Icon(Icons.keyboard_arrow_right)),
           Gaps.line,
           ListTile(
-              title: Text('关于软件'),
-//              onTap: () => pushNewPage(context, OrderHomePage()),
+              title: Text('关于作者'),
+              onTap: () => pushNewPage(context, AuthorWanAndroidComponent()),
               leading: Icon(Icons.error_outline),
               trailing: Icon(Icons.keyboard_arrow_right)),
           Gaps.line
