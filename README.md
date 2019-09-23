@@ -61,17 +61,12 @@ pod setup
 ### [WanAndroid]
 
 
-|![1](https://github.com/androidlgf/FlutterCommon/master/screenshots/WechatIMG512.jpeg)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-14-20-422.png)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-14-30-696.png)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-23-39-352.png)|
+|![1](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG510.png)|![2](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG513.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG515.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG516.png)|
 | :--: | :--: | :--: | :--: |
-| 登录 | 选择性别 | 选择兴趣爱好 | 我的 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-02-20-410.png)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-02-41-880.jpg)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-35-08-371.jpg)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/)|
-| 书架（空） | 书架 | 书城 | 分类 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-35-39-277.jpg)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-36-04-409.jpg)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-44-50-515.jpg)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-53-767.jpg)|
-| 排行 | 书单 | 书单详情 | 漫画 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-45-32-615.jpg)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-00-42-510.jpg)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-09-236.png)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-30-229.png)|
-| 书籍详情1 | 书籍详情2 | 目录1 | 目录2 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-17-515.png)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-22-846.png)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-03-15-178.png)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-02-57-508.jpg)|
-| 阅读 | 阅读设置 | 搜索 | 搜索结果 |
+| 搜索 | 关于作者 | 文章详情 | 修改主题 |
+|![1](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG512.jpeg)|![2](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG517.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG514.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG511.jpeg)|
+| 首页  | 体系 | 项目 | 用户 |
+
 
 ### [Flutter i18n 实现国际化](https://github.com/shichunlei/flutter_app/wiki/Flutter-i18n-%E5%AE%9E%E7%8E%B0%E5%9B%BD%E9%99%85%E5%8C%96)
 
