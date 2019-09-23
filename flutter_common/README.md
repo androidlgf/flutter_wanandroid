@@ -1,4 +1,3 @@
-![](https://github.com/shichunlei/flutter_app/blob/master/FlutterApp.png)
 
 # FlutterCommon
 
@@ -6,7 +5,7 @@ A new Flutter application.
 
 ## Android APK 下载地址
 
-![](https://github.com/shichunlei/flutter_app/blob/master/1562927446.png)
+![](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/down.png)
 
 
 `声明：本项目仅供学习，不可用于商业用途。`
@@ -15,41 +14,41 @@ A new Flutter application.
 
 ```
 [✓] Flutter (Channel beta, v1.8.3, on Mac OS X 10.14.5 18F132, locale zh-Hans-CN)
-    • Flutter version 1.8.3 at /Users/14cells/Android/flutter
-    • Framework revision e4ebcdf6f4 (5 weeks ago), 2019-07-27 11:48:24 -0700
-    • Engine revision 38ac5f30a7
-    • Dart version 2.5.0 (build 2.5.0-dev.1.0 0ca1582afd)
+• Flutter version 1.8.3 at /Users/14cells/Android/flutter
+• Framework revision e4ebcdf6f4 (5 weeks ago), 2019-07-27 11:48:24 -0700
+• Engine revision 38ac5f30a7
+• Dart version 2.5.0 (build 2.5.0-dev.1.0 0ca1582afd)
 
 [✓] Android toolchain - develop for Android devices (Android SDK version 29.0.2)
-    • Android SDK at /Users/14cells/Android/SDK
-    • Android NDK location not configured (optional; useful for native profiling support)
-    • Platform android-29, build-tools 29.0.2
-    • Java binary at: /Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java
-    • Java version OpenJDK Runtime Environment (build 1.8.0_202-release-1483-b49-5587405)
-    • All Android licenses accepted.
+• Android SDK at /Users/14cells/Android/SDK
+• Android NDK location not configured (optional; useful for native profiling support)
+• Platform android-29, build-tools 29.0.2
+• Java binary at: /Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java
+• Java version OpenJDK Runtime Environment (build 1.8.0_202-release-1483-b49-5587405)
+• All Android licenses accepted.
 
 [✗] Xcode - develop for iOS and macOS
-    ✗ Xcode installation is incomplete; a full installation is necessary for iOS development.
-      Download at: https://developer.apple.com/xcode/download/
-      Or install Xcode via the App Store.
-      Once installed, run:
-        sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-    ✗ CocoaPods not installed.
-        CocoaPods is used to retrieve the iOS and macOS platform side's plugin code that responds to your plugin usage on the Dart side.
-        Without CocoaPods, plugins will not work on iOS or macOS.
-        For more info, see https://flutter.dev/platform-plugins
-      To install:
-        sudo gem install cocoapods
-        pod setup
+✗ Xcode installation is incomplete; a full installation is necessary for iOS development.
+Download at: https://developer.apple.com/xcode/download/
+Or install Xcode via the App Store.
+Once installed, run:
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+✗ CocoaPods not installed.
+CocoaPods is used to retrieve the iOS and macOS platform side's plugin code that responds to your plugin usage on the Dart side.
+Without CocoaPods, plugins will not work on iOS or macOS.
+For more info, see https://flutter.dev/platform-plugins
+To install:
+sudo gem install cocoapods
+pod setup
 
 [✓] Android Studio (version 3.5)
-    • Android Studio at /Applications/Android Studio.app/Contents
-    • Flutter plugin version 38.2.3
-    • Dart plugin version 191.8423
-    • Java version OpenJDK Runtime Environment (build 1.8.0_202-release-1483-b49-5587405)
+• Android Studio at /Applications/Android Studio.app/Contents
+• Flutter plugin version 38.2.3
+• Dart plugin version 191.8423
+• Java version OpenJDK Runtime Environment (build 1.8.0_202-release-1483-b49-5587405)
 
 [✓] Connected device (1 available)
-    • MI 5X • 1c7664100104 • android-arm64 • Android 8.1.0 (API 27)
+• MI 5X • 1c7664100104 • android-arm64 • Android 8.1.0 (API 27)
 ```
 
 ## API接口
@@ -61,17 +60,12 @@ A new Flutter application.
 ### [WanAndroid]
 
 
-|![1](https://github.com/androidlgf/FlutterCommon/master/screenshots/WechatIMG512.jpeg)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-14-20-422.png)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-14-30-696.png)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-23-39-352.png)|
+|![1](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG510.png)|![2](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG513.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG515.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG516.png)|
 | :--: | :--: | :--: | :--: |
-| 登录 | 选择性别 | 选择兴趣爱好 | 我的 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-02-20-410.png)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-02-41-880.jpg)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-35-08-371.jpg)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/)|
-| 书架（空） | 书架 | 书城 | 分类 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-35-39-277.jpg)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-36-04-409.jpg)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-44-50-515.jpg)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-53-767.jpg)|
-| 排行 | 书单 | 书单详情 | 漫画 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-11-45-32-615.jpg)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-00-42-510.jpg)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-09-236.png)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-30-229.png)|
-| 书籍详情1 | 书籍详情2 | 目录1 | 目录2 |
-|![1](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-17-515.png)|![2](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-01-22-846.png)|![3](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-03-15-178.png)|![4](https://github.com/shichunlei/flutter_app/blob/master/screenshots/Screenshot_2019-08-30-12-02-57-508.jpg)|
-| 阅读 | 阅读设置 | 搜索 | 搜索结果 |
+| 搜索 | 关于作者 | 文章详情 | 修改主题 |
+|![1](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG512.jpeg)|![2](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG517.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG514.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG511.png)|
+| 首页  | 体系 | 项目 | 用户 |
+
 
 ### [Flutter i18n 实现国际化](https://github.com/shichunlei/flutter_app/wiki/Flutter-i18n-%E5%AE%9E%E7%8E%B0%E5%9B%BD%E9%99%85%E5%8C%96)
 

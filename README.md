@@ -1,4 +1,3 @@
-![](https://github.com/shichunlei/flutter_app/blob/master/FlutterApp.png)
 
 # FlutterCommon
 
@@ -6,7 +5,7 @@ A new Flutter application.
 
 ## Android APK 下载地址
 
-![](https://github.com/shichunlei/flutter_app/blob/master/1562927446.png)
+![](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/down.png)
 
 
 `声明：本项目仅供学习，不可用于商业用途。`
