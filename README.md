@@ -61,10 +61,10 @@ pod setup
 ### [WanAndroid]
 
 
-|![1](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG510.png)|![2](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG513.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG515.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG516.png)|
+|![1](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG510.png)|![2](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG513.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG515.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG516.png)|
 | :--: | :--: | :--: | :--: |
 | 搜索 | 关于作者 | 文章详情 | 修改主题 |
-|![1](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG512.jpeg)|![2](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG517.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG514.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/tree/master/flutter_common/screenshots/WechatIMG511.jpeg)|
+|![1](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG512.jpeg)|![2](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG517.jpeg)|![3](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG514.jpeg)|![4](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/screenshots/WechatIMG511.png)|
 | 首页  | 体系 | 项目 | 用户 |
 
 
