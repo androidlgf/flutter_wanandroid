@@ -22,4 +22,7 @@ class Api {
 
   //1.4 搜索热词
   static const WAN_SEARCH_HOT = WAN_HOST + '/hotkey/json';
+
+  //iBrand 开源电商
+
 }
