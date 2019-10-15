@@ -5,7 +5,7 @@ import 'package:flutter_common/common/http/http_index.dart';
 import 'package:flutter_common/components/wanandroid/home/data/home_banner_data.dart';
 
 //1.2 首页banner
-class HomeBannerWork extends BaseHttpWork<HomeBannerData> {
+class HomeBannerWork extends BaseHttpGetWork<HomeBannerData> {
   @override
   String onUrl(Map<String, dynamic> params) {
     return Api.WAN_BANNER;

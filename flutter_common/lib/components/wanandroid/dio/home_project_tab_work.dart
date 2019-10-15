@@ -7,7 +7,7 @@ import 'package:flutter_common/components/wanandroid/home/data/home_banner_data.
 import 'package:flutter_common/components/wanandroid/project/data/project_tab_data.dart';
 
 //1.1 首页文章列表
-class HomeProjectTabWork extends BaseHttpWork<ProjectTabData> {
+class HomeProjectTabWork extends BaseHttpGetWork<ProjectTabData> {
   @override
   String onUrl(Map<String, dynamic> params) {
     return Api.WAN_PROJECT;

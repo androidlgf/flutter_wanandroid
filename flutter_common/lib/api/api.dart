@@ -24,5 +24,11 @@ class Api {
   static const WAN_SEARCH_HOT = WAN_HOST + '/hotkey/json';
 
   //iBrand 开源电商
+  static const IbRAND_HOST = 'https://demo-open-admin.ibrand.cc/api';
 
+  //首页中的幻灯片和分类商品数据
+  static const IbRAND_HOME = IbRAND_HOST + '/home';
+
+  //商品详情页/store/detail/{id}
+  static const IbRAND_DETAIL = IbRAND_HOST + '/store/detail/';
 }

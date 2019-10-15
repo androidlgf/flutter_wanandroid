@@ -8,7 +8,7 @@ import 'package:flutter_common/components/wanandroid/project/data/project_list_o
 import 'package:flutter_common/components/wanandroid/project/data/project_tab_data.dart';
 
 //4.2 项目列表数据
-class HomeProjectListWork extends BaseHttpWork<ProjectListOfData> {
+class HomeProjectListWork extends BaseHttpGetWork<ProjectListOfData> {
   int _page = 1;
   int _cid = 0;
 

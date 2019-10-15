@@ -21,7 +21,7 @@ export 'package:flutter_common/common/components/app/app_component.dart';
 export 'package:flutter_common/common/components/splash/splash_commponent.dart';
 export 'package:flutter_common/common/components/slide/intro_slide_component.dart';
 
-export 'package:flutter_common/common/dio/base_dio.dart';
+export 'package:flutter_common/common/dio/base_http_get_dio.dart';
 export 'package:flutter_common/common/base/base_widget.dart';
 export 'package:flutter_common/common/base/base_state_widget.dart';
 export 'package:flutter_common/common/dio/http_status_plugin.dart';

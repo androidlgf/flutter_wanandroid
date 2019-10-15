@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/custom/shape_of_view.dart';
+import 'package:flutter_common/components/ibrand/home/ibrand_home_component.dart';
+import 'package:flutter_common/components/ibrand/index_ibrand_component.dart';
 import 'package:flutter_common/components/wanandroid/index_wanandroid_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -194,7 +196,7 @@ class _SplashComponentState extends State<SplashComponent> {
 
   void goToHomePage() {
     if (!firstOpen) {
-      pushAndRemovePage(context, IndexWanAndroidComponent());
+      pushAndRemovePage(context, IndexIBrandComponent());
     } else {
       _prefs.setBool("first_open", false);
       pushAndRemovePage(context, IntroSlideComponent());

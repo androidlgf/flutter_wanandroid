@@ -7,7 +7,7 @@ import 'package:flutter_common/components/wanandroid/home/data/home_banner_data.
 import 'package:flutter_common/components/wanandroid/search/data/search_hot_model.dart';
 
 //1.4 搜索热词
-class HomeSearchHotWork extends BaseHttpWork<SearchHotModel> {
+class HomeSearchHotWork extends BaseHttpGetWork<SearchHotModel> {
   @override
   String onUrl(Map<String, dynamic> params) {
     return Api.WAN_SEARCH_HOT;

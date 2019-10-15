@@ -6,7 +6,7 @@ import 'package:flutter_common/components/wanandroid/home/data/home_article_data
 import 'package:flutter_common/components/wanandroid/home/data/home_banner_data.dart';
 
 //2.2 知识体系下的文章
-class HomeSystemArticleWork extends BaseHttpWork<HomeArticleData> {
+class HomeSystemArticleWork extends BaseHttpGetWork<HomeArticleData> {
   int _page = 0;
   int cid=0;
   HomeSystemArticleWork(int page,int cid) {

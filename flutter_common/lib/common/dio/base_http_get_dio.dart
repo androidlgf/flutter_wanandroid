@@ -2,7 +2,7 @@ import 'package:flutter_common/common/http/http_index.dart';
 import 'package:flutter_common/common/dio/http_status_plugin.dart';
 
 //网络请求集成类
-class BaseHttpWork<V extends Object> extends SimpleWork<V> {
+class BaseHttpGetWork<V extends Object> extends SimpleWork<V> {
   // 地址必须为完整地址，没有baseUrl支持，项目代码必须集中拼接和管理所有接口地址，便于维护和查找 必复写
   @override
   String onUrl(Map<String, dynamic> params) {

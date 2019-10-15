@@ -6,7 +6,7 @@ import 'package:flutter_common/components/wanandroid/home/data/home_banner_data.
 import 'package:flutter_common/components/wanandroid/system/data/tree_data.dart';
 
 //2.1 体系数据
-class HomeSystemWork extends BaseHttpWork<TreeData> {
+class HomeSystemWork extends BaseHttpGetWork<TreeData> {
   @override
   String onUrl(Map<String, dynamic> params) {
     return Api.WAN_SYSTEM;
