@@ -3,6 +3,7 @@ import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/utils/loading_util.dart';
 import 'package:flutter_common/components/ibrand/dio/ibrand_http_get_dio.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'data/i_brand_goods_detail_data.dart';
@@ -130,7 +131,7 @@ class _GoodsDetailIBrandComponentState extends State<GoodsDetailIBrandComponent>
 //            indicatorColor: Colors.pinkAccent),
 //      ),
 //    );
-
+//
 //    return SliverPersistentHeader(
 //      floating: false,
 //      pinned: true,
@@ -193,12 +194,20 @@ class _GoodsDetailIBrandComponentState extends State<GoodsDetailIBrandComponent>
   }
 
   Widget _buildBodyTabWidget() {
+    return SliverList(
+        delegate: SliverChildListDelegate([
+      _buildGoodsDetailWidget(),
+//      Center(child: Text('Content of 评价')),
+//      Center(child: Text('Content of 详情')),
+//      Center(child: Text('Content of 推荐')),
+    ]));
     return SliverFillRemaining(
       child: TabBarView(children: [
-        SingleChildScrollView(
-//          physics: NeverScrollableScrollPhysics(),
-          child: _buildGoodsDetailWidget(),
-        ),
+//        SingleChildScrollView(
+////          physics: NeverScrollableScrollPhysics(),
+//          child: _buildGoodsDetailWidget(),
+//        ),
+        _buildGoodsDetailWidget(),
         Center(child: Text('Content of 评价')),
         Center(child: Text('Content of 详情')),
         Center(child: Text('Content of 推荐')),
@@ -417,13 +426,15 @@ class _GoodsDetailIBrandComponentState extends State<GoodsDetailIBrandComponent>
             ),
           ),
           Container(
+            width: DeviceUtil.width,
+            height: Screen.hScree40,
+            alignment: Alignment.center,
             color: grey100Color,
-            height: Screen.hScree8,
+            child: Text('————宝贝详情————'),
           ),
-          Container(
-            color: red900Color,
-            height: 10000,
-          ),
+          Html(
+            data: '${_iBrandGoodsDetailData.goodsDetailData.content}',
+          )
         ],
       ),
     );
