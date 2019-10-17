@@ -75,6 +75,7 @@ dependencies:
   # 调整屏幕和字体大小
   flutter_screenutil: ^0.6.0
   flutter_html: ^0.10.4
+  flare_flutter: ^1.6.2
 
 dev_dependencies:
   build_runner: ^1.0.0
@@ -127,5 +128,6 @@ flutter:
   # see https://flutter.io/custom-fonts/#from-packages
 
   assets:
+    - assets/
     - images/
     - images/common/
