@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/ibrand/dio/ibrand_http_get_dio.dart';
@@ -55,15 +58,15 @@ class _HomeIBrandComponentState extends State<HomeIBrandComponent>
       child: EasyRefresh(
           child: CustomScrollView(
         slivers: <Widget>[
-          _buildBannerWidget(_iBrandHomeData.iBrandData.carousels),
-          _buildCategoriesWidget(_iBrandHomeData.iBrandData.categories),
+          _buildBannerWidget(_iBrandHomeData?.iBrandData?.carousels),
+          _buildCategoriesWidget(_iBrandHomeData?.iBrandData?.categories),
           _buildCategoriesTagWidget(
-              _iBrandHomeData.iBrandData.boyCategory.name),
-          _buildGoodsWidget(_iBrandHomeData.iBrandData.boyCategory.iBrandItems),
+              _iBrandHomeData?.iBrandData?.boyCategory?.name),
+          _buildGoodsWidget(_iBrandHomeData?.iBrandData?.boyCategory?.iBrandItems),
           _buildCategoriesTagWidget(
-              _iBrandHomeData.iBrandData.girlCategory.name),
+              _iBrandHomeData?.iBrandData?.girlCategory?.name),
           _buildGoodsWidget(
-              _iBrandHomeData.iBrandData.girlCategory.iBrandItems),
+              _iBrandHomeData?.iBrandData?.girlCategory?.iBrandItems),
         ],
       )),
     );
@@ -107,7 +110,7 @@ class _HomeIBrandComponentState extends State<HomeIBrandComponent>
         margin: EdgeInsets.only(top: Screen.hScree10),
         padding: EdgeInsets.only(left: Screen.wScreen10),
         child: Text(
-          categoriesName,
+          '${categoriesName}',
           style:
               TextStyle(color: Color(0xFF515C6F), fontSize: Screen.spScreen30),
         ),
@@ -214,6 +217,12 @@ class _HomeIBrandComponentState extends State<HomeIBrandComponent>
       if (homeData.success) {
         _iBrandHomeData = IBrandHomeData.fromJson(homeData?.result);
         setState(() {});
+      } else {
+        rootBundle.loadString('assets/data/ibrand_home.json').then((value) {
+          Map<String, dynamic> obj = json.decode(value);
+          _iBrandHomeData = IBrandHomeData.fromJson(obj);
+          setState(() {});
+        });
       }
     });
   }

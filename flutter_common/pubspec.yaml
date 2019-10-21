@@ -129,5 +129,6 @@ flutter:
 
   assets:
     - assets/
+    - assets/data/
     - images/
     - images/common/
