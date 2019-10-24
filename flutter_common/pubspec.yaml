@@ -74,8 +74,9 @@ dependencies:
   like_button: ^0.1.9
   # 调整屏幕和字体大小
   flutter_screenutil: ^0.6.0
-  flutter_html: ^0.10.4
+  flutter_html: ^0.11.0
   flare_flutter: ^1.6.2
+  amap_base_location: ^0.4.0+2
 
 dev_dependencies:
   build_runner: ^1.0.0

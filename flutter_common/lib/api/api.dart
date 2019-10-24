@@ -31,4 +31,16 @@ class Api {
 
   //商品详情页/store/detail/{id}
   static const IbRAND_DETAIL = IbRAND_HOST + '/store/detail/';
+
+  //百姓生活 开源电商
+  static const LIFE_HOST = 'http://v.jspang.com:8088/baixing/wxmini';
+
+  //百姓生活 首页
+  static const LIFE_HOME = LIFE_HOST + '/homePageContent';
+
+  //百姓生活 热门商品
+  static const LIFE_HOME_HOT = LIFE_HOST + '/homePageBelowConten';
+
+  //百姓生活 商品详情
+  static const LIFE_GOODS_DETAIL = LIFE_HOST + '/getGoodDetailById';
 }
