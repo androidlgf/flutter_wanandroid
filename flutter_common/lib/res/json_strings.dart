@@ -121,4 +121,32 @@ abstract class JsonStrings {
     "id": 19
   }
 ]''';
+  static final String lifeGoodsServerData = '''
+  [
+  {
+    "title": "假一赔十",
+    "content": "正品保障，假一赔十",
+    "id": 1
+  },
+  {
+    "title": "退货运费险",
+    "content": "卖家投保退货运费险，负担一定金额退货运费(保单生效以下单显示为准)",
+    "id": 2
+  },
+  {
+    "title": "上门取退",
+    "content": "预约上门，最快1小时上门，取件后极速退款到账",
+    "id": 3
+  },
+  {
+    "title": "极速退款",
+    "content": "诚信用户在退货寄出后，享受极速退款到账",
+    "id": 4
+  },
+   {
+    "title": "七天无理由退换",
+    "content": "满足相应条件时，消费者可申请”七天无理由退换“",
+    "id": 5
+  }
+]''';
 }

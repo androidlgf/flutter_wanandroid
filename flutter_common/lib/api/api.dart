@@ -43,4 +43,7 @@ class Api {
 
   //百姓生活 商品详情
   static const LIFE_GOODS_DETAIL = LIFE_HOST + '/getGoodDetailById';
+
+  //百姓生活 商品分类
+  static const LIFE_GOODS_CATEGORY = LIFE_HOST + '/getCategory';
 }

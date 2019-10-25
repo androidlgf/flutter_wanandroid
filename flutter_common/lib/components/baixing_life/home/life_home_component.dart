@@ -5,13 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_component.dart';
-import 'package:flutter_common/components/ibrand/dio/ibrand_http_get_dio.dart';
-import 'package:flutter_common/components/ibrand/goodsdetail/ibrand_goods_detail_component.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
@@ -402,7 +400,11 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
           delegate:
               SliverChildBuilderDelegate((BuildContext context, int index) {
             return InkWell(
-              onTap: () {},
+              onTap: () => pushNewPage(
+                  context,
+                  CategoryBxLifeComponent(
+                    mallCategoryId: '${categories[index].mallCategoryId}',
+                  )),
               child: Container(
                 color: Colors.white,
                 padding: EdgeInsets.all(Screen.hScree7),

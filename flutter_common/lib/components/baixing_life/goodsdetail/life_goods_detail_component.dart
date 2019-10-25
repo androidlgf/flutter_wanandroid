@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/utils/loading_util.dart';
+import 'package:flutter_common/components/baixing_life/dialog/goods_brand_dialog.dart';
+import 'package:flutter_common/components/baixing_life/dialog/goods_card_dialog.dart';
+import 'package:flutter_common/components/baixing_life/dialog/goods_service_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 import 'package:flutter_common/components/ibrand/dio/ibrand_http_get_dio.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -35,7 +38,7 @@ class _LifeGoodsDetailIBrandComponentState
   List<Tab> titleTabs;
   TabController tabController;
   Color c = Colors.grey;
-
+  bool isLove = false; //是否点赞
   @override
   void initState() {
     super.initState();
@@ -77,7 +80,11 @@ class _LifeGoodsDetailIBrandComponentState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          elevation: 0,
+          title: Text(_lifeGoodsDetailData == null
+              ? ''
+              : '${_lifeGoodsDetailData.goodsDetailData?.goodInfo?.goodsName}')),
       body: _buildBodyWidget(),
     );
   }
@@ -258,18 +265,24 @@ class _LifeGoodsDetailIBrandComponentState
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                IconText(
-                  icon: Icon(
-                    Icons.thumb_up,
-                    size: Screen.hScree12,
-                    color: grey500Color,
+                InkWell(
+                  onTap: () {
+                    isLove = !isLove;
+                    setState(() {});
+                  },
+                  child: IconText(
+                    icon: Icon(
+                      Icons.thumb_up,
+                      size: Screen.hScree12,
+                      color: isLove ? deepOrange800Color : grey500Color,
+                    ),
+                    text: Text(
+                      '点赞',
+                      style: TextStyle(
+                          color: grey500Color, fontSize: Screen.spScreen12),
+                    ),
+                    leading: Screen.wScreen5,
                   ),
-                  text: Text(
-                    '点赞',
-                    style: TextStyle(
-                        color: grey500Color, fontSize: Screen.spScreen12),
-                  ),
-                  leading: Screen.wScreen5,
                 ),
                 IconText(
                   icon: Icon(Icons.business_center,
@@ -352,7 +365,7 @@ class _LifeGoodsDetailIBrandComponentState
           Material(
             type: MaterialType.transparency,
             child: InkWell(
-              onTap: () {},
+              onTap: () => showGoodsServiceDialog(),
               child: Container(
                 height: Screen.hScree40,
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -390,7 +403,7 @@ class _LifeGoodsDetailIBrandComponentState
           Material(
             type: MaterialType.transparency,
             child: InkWell(
-              onTap: () {},
+              onTap: () => showGoodsBrandDialog(),
               child: Container(
                 height: Screen.hScree40,
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -502,7 +515,7 @@ class _LifeGoodsDetailIBrandComponentState
             child: Row(
               children: <Widget>[
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => showGoodsAddCardDialog(),
                   child: Container(
                     width: (DeviceUtil.width - Screen.wScreen30) / 3,
                     height: Screen.hScree40,
@@ -511,7 +524,7 @@ class _LifeGoodsDetailIBrandComponentState
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(Screen.hScree20),
                             bottomLeft: Radius.circular(Screen.hScree20)),
-                        color: Colors.blue),
+                        color: deepOrange300Color),
                     child: Text(
                       '加入购物车',
                       style: TextStyle(
@@ -531,7 +544,7 @@ class _LifeGoodsDetailIBrandComponentState
                         borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(Screen.hScree20),
                             topRight: Radius.circular(Screen.hScree20)),
-                        color: Colors.red),
+                        color: deepOrange800Color),
                     child: Text(
                       '立即购买',
                       style: TextStyle(
@@ -581,6 +594,30 @@ class _LifeGoodsDetailIBrandComponentState
         setState(() {});
       }
     });
+  }
+
+  //服务Dialog展示
+  void showGoodsServiceDialog() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => GoodsServiceDialog());
+  }
+
+  //品牌Dialog展示
+  void showGoodsBrandDialog() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => GoodsBrandDialog());
+  }
+
+  //添加购物车Dialog展示
+  void showGoodsAddCardDialog() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => GoodsAddCardDialog());
   }
 }
 
