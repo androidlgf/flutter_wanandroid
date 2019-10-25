@@ -5,16 +5,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/baixing_life/category/data/life_goods_category_data.dart';
+import 'package:flutter_common/components/baixing_life/category/goods/life_category_goods_component.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 //百姓生活 分类页面
 class CategoryBxLifeComponent extends StatefulWidget {
-  final String mallCategoryId;
+  final String index;
   final String title;
 
-  CategoryBxLifeComponent({Key key, this.title, this.mallCategoryId})
-      : assert(mallCategoryId != null, title != null),
+  CategoryBxLifeComponent({Key key, this.title, this.index})
+      : assert(index != null, title != null),
         super(key: key);
 
   @override
@@ -147,16 +148,13 @@ class _CategoryBxLifeComponentState extends State<CategoryBxLifeComponent>
     return AutoScrollTag(
         controller: controller,
         index: index,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            height: (Screen.hScree38 + 1) * listOfSubDto.length,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(Screen.wScreen10))),
-            child: _buildRightItemBodyWidget(listOfSubDto),
-          ),
+        child: Container(
+          height: (Screen.hScree38 + 1) * listOfSubDto.length,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius:
+                  BorderRadius.all(Radius.circular(Screen.wScreen10))),
+          child: _buildRightItemBodyWidget(listOfSubDto),
         ));
   }
 
@@ -170,7 +168,12 @@ class _CategoryBxLifeComponentState extends State<CategoryBxLifeComponent>
         },
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () {},
+            onTap: () => pushNewPage(
+                context,
+                CategoryGoodsBxLifeComponent(
+                  categoryId: '${listOfSubDto[index].mallCategoryId}',
+                  categorySubId: '${listOfSubDto[index].mallSubId}',
+                )),
             child: Container(
               height: Screen.hScree38 + 0.5,
               padding: EdgeInsets.symmetric(horizontal: Screen.wScreen15),

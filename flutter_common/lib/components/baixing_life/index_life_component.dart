@@ -6,6 +6,7 @@ import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/custom/shape/arc_circle.dart';
 import 'package:flutter_common/common/custom/shape_of_view.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
+import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
 import 'package:flutter_common/components/ibrand/categories/ibrand_categories_component.dart';
 import 'package:flutter_common/components/wanandroid/member/wanandroid_member_component.dart';
 import 'package:flutter_common/components/wanandroid/project/wanandroid_project_component.dart';
@@ -35,7 +36,9 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
     super.initState();
     listOfWidgetObjects
       ..add(HomeBxLifeComponent())
-      ..add(CategoriesIBrandComponent())
+      ..add(CategoryBxLifeComponent(
+        index: '${0}',
+      ))
       ..add(ProjectWanAndroidComponent())
       ..add(MemberWanAndroidComponent());
   }

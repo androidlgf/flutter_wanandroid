@@ -31,6 +31,7 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
   final int TYPE_LEFT_FLOORF = 0;
   final int TYPE_RIGHT_FLOORF = 1;
   int _page = 0;
+  EasyRefreshController _controller = EasyRefreshController();
 
   LifeHomeData _lifeHomeData;
   List<LifeGood> liftOfGoods = [];
@@ -72,7 +73,10 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
       child: EasyRefresh(
           header: MaterialHeader(),
           footer: MaterialFooter(),
-          onRefresh: () async {},
+          controller: _controller,
+          onRefresh: () async {
+            _controller.callRefresh();
+          },
           onLoad: () async {
             _homeHotGoods(_page);
           },
@@ -403,7 +407,7 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
               onTap: () => pushNewPage(
                   context,
                   CategoryBxLifeComponent(
-                    mallCategoryId: '${categories[index].mallCategoryId}',
+                    index: '${categories[index].mallCategoryId}',
                   )),
               child: Container(
                 color: Colors.white,
@@ -522,7 +526,9 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
         .start(url: Api.LIFE_HOME_HOT, params: {'page': page}).then((onValue) {
       if (onValue.success) {
         liftOfGoods.addAll(LifeHomeHotData.fromJson(onValue.result)?.lifeGood);
-        setState(() {});
+        setState(() {
+          _controller.finishLoad(success: true,noMore: false);
+        });
       } else {}
     });
   }
