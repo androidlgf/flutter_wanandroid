@@ -115,6 +115,8 @@ class _CategoryBxLifeComponentState extends State<CategoryBxLifeComponent>
     return InkWell(
       onTap: () {
         leftCurIndex = index;
+        controller.scrollToIndex(leftCurIndex,
+            preferPosition: AutoScrollPosition.begin);
         setState(() {});
       },
       child: Container(
@@ -142,16 +144,20 @@ class _CategoryBxLifeComponentState extends State<CategoryBxLifeComponent>
 
   Widget _buildRightItemWidget(CategoryData categoryData, int index) {
     List<BxMallSubDto> listOfSubDto = categoryData.bxMallSubDto;
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: (Screen.hScree38 + 1) * listOfSubDto.length,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(Screen.wScreen10))),
-        child: _buildRightItemBodyWidget(listOfSubDto),
-      ),
-    );
+    return AutoScrollTag(
+        controller: controller,
+        index: index,
+        child: InkWell(
+          onTap: () {},
+          child: Container(
+            height: (Screen.hScree38 + 1) * listOfSubDto.length,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(Screen.wScreen10))),
+            child: _buildRightItemBodyWidget(listOfSubDto),
+          ),
+        ));
   }
 
   Widget _buildRightItemBodyWidget(List<BxMallSubDto> listOfSubDto) {
