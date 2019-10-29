@@ -31,6 +31,12 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
   final int TYPE_LEFT_FLOORF = 0;
   final int TYPE_RIGHT_FLOORF = 1;
   int _page = 0;
+
+  // 是否开启加载
+  bool _enableLoad = true;
+
+  // 控制结束
+  bool _enableControlFinish = false;
   EasyRefreshController _controller = EasyRefreshController();
 
   LifeHomeData _lifeHomeData;
@@ -69,37 +75,43 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
       );
     }
     return Container(
-      color: Color(0xFFFAFAFA),
-      child: EasyRefresh(
+        color: Color(0xFFFAFAFA),
+        child: EasyRefresh.custom(
+          slivers: <Widget>[
+            _buildBannerWidget(_lifeHomeData?.homeData?.slides),
+            _buildCategoriesWidget(_lifeHomeData?.homeData?.category),
+            _buildSliverToBoxAdapterAds(
+                _lifeHomeData?.homeData?.advertesPicture,
+                _lifeHomeData?.homeData?.shopInfo,
+                _lifeHomeData?.homeData?.saoma,
+                _lifeHomeData?.homeData?.integralMallPic,
+                _lifeHomeData?.homeData?.newUser),
+            _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor1Pic,
+                _lifeHomeData?.homeData?.floor1, TYPE_LEFT_FLOORF),
+            _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor2Pic,
+                _lifeHomeData?.homeData?.floor2, TYPE_RIGHT_FLOORF),
+            _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor3Pic,
+                _lifeHomeData?.homeData?.floor3, TYPE_LEFT_FLOORF),
+            _buildHotGoodsWidget(liftOfGoods)
+          ],
           header: MaterialHeader(),
           footer: MaterialFooter(),
           controller: _controller,
           onRefresh: () async {
             _controller.callRefresh();
           },
-          onLoad: () async {
-            _homeHotGoods(_page);
-          },
-          child: CustomScrollView(
-            slivers: <Widget>[
-              _buildBannerWidget(_lifeHomeData?.homeData?.slides),
-              _buildCategoriesWidget(_lifeHomeData?.homeData?.category),
-              _buildSliverToBoxAdapterAds(
-                  _lifeHomeData?.homeData?.advertesPicture,
-                  _lifeHomeData?.homeData?.shopInfo,
-                  _lifeHomeData?.homeData?.saoma,
-                  _lifeHomeData?.homeData?.integralMallPic,
-                  _lifeHomeData?.homeData?.newUser),
-              _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor1Pic,
-                  _lifeHomeData?.homeData?.floor1, TYPE_LEFT_FLOORF),
-              _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor2Pic,
-                  _lifeHomeData?.homeData?.floor2, TYPE_RIGHT_FLOORF),
-              _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor3Pic,
-                  _lifeHomeData?.homeData?.floor3, TYPE_LEFT_FLOORF),
-              _buildHotGoodsWidget(liftOfGoods)
-            ],
-          )),
-    );
+          onLoad: _enableLoad
+              ? () async {
+                  await Future.delayed(Duration(milliseconds: 500), () {
+                    if (!_enableControlFinish) {
+                      _controller.resetLoadState();
+                      _controller.finishRefresh();
+                      _homeHotGoods(_page);
+                    }
+                  });
+                }
+              : null,
+        ));
   }
 
   Widget _buildBannerWidget(List<Slides> slides) {
@@ -526,9 +538,7 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
         .start(url: Api.LIFE_HOME_HOT, params: {'page': page}).then((onValue) {
       if (onValue.success) {
         liftOfGoods.addAll(LifeHomeHotData.fromJson(onValue.result)?.lifeGood);
-        setState(() {
-          _controller.finishLoad(success: true,noMore: false);
-        });
+        setState(() {});
       } else {}
     });
   }
