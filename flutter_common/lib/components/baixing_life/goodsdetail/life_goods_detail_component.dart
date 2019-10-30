@@ -6,7 +6,6 @@ import 'package:flutter_common/components/baixing_life/dialog/goods_brand_dialog
 import 'package:flutter_common/components/baixing_life/dialog/goods_card_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_service_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
-import 'package:flutter_common/components/ibrand/dio/ibrand_http_get_dio.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 

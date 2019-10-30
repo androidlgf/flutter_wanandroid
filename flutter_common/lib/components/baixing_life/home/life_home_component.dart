@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:amap_base_location/amap_base_location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -437,7 +435,7 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
                     ]),
               ),
             );
-          }, childCount: categories?.length - 1),
+          }, childCount: categories.length - 1),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5, childAspectRatio: 0.9)),
     );
@@ -518,8 +516,8 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
       _aMapLocation.getLocation(options).then((value) {
         location = value;
         ILifeHttpPostWork().start(url: Api.LIFE_HOME, params: {
-          'lon': location.longitude,
-          'lat': location.latitude
+          'lon': location?.longitude == 0.0 ? '115.02932' : location?.longitude,
+          'lat': location?.latitude == 0.0 ? '35.76189' : location?.latitude
         }).then((onValue) {
           if (onValue.success) {
             _lifeHomeData = LifeHomeData.fromJson(onValue.result);

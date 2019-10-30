@@ -1,9 +1,10 @@
 //4.2 项目列表数据
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/ui/web_view.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_project_list_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/wanandroid_http_get_dio.dart';
 import 'package:flutter_common/components/wanandroid/project/data/project_list_of_data.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -85,7 +86,7 @@ class _ProjectListWanAndroidWidgetState
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    height: DeviceUtil.width/4*1.5+20.0,
+                    height: DeviceUtil.width / 4 * 1.5 + 20.0,
                     padding: EdgeInsets.only(right: 10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -119,7 +120,10 @@ class _ProjectListWanAndroidWidgetState
                   flex: 3,
                 ),
                 Expanded(
-                  child: ImageLoadView('${obj.envelopePic}',height:DeviceUtil.width/4*1.5+20.0,),
+                  child: ImageLoadView(
+                    '${obj.envelopePic}',
+                    height: DeviceUtil.width / 4 * 1.5 + 20.0,
+                  ),
                   flex: 1,
                 )
               ],
@@ -129,9 +133,17 @@ class _ProjectListWanAndroidWidgetState
   }
 
   void loadMore() {
-    HomeProjectListWork(_page, widget.cid).start().then((value) {
+    WanAndroidHttpGetWork()
+        .start(
+            url: Api.WAN_PROJECT_LIST +
+                _page.toString() +
+                '/json?cid=' +
+                widget.cid.toString())
+        .then((value) {
       if (value.success) {
-        _listOfProject.addAll(value.result.projectListData.projectDatas);
+        _listOfProject.addAll(ProjectListOfData.fromJson(value.result)
+            .projectListData
+            .projectDatas);
         setState(() {});
       }
     });

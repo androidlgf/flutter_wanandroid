@@ -7,11 +7,9 @@ import 'package:flutter_common/common/custom/shape/arc_circle.dart';
 import 'package:flutter_common/common/custom/shape_of_view.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
 import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
-import 'package:flutter_common/components/ibrand/categories/ibrand_categories_component.dart';
 import 'package:flutter_common/components/wanandroid/member/wanandroid_member_component.dart';
 import 'package:flutter_common/components/wanandroid/project/wanandroid_project_component.dart';
 import 'package:flutter_common/components/wanandroid/search/wanandroid_search_component.dart';
-import 'package:flutter_common/components/wanandroid/system/wanandroid_system_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'home/life_home_component.dart';
 

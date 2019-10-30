@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_common/common/http/http_index.dart';
-import 'life_http_status_plugin.dart';
 
 //网络请求集成类
-class ILifeHttpPostWork<V extends Object> extends SimpleWork<V> {
+class WanAndroidHttpGetWork<V extends Object> extends SimpleWork<V> {
   String subKey;
 
-  ILifeHttpPostWork({Key key, this.subKey});
+  WanAndroidHttpGetWork({Key key, this.subKey});
 
   /// 地址必须为完整地址，没有baseUrl支持，项目代码必须集中拼接和管理所有接口地址，便于维护和查找 必复写
   @override
@@ -18,18 +17,12 @@ class ILifeHttpPostWork<V extends Object> extends SimpleWork<V> {
 
   /// 默认get请求
   @override
-  HttpMethod get httpMethod => HttpMethod.post;
+  HttpMethod get httpMethod => HttpMethod.get;
 
   /// 解析响应数据 必复写
   @override
   V onExtractResult(resultData, SimpleWorkData<V> data) {
     return resultData;
-  }
-
-  ///http网络请求业务状态码标识判断
-  @override
-  HttpExtraPlugin httpExtraPlugin() {
-    return LifeHttpStatusPlugin();
   }
 
   ///适合填充项目中所有接口必须传递的固定参数Body
