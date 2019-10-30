@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dio/dio.dart' as dio;
 import 'package:meta/meta.dart';
 import 'build_url_params.dart';
 import 'communication.dart';
@@ -189,16 +190,14 @@ abstract class Work<D, T extends WorkData<D>> {
       Map<String, dynamic> headers, int retry, OnProgress onProgress) {
     log(tag, "_onCreateOptions");
     final data = Map<String, dynamic>();
-    final preFillParams = onPreFillParams();
-    if (preFillParams != null) {
-      data.addAll(preFillParams);
+    if (onPreFillParams() != null) {
+      data.addAll(onPreFillParams());
     }
     if (params != null) {
       data.addAll(params);
     }
-    final preHeaders = onPreFillHeaders();
-    if (preHeaders != null) {
-      headers.addAll(preHeaders);
+    if (onPreFillHeaders() != null) {
+      headers.addAll(onPreFillHeaders());
     }
     String needUrl;
     if (url != null && url.isNotEmpty) {
@@ -209,12 +208,20 @@ abstract class Work<D, T extends WorkData<D>> {
     if (httpMethod == HttpMethod.get) {
       needUrl = BuildUrlParams.buildUrlWithParams(needUrl, params);
     }
+    final extra = Map<String, dynamic>();
+    if (onExtraOptions() != null) {
+      extra.addAll(onExtraOptions());
+    }
+    final interceptors = onExtraInterceptors();
+
     final options = Options()
       ..retry = retry
       ..onProgress = onProgress
       ..method = httpMethod
       ..headers = headers
       ..params = data
+      ..extra = extra
+      ..iterable = interceptors
       ..url = needUrl;
 
     onConfigOptions(options, params);
@@ -318,6 +325,14 @@ abstract class Work<D, T extends WorkData<D>> {
   /// * 用于创建完全自定义实现的网络请求工具。
   @protected
   Communication onInterceptCreateCommunication() => null;
+
+  /// 自定义字段,您可以稍后检索它(拦截器),(变压器)和(响应)对象。
+  @protected
+  Map<String, dynamic> onExtraOptions() => null;
+
+  /// 自定义字段,您可以稍后检索它(拦截器),(变压器)和(响应)对象。
+  @protected
+  Iterable<dio.Interceptor> onExtraInterceptors() => null;
 
   /// 自定义配置http请求选择项
   ///

@@ -1,9 +1,8 @@
-
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:mime/mime.dart';
 
 import '_dio_request.dart' as http;
@@ -90,6 +89,12 @@ class Options {
 
   /// 请求参数
   Map<String, dynamic> params;
+
+  /// 自定义字段,您可以稍后检索它(拦截器),(变压器)和(响应)对象。
+  Map<String, dynamic> extra;
+
+  ///Http拦截器
+  Iterable<Interceptor> iterable;
 
   /// 连接服务器超时时间，单位毫秒
   int connectTimeout;

@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:io';
 
@@ -20,6 +18,9 @@ Future<com.Response> request(String tag, com.Options options) async {
   bool success = false;
 
   try {
+    if (options.iterable != null && options.iterable.length > 0) {
+      work.dio.interceptors.addAll(options.iterable);
+    }
     switch (options.method) {
       case com.HttpMethod.download:
         log(tag, "download path:${options.downloadPath}");
@@ -151,7 +152,9 @@ dio.Options _onConfigOptions(String tag, com.Options options) {
   if (options.headers != null) {
     dioOptions.headers = options.headers;
   }
-
+  if (options.extra != null) {
+    dioOptions.extra = options.extra;
+  }
   if (options.cancelToken.data is! dio.CancelToken) {
     com.CancelToken cancelToken = options.cancelToken;
 

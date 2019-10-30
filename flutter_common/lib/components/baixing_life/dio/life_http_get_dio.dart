@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart' as dio;
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_common/common/http/http_index.dart';
 import 'life_http_status_plugin.dart';
 
@@ -40,5 +42,14 @@ class ILifeHttpGetWork<V extends Object> extends SimpleWork<V> {
   @override
   void onConfigOptions(Options options, Map<String, dynamic> params) {
     super.onConfigOptions(options, params);
+  }
+  @override
+  Map<String, dynamic> onExtraOptions() {
+    return buildCacheOptions(Duration(days: 30)).extra;
+  }
+
+  @override
+  Iterable<dio.Interceptor> onExtraInterceptors() {
+    return [DioCacheManager(CacheConfig()).interceptor];
   }
 }
