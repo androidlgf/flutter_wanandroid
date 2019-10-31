@@ -448,55 +448,51 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
           delegate:
               SliverChildBuilderDelegate((BuildContext context, int index) {
             return InkWell(
-                onTap: () {
-                  pushNewPage(
-                      context,
-                      LifeGoodsDetailComponent(
-                        goodsId: '${goods[index].goodsId}',
-                      ));
-                },
-                //Hero
-                child: Hero(
-                  tag: '${goods[index].image}',
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        color: Colors.white),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ImageLoadView(
-                          '${goods[index].image}',
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10.0),
-                              topRight: Radius.circular(10.0)),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                                left: Screen.wScreen10,
-                                right: Screen.wScreen10,
-                                top: Screen.hScree10),
-                            child: Text(
-                              '${goods[index].name}',
-                              maxLines: 1,
-                              style: TextStyle(
-                                  color: Color(0xFF515C6F),
-                                  fontSize: Screen.spScreen12),
-                            )),
-                        Padding(
-                            padding: EdgeInsets.only(
-                                left: Screen.wScreen10,
-                                right: Screen.wScreen10),
-                            child: Text(
-                              '￥' + '${goods[index].mallPrice}',
-                              style: TextStyle(
-                                  color: Color(0xFF515C6F),
-                                  fontSize: Screen.spScreen10),
-                            ))
-                      ],
+              onTap: () {
+                pushNewPage(
+                    context,
+                    LifeGoodsDetailComponent(
+                      goodsId: '${goods[index].goodsId}',
+                    ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    color: Colors.white),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ImageLoadView(
+                      '${goods[index].image}',
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0)),
                     ),
-                  ),
-                ));
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: Screen.wScreen10,
+                            right: Screen.wScreen10,
+                            top: Screen.hScree10),
+                        child: Text(
+                          '${goods[index].name}',
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: Color(0xFF515C6F),
+                              fontSize: Screen.spScreen12),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: Screen.wScreen10, right: Screen.wScreen10),
+                        child: Text(
+                          '￥' + '${goods[index].mallPrice}',
+                          style: TextStyle(
+                              color: Color(0xFF515C6F),
+                              fontSize: Screen.spScreen10),
+                        ))
+                  ],
+                ),
+              ),
+            );
           }, childCount: goods?.length),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
