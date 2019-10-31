@@ -52,7 +52,7 @@ class ILifeHttpPostWork<V extends Object> extends SimpleWork<V> {
   @override
   Map<String, dynamic> onExtraOptions() {
     return buildCacheOptions(Duration(days: 30),
-            subKey: subKey != null ? subKey : '')
+            subKey: subKey != null ? subKey : '',forceRefresh: true)
         .extra;
   }
 

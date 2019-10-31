@@ -6,11 +6,14 @@ bool debugWork = true;
 const CONTENT_TYPE_JSON = "application/json";
 const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 
-/// 全局使用的[Dio]请求对象
-Dio dio = Dio(
-  BaseOptions(
-    connectTimeout: 1000,
-    receiveTimeout: 1000,
-    contentType: ContentType.parse(CONTENT_TYPE_FORM),
-  ),
-);
+class BuildDioHttpClient {
+  static Dio buildDioHttpClient() {
+    return Dio(
+      BaseOptions(
+        connectTimeout: 5000,
+        receiveTimeout: 5000,
+        contentType: ContentType.parse(CONTENT_TYPE_FORM),
+      ),
+    );
+  }
+}
