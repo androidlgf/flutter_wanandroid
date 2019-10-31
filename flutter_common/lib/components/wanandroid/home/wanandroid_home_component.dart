@@ -26,8 +26,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   @override
   bool get wantKeepAlive => true;
   int _page = 0;
-  WanAndroidHttpGetWork _bannerWork;
-  WanAndroidHttpGetWork _articleWork;
+  WanAndroidHttpGetWork _httpGetWork;
   HomeBannerData _bannerData;
   List<Datas> _listOfArticleData = [];
 
@@ -41,8 +40,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   @override
   void dispose() {
     super.dispose();
-    _bannerWork?.cancel();
-    _articleWork?.cancel();
+    _httpGetWork?.cancel();
   }
 
   @override
@@ -204,9 +202,9 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     );
   }
 
-  void loadBannerData() {
-    if (_bannerWork == null) _bannerWork = WanAndroidHttpGetWork();
-    _bannerWork.start(url: Api.WAN_BANNER).then((value) {
+  void loadBannerData() async{
+    if (_httpGetWork == null) _httpGetWork = WanAndroidHttpGetWork();
+    _httpGetWork.start(url: Api.WAN_BANNER).then((value) {
       if (value.success) {
         _bannerData = HomeBannerData.fromJson(value.result);
         setState(() {});
@@ -214,9 +212,9 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     });
   }
 
-  void loadMore() {
-    _articleWork = WanAndroidHttpGetWork();
-    _articleWork
+  void loadMore() async{
+    if (_httpGetWork == null) _httpGetWork = WanAndroidHttpGetWork();
+    _httpGetWork
         .start(url: Api.WAN_ARTICLE + _page.toString() + '/json')
         .then((value) {
       if (value.success) {

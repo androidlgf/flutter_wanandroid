@@ -93,7 +93,7 @@ class _ProjectWanAndroidComponentState extends State<ProjectWanAndroidComponent>
     );
   }
 
-  void loadProjectTabData() {
+  void loadProjectTabData() async{
     if (_projectTabWork == null) _projectTabWork = new WanAndroidHttpGetWork();
     _projectTabWork.start(url: Api.WAN_PROJECT).then((value) {
       if (value.success) {

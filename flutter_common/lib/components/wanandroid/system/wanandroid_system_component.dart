@@ -113,7 +113,7 @@ class _SystemWanAndroidComponentState extends State<SystemWanAndroidComponent> {
     );
   }
 
-  void getSystemData() {
+  void getSystemData() async{
     if (_systemWork == null) _systemWork = WanAndroidHttpGetWork();
     _systemWork.start(url: Api.WAN_SYSTEM).then((value) {
       if (value.success) {

@@ -1,4 +1,6 @@
-import 'package:dio/dio.dart';
+import 'dart:io';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_common/common/http/http_index.dart';
@@ -42,12 +44,12 @@ class WanAndroidHttpGetWork<V extends Object> extends SimpleWork<V> {
   /// *[MaxStale]设置过期时常；在maxAge过期，而请求网络失败的时候，如果maxStale没有过期，则会使用这个缓存数据。
   /// * [subKey]dio-http-cache 默认使用 url 作为缓存 key ,但当 url 不够用的时候，比如 post 请求分页数据的时候，就需要配合subKey使用，
   /// * [forceRefresh]dio-http-cache 是否刷新缓存
-  @override
-  Map<String, dynamic> onExtraOptions() {
-    return buildCacheOptions(Duration(days: 30),
-            subKey: subKey != null ? subKey : '')
-        .extra;
-  }
+//  @override
+//  Map<String, dynamic> onExtraOptions() {
+//    return buildCacheOptions(Duration(days: 30),
+//            subKey: subKey != null ? subKey : '')
+//        .extra;
+//  }
 
   ///http_cache 拦截器
   /// * [encrypt / dectrypt]这2个必须组合使用，实现磁盘缓存数据的加密，如果没有设置加密，默认会用 base64 重新编码再存到数据库.
@@ -57,8 +59,8 @@ class WanAndroidHttpGetWork<V extends Object> extends SimpleWork<V> {
   /// * [SkipMemoryCache]默认 false；
   /// *[SkipDiskCache] 默认 false;
   /// * [MaxMemoryCacheCount]最大的内存缓存数量，默认100；
-  @override
-  Iterable<Interceptor> onExtraInterceptors() {
-    return [DioCacheManager(CacheConfig()).interceptor];
-  }
+//  @override
+//  Iterable<dio.Interceptor> onExtraInterceptors() {
+//    return [DioCacheManager(CacheConfig()).interceptor];
+//  }
 }

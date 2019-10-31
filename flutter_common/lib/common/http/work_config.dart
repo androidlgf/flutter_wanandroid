@@ -9,8 +9,8 @@ const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 /// 全局使用的[Dio]请求对象
 Dio dio = Dio(
   BaseOptions(
-    connectTimeout: 30000,
-    receiveTimeout: 30000,
+    connectTimeout: 1000,
+    receiveTimeout: 1000,
     contentType: ContentType.parse(CONTENT_TYPE_FORM),
   ),
 );
