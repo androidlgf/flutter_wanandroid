@@ -34,7 +34,7 @@ dependencies:
   connectivity: ^0.4.2 #https://pub.dartlang.org/packages/connectivity
   pull_to_refresh: ^1.1.6 #https://pub.dartlang.org/packages/pull_to_refresh
   dio: ^2.0.4 # https://github.com/flutterchina/dio
-  rxdart: ^0.21.0  #rxdart https://github.com/ReactiveX/rxdart
+  rxdart: ^0.22.0  #rxdart https://github.com/ReactiveX/rxdart
   common_utils: ^1.1.1 # Dart 常用工具类库 https://github.com/Sky24n/common_utils
   # https://caijinglong.github.io/json2dart/index_ch.html
   # flutter packages pub run build_runner build
@@ -75,14 +75,15 @@ dependencies:
   # 调整屏幕和字体大小
   flutter_screenutil: ^0.6.0
   flutter_html: ^0.11.0
-  flare_flutter: ^1.6.2
+  flare_flutter: ^1.6.4
   amap_base_location: ^0.4.0+2
   scroll_to_index: ^1.0.2
   flutter_staggered_grid_view: ^0.3.0
   cached_network_image: ^1.1.2+1
   dio_http_cache: ^0.1.4
   flutter_orm_plugin: ^1.0.1
-  english_words: ^3.1.0
+  flutter_bloc: ^2.0.0
+  equatable: ^0.6.1
 
 dev_dependencies:
   build_runner: ^1.0.0
