@@ -15,7 +15,11 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
       this.builder,
       this.waitingWidget,
       this.failureWidget,
-      this.emptyWidget})
+      this.emptyWidget,
+      this.onReload,
+      this.reloadText,
+      this.errorTip,
+      this.emptyTip})
       : assert(builder != null),
         super(key: key);
 
@@ -31,6 +35,18 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
   //空布局/
   final Widget emptyWidget;
 
+  //错误 重试函数
+  final Function onReload;
+
+  //错误 重试按钮文本
+  final String reloadText;
+
+  //错误 重试提示语
+  final String errorTip;
+
+  //空布局 提示语
+  final String emptyTip;
+
   @override
   Widget build(BuildContext context) {
     return _buildBodyWidget();
@@ -44,7 +60,6 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
           Scaffold.of(context).showSnackBar(
             SnackBar(
               content: Text('${state.error}'),
-              backgroundColor: Colors.red,
             ),
           );
           return;
@@ -71,9 +86,15 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
         if (state is BlocLoading) {
           currentWidget = this.waitingWidget ?? _ClassicalLoadingView();
         } else if (state is BlocFailure) {
-          currentWidget = this.failureWidget ?? _ClassicalErrorView();
+          currentWidget = this.failureWidget ??
+              _ClassicalErrorView(
+                onReload: this.onReload,
+                reloadText: this.reloadText,
+                errorTip: this.errorTip,
+              );
         } else if (state is BlocEmpty) {
-          currentWidget = this.emptyWidget ?? _ClassicalNoDataView();
+          currentWidget =
+              this.emptyWidget ?? _ClassicalNoDataView(emptyTip: this.emptyTip);
         } else if (state is BlocSuccess) {
           currentWidget = this.builder.build(context, state);
         } else {
