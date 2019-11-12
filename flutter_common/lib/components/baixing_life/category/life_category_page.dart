@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_common/components/baixing_life/category/life_category_bloc.dart';
+import 'package:flutter_common/common/blocs/bloc_common.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 
 import 'life_category_body.dart';
@@ -18,7 +18,7 @@ class CategoryBxLifePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       builder: (BuildContext context) {
-        return CategoryBloc(httpPostWork: ILifeHttpPostWork());
+        return BlocCommon(httpWork: ILifeHttpPostWork(),);
       },
       child: CategoryBxLifeWidget(),
     );

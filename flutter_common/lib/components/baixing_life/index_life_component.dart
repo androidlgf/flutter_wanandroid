@@ -11,6 +11,7 @@ import 'package:flutter_common/components/wanandroid/member/wanandroid_member_co
 import 'package:flutter_common/components/wanandroid/project/wanandroid_project_component.dart';
 import 'package:flutter_common/components/wanandroid/search/wanandroid_search_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'category/life_category_page.dart';
 import 'home/life_home_component.dart';
 
 class IndexBxLifeComponent extends StatefulWidget {
@@ -37,7 +38,9 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
       ..add(CategoryBxLifeComponent(
         index: '${0}',
       ))
-      ..add(ProjectWanAndroidComponent())
+      ..add(CategoryBxLifePage(
+        index: '${0}',
+      ))
       ..add(MemberWanAndroidComponent());
   }
 

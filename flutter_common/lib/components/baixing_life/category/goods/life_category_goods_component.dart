@@ -1,7 +1,4 @@
-import 'dart:convert';
 import 'dart:math';
-
-import 'package:amap_base_location/amap_base_location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,14 +6,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/data/life_goods_category_data.dart';
-import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_component.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 //百姓生活 分类商品展示
 class CategoryGoodsBxLifeComponent extends StatefulWidget {

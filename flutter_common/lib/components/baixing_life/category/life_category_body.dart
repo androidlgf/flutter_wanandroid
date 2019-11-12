@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_common/api/api.dart';
+import 'package:flutter_common/common/blocs/bloc_common.dart';
+import 'package:flutter_common/common/blocs/bloc_index.dart';
+import 'package:flutter_common/common/blocs/bloc_state.dart';
 import 'package:flutter_common/common/common_index.dart';
-import 'package:flutter_common/components/baixing_life/category/life_category_bloc.dart';
-import 'package:flutter_common/components/baixing_life/category/life_category_state.dart';
 import 'package:flutter_common/components/baixing_life/category/data/life_goods_category_data.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/life_category_goods_component.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-
-import 'life_category_event.dart';
 
 //百姓生活 分类页面
 class CategoryBxLifeWidget extends StatefulWidget {
@@ -32,7 +32,8 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
   void initState() {
     super.initState();
     controller = AutoScrollController();
-    BlocProvider.of<CategoryBloc>(context).add(CategoryLoadingEvent());
+    BlocProvider.of<BlocCommon>(context)
+        .add(BlocHttpEvent(url: Api.LIFE_GOODS_CATEGORY));
   }
 
   @override
@@ -43,9 +44,9 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CategoryBloc, CategoryState>(
+    return BlocListener<BlocCommon, BlocState>(
       listener: (context, state) {
-        if (state is CategoryFailure) {
+        if (state is BlocFailure) {
           Scaffold.of(context).showSnackBar(
             SnackBar(
               content: Text('${state.error}'),
@@ -54,9 +55,8 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
           );
         }
       },
-      child:
-          BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
-        if (state is CategoryLoading) {
+      child: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
+        if (state is BlocLoading) {
           return Column(
             children: <Widget>[
               Expanded(
@@ -66,17 +66,17 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
             ],
           );
         }
-        if (state is CategorySuccess) {
+        if (state is BlocSuccess) {
           return Container(
             color: Color(0xFFF5F6F8),
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: _leftListWidget(state.categoryData?.categoryData),
+                  child: _leftListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
                   flex: 3,
                 ),
                 Expanded(
-                  child: _rightListWidget(state.categoryData?.categoryData),
+                  child: _rightListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
                   flex: 7,
                 )
               ],
