@@ -34,3 +34,23 @@ class BlocHttpEvent extends BlocEvent {
   @override
   List<Object> get props => [url, params, headers];
 }
+
+// ignore: must_be_immutable
+class BlocShowMessageEvent extends BlocEvent {
+  String message;
+
+  BlocShowMessageEvent({@required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+// ignore: must_be_immutable
+class BlocShowSnackBarEvent extends BlocEvent {
+  String message;
+
+  BlocShowSnackBarEvent({@required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

@@ -21,9 +21,17 @@ class BlocCommon<V extends BlocEvent, T extends BlocState> extends BlocBase {
       if (response.success) {
         yield BlocSuccess(response: response?.result);
       } else {
-        yield BlocFailure(error: response?.message);
+        yield BlocFailure(error: '${response?.message}');
       }
+      return;
     }
-//    yield BlocLoading();
+    if (event is BlocShowMessageEvent) {
+      yield BlocShowMessage(message: '${event.message}');
+      return;
+    }
+    if (event is BlocShowSnackBarEvent) {
+      yield BlocShowSnackBar(message: '${event.message}');
+      return;
+    }
   }
 }

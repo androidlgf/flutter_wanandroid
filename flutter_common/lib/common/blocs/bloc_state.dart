@@ -8,21 +8,45 @@ abstract class BlocState extends Equatable {
   List<Object> get props => [];
 }
 
+///初始化事件状态
 class BlocInitial extends BlocState {}
 
+///网络加载事件状态
 class BlocLoading extends BlocState {}
 
-class BlocFailure extends BlocState {
-  final String error;
+///空布局事件状态
+class BlocEmpty extends BlocState {}
 
-  const BlocFailure({@required this.error});
+///展示Toast事件状态
+/// * [message]显示内容
+class BlocShowMessage extends BlocState {
+  final String message;
+
+  const BlocShowMessage({@required this.message});
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [message];
 
   @override
-  String toString() => 'BlocFailure { error: $error }';
+  String toString() => 'BlocShowMessage { error: $message }';
 }
+
+///展示Snackbar事件状态
+/// * [message]显示内容；
+class BlocShowSnackBar extends BlocState {
+  final String message;
+
+  const BlocShowSnackBar({@required this.message});
+
+  @override
+  List<Object> get props => [message];
+
+  @override
+  String toString() => 'BlocShowSnackBar { error: $message }';
+}
+
+///网络请求成功事件状态
+/// * [response]请求返回数据；
 class BlocSuccess<T> extends BlocState {
   final T response;
 
@@ -33,4 +57,18 @@ class BlocSuccess<T> extends BlocState {
 
   @override
   String toString() => 'BlocSuccess { error: $response }';
+}
+
+///失败错误信息事件状态
+/// * [error]错误信息；
+class BlocFailure extends BlocState {
+  final String error;
+
+  const BlocFailure({@required this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => 'BlocFailure { error: $error }';
 }

@@ -12,6 +12,8 @@ import 'package:flutter_common/components/baixing_life/category/data/life_goods_
 import 'package:flutter_common/components/baixing_life/category/goods/life_category_goods_component.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
+import 'goods/life_category_goods_page.dart';
+
 //百姓生活 分类页面
 class CategoryBxLifeWidget extends StatefulWidget {
   CategoryBxLifeWidget();
@@ -176,7 +178,7 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
           return InkWell(
             onTap: () => pushNewPage(
                 context,
-                CategoryGoodsBxLifeComponent(
+                CategoryGoodsBxLifePage(
                   categoryId: '${listOfSubDto[index].mallCategoryId}',
                   categorySubId: '${listOfSubDto[index].mallSubId}',
                 )),
