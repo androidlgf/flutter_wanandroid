@@ -7,7 +7,7 @@ import 'package:flutter_common/common/ui/image_load_view.dart';
 import 'package:flutter_common/common/utils/device_util.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
 import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
-import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_component.dart';
+import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_page.dart';
 import 'package:flutter_common/components/baixing_life/home/life_home_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -28,8 +28,6 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  final int TYPE_LEFT_FLOORF = 0;
-  final int TYPE_RIGHT_FLOORF = 1;
   int page = 1;
 
 // 是否开启刷新
@@ -93,15 +91,15 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
                 _buildSliverToBoxAdapterFloor(
                     _lifeHomeData?.homeData?.floor1Pic,
                     _lifeHomeData?.homeData?.floor1,
-                    TYPE_LEFT_FLOORF),
+                    FloorType.Left),
                 _buildSliverToBoxAdapterFloor(
                     _lifeHomeData?.homeData?.floor2Pic,
                     _lifeHomeData?.homeData?.floor2,
-                    TYPE_RIGHT_FLOORF),
+                    FloorType.Right),
                 _buildSliverToBoxAdapterFloor(
                     _lifeHomeData?.homeData?.floor3Pic,
                     _lifeHomeData?.homeData?.floor3,
-                    TYPE_LEFT_FLOORF),
+                    FloorType.Left),
                 _buildHotGoodsWidget(liftOfGoods)
               ],
             );
@@ -124,7 +122,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
               child: Swiper(
                 onTap: (int index) => pushNewPage(
                     context,
-                    LifeGoodsDetailComponent(
+                    LifeGoodsDetailPage(
                       goodsId: '${slides[index].goodsId}',
                     )),
                 autoplay: true,
@@ -212,19 +210,19 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
   }
 
   Widget _buildSliverToBoxAdapterFloor(
-      dynamic floorPic, List<dynamic> floor, int type) {
+      dynamic floorPic, List<dynamic> floor, FloorType type) {
     double imageWidth = DeviceUtil.width - Screen.wScreen20;
     double floorPicHeight = imageWidth * 0.25;
     double floorItemHeight = imageWidth * 0.5 * 0.519;
     List<Widget> leftItemWidgets = [];
     List<Widget> rightItemWidgets = [];
-    if (type == TYPE_LEFT_FLOORF) {
+    if (type == FloorType.Left) {
       leftItemWidgets
         ..add(InkWell(
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[0].goodsId}',
                 ));
           },
@@ -237,7 +235,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[1].goodsId}',
                 ));
           },
@@ -251,7 +249,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[2].goodsId}',
                 ));
           },
@@ -264,7 +262,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[3].goodsId}',
                 ));
           },
@@ -277,7 +275,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[4].goodsId}',
                 ));
           },
@@ -292,7 +290,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[0].goodsId}',
                 ));
           },
@@ -305,7 +303,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[1].goodsId}',
                 ));
           },
@@ -319,7 +317,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[2].goodsId}',
                 ));
           },
@@ -332,7 +330,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[3].goodsId}',
                 ));
           },
@@ -345,7 +343,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
           onTap: () {
             pushNewPage(
                 context,
-                LifeGoodsDetailComponent(
+                LifeGoodsDetailPage(
                   goodsId: '${floor[4].goodsId}',
                 ));
           },
@@ -357,7 +355,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
     }
     return SliverToBoxAdapter(
         child: SizedBox(
-      height: type == TYPE_RIGHT_FLOORF
+      height: type == FloorType.Right
           ? floorItemHeight * 3 + floorPicHeight + Screen.wScreen30
           : floorItemHeight * 3 + floorPicHeight + Screen.wScreen10,
       child: Card(
@@ -365,7 +363,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
         elevation: 0.0,
         margin: EdgeInsets.symmetric(
             horizontal: Screen.wScreen10,
-            vertical: type == TYPE_RIGHT_FLOORF ? Screen.wScreen10 : 0),
+            vertical: type == FloorType.Right ? Screen.wScreen10 : 0),
         child: Column(
           children: <Widget>[
             ImageLoadView(
@@ -445,7 +443,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
               onTap: () {
                 pushNewPage(
                     context,
-                    LifeGoodsDetailComponent(
+                    LifeGoodsDetailPage(
                       goodsId: '${goods[index].goodsId}',
                     ));
               },
@@ -496,3 +494,5 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
         ));
   }
 }
+
+enum FloorType { Left, Right }

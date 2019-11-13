@@ -7,7 +7,7 @@ import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/data/life_goods_category_data.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
-import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_component.dart';
+import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_page.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
@@ -100,7 +100,7 @@ class _CategoryGoodsBxLifeComponentState
         onTap: () {
           pushNewPage(
               context,
-              LifeGoodsDetailComponent(
+              LifeGoodsDetailPage(
                 goodsId: '${goods.goodsId}',
               ));
         },

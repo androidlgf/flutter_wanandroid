@@ -12,7 +12,7 @@ import 'package:flutter_common/common/blocs/bloc_widget.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/data/life_goods_category_data.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
-import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_component.dart';
+import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_page.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 //百姓生活 分类商品展示
@@ -99,7 +99,7 @@ class _CategoryGoodsBxLifeWidgetState extends State<CategoryGoodsBxLifeWidget> {
         onTap: () {
           pushNewPage(
               context,
-              LifeGoodsDetailComponent(
+              LifeGoodsDetailPage(
                 goodsId: '${goods.goodsId}',
               ));
         },

@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_common/api/api.dart';
+import 'package:flutter_common/common/blocs/bloc_common.dart';
+import 'package:flutter_common/common/blocs/bloc_event.dart';
+import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/utils/loading_util.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_brand_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_card_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_service_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
+import 'package:flutter_common/components/baixing_life/home/life_home_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'data/life_goods_detail_data.dart';
 
 //百姓生活 商品详情
-class LifeGoodsDetailComponent extends StatefulWidget {
+class LifeGoodsDetailWidget extends StatefulWidget {
   final String goodsId;
 
-  LifeGoodsDetailComponent({Key key, this.goodsId})
+  LifeGoodsDetailWidget({Key key, this.goodsId})
       : assert(goodsId != null),
         super(key: key);
 
@@ -24,8 +29,8 @@ class LifeGoodsDetailComponent extends StatefulWidget {
       _LifeGoodsDetailIBrandComponentState();
 }
 
-class _LifeGoodsDetailIBrandComponentState
-    extends State<LifeGoodsDetailComponent> with TickerProviderStateMixin {
+class _LifeGoodsDetailIBrandComponentState extends State<LifeGoodsDetailWidget>
+    with TickerProviderStateMixin {
   bool get wantKeepAlive => true;
 
   LifeGoodsDetailData _lifeGoodsDetailData;
@@ -52,9 +57,7 @@ class _LifeGoodsDetailIBrandComponentState
     tabController = TabController(length: titleTabs.length, vsync: this)
       ..addListener(() {
         // 监听滑动/点选位置
-        if (tabController.index.toDouble() == tabController.animation.value) {
-//          setState(() => currentIndex = controller.index);
-        }
+        if (tabController.index.toDouble() == tabController.animation.value) {}
       });
     scrollController.addListener(() {
       var offset = scrollController.offset;
@@ -73,7 +76,8 @@ class _LifeGoodsDetailIBrandComponentState
         setState(() => navAlpha = 1);
       }
     });
-    getGoodsDetailData();
+    BlocProvider.of<BlocCommon>(context).add(BlocHttpEvent(
+        url: Api.LIFE_GOODS_DETAIL, params: {'goodId': '${widget.goodsId}'}));
   }
 
   @override
@@ -84,26 +88,44 @@ class _LifeGoodsDetailIBrandComponentState
           title: Text(_lifeGoodsDetailData == null
               ? ''
               : '${_lifeGoodsDetailData.goodsDetailData?.goodInfo?.goodsName}')),
-      body: _buildBodyWidget(),
-    );
-  }
-
-  Widget _buildBodyWidget() {
-    if (_lifeGoodsDetailData == null) {
-      return Container(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: getLoadingWidget(),
-              flex: 1,
-            )
-          ],
-        ),
-      );
-    }
-    return Column(
-//      alignment: Alignment.bottomLeft,
-      children: <Widget>[_buildContentWidget(), _buildBottomTabWidget()],
+      body: BlocWidget<BlocCommon>(
+        builder: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
+          if (state is BlocSuccess) {
+            _lifeGoodsDetailData =
+                LifeGoodsDetailData.fromJson(state?.response);
+            GoodsDetailData goodsDetailData =
+                _lifeGoodsDetailData.goodsDetailData;
+            GoodInfo goodInfo = goodsDetailData.goodInfo;
+            String image1 = goodInfo.image1;
+            if (image1 != null && image1.isNotEmpty) {
+              listOfBanners.add(image1);
+            }
+            String image2 = goodInfo.image2;
+            if (image2 != null && image2.isNotEmpty) {
+              listOfBanners.add(image2);
+            }
+            String image3 = goodInfo.image3;
+            if (image3 != null && image3.isNotEmpty) {
+              listOfBanners.add(image3);
+            }
+            String image4 = goodInfo.image4;
+            if (image4 != null && image4.isNotEmpty) {
+              listOfBanners.add(image4);
+            }
+            String image5 = goodInfo.image5;
+            if (image5 != null && image5.isNotEmpty) {
+              listOfBanners.add(image5);
+            }
+            return Column(
+              children: <Widget>[
+                _buildContentWidget(),
+                _buildBottomTabWidget()
+              ],
+            );
+          }
+          return Container();
+        }),
+      ),
     );
   }
 
@@ -124,34 +146,6 @@ class _LifeGoodsDetailIBrandComponentState
   }
 
   Widget _buildTabBar() {
-//    return SliverPersistentHeader(
-//      pinned: true,
-//      delegate: StickyTabBarDelegate(
-//        opacity: navAlpha,
-//        child: TabBar(
-//            tabs: titleTabs,
-//            labelColor: Colors.pinkAccent,
-//            unselectedLabelColor: Colors.grey,
-//            controller: this.tabController,
-//            isScrollable: false,
-//            indicatorColor: Colors.pinkAccent),
-//      ),
-//    );
-//
-//    return SliverPersistentHeader(
-//      floating: false,
-//      pinned: true,
-//      delegate: _SliverAppBarDelegate(
-//        minHeight: 300,
-//        maxHeight: 300,
-//        child: Transform.scale(
-//          scale: navAlpha,
-//          child: Image.network('https://picsum.photos/id/1025/990/660',
-//              fit: BoxFit.cover),
-//        ),
-//      ),
-//    );
-
     return Container(
         color: Color.fromARGB((navAlpha * 255).toInt(), 255, 255, 255),
         child: Opacity(
@@ -171,12 +165,6 @@ class _LifeGoodsDetailIBrandComponentState
       child: AspectRatio(
         aspectRatio: 1,
         child: Swiper(
-//          onTap: (int index) => pushNewPage(
-//              context,
-//              WebViewPage(
-//                url: '${objs[index].url}',
-//                title: '${objs[index].title}',
-//              )),
           autoplay: true,
           itemCount: banners?.length,
           pagination: SwiperPagination(
@@ -187,12 +175,6 @@ class _LifeGoodsDetailIBrandComponentState
               banners[index],
               fit: BoxFit.fill,
             );
-//            return Hero(
-//                tag: '${carousels[index].image}',
-//                child: ImageLoadView(
-//                  '${carousels[index].image}',
-//                  fit: BoxFit.fill,
-//                ));
           },
         ),
       ),
@@ -203,31 +185,12 @@ class _LifeGoodsDetailIBrandComponentState
     return SliverList(
         delegate: SliverChildListDelegate([
       _buildGoodsDetailWidget(),
-//      Center(child: Text('Content of 评价')),
-//      Center(child: Text('Content of 详情')),
-//      Center(child: Text('Content of 推荐')),
     ]));
-    return SliverFillRemaining(
-      child: TabBarView(children: [
-//        SingleChildScrollView(
-////          physics: NeverScrollableScrollPhysics(),
-//          child: _buildGoodsDetailWidget(),
-//        ),
-        _buildGoodsDetailWidget(),
-        Center(child: Text('Content of 评价')),
-        Center(child: Text('Content of 详情')),
-        Center(child: Text('Content of 推荐')),
-      ], controller: this.tabController),
-    );
-//    List<Widget> children = [];
-//    children..add(Container(height:1000,child: Text('Content of 评价'),))..add(Text('Content of 评价'))..add(Text('Content of 评价'))..add(Text('Content of 评价'));
-//    return SliverList(delegate: SliverChildListDelegate(children));
   }
 
   Widget _buildGoodsDetailWidget() {
     return Container(
       color: Colors.white,
-//      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -560,39 +523,6 @@ class _LifeGoodsDetailIBrandComponentState
         ],
       ),
     );
-  }
-
-  void getGoodsDetailData() {
-    ILifeHttpPostWork().start(
-        url: Api.LIFE_GOODS_DETAIL,
-        params: {'goodId': '${widget.goodsId}'}).then((goodsDetail) {
-      if (goodsDetail.success) {
-        _lifeGoodsDetailData = LifeGoodsDetailData.fromJson(goodsDetail.result);
-        GoodsDetailData goodsDetailData = _lifeGoodsDetailData.goodsDetailData;
-        GoodInfo goodInfo = goodsDetailData.goodInfo;
-        String image1 = goodInfo.image1;
-        if (image1 != null && image1.isNotEmpty) {
-          listOfBanners.add(image1);
-        }
-        String image2 = goodInfo.image2;
-        if (image2 != null && image2.isNotEmpty) {
-          listOfBanners.add(image2);
-        }
-        String image3 = goodInfo.image3;
-        if (image3 != null && image3.isNotEmpty) {
-          listOfBanners.add(image3);
-        }
-        String image4 = goodInfo.image4;
-        if (image4 != null && image4.isNotEmpty) {
-          listOfBanners.add(image4);
-        }
-        String image5 = goodInfo.image5;
-        if (image5 != null && image5.isNotEmpty) {
-          listOfBanners.add(image5);
-        }
-        setState(() {});
-      }
-    });
   }
 
   //服务Dialog展示
