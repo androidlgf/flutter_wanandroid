@@ -28,7 +28,7 @@ class BlocShowMessage extends BlocState {
   List<Object> get props => [message];
 
   @override
-  String toString() => 'BlocShowMessage { error: $message }';
+  String toString() => 'BlocShowMessage { showMessage: $message }';
 }
 
 ///展示Snackbar事件状态
@@ -42,21 +42,22 @@ class BlocShowSnackBar extends BlocState {
   List<Object> get props => [message];
 
   @override
-  String toString() => 'BlocShowSnackBar { error: $message }';
+  String toString() => 'BlocShowSnackBar { showMessage: $message }';
 }
 
 ///网络请求成功事件状态
 /// * [response]请求返回数据；
 class BlocSuccess<T> extends BlocState {
   final T response;
+  final String url;
 
-  const BlocSuccess({@required this.response});
+  const BlocSuccess({@required this.url, @required this.response});
 
   @override
   List<Object> get props => [response];
 
   @override
-  String toString() => 'BlocSuccess { error: $response }';
+  String toString() => 'BlocSuccess { response: $response }';
 }
 
 ///失败错误信息事件状态

@@ -8,11 +8,10 @@ import 'package:flutter_common/common/custom/shape_of_view.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
 import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
 import 'package:flutter_common/components/wanandroid/member/wanandroid_member_component.dart';
-import 'package:flutter_common/components/wanandroid/project/wanandroid_project_component.dart';
 import 'package:flutter_common/components/wanandroid/search/wanandroid_search_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'category/life_category_page.dart';
-import 'home/life_home_component.dart';
+import 'home/life_home_page.dart';
 
 class IndexBxLifeComponent extends StatefulWidget {
   IndexBxLifeComponent({Key key}) : super(key: key) {}
@@ -34,7 +33,7 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
   void initState() {
     super.initState();
     listOfWidgetObjects
-      ..add(HomeBxLifeComponent())
+      ..add(HomeBxLifePage())
       ..add(CategoryBxLifeComponent(
         index: '${0}',
       ))

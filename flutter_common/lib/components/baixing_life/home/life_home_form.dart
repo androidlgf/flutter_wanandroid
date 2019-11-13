@@ -1,13 +1,14 @@
-import 'package:amap_base_location/amap_base_location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_common/api/api.dart';
-import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/common/blocs/bloc_index.dart';
+import 'package:flutter_common/common/res/styles.dart';
+import 'package:flutter_common/common/ui/image_load_view.dart';
+import 'package:flutter_common/common/utils/device_util.dart';
+import 'package:flutter_common/common/utils/route_util.dart';
 import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
-import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_component.dart';
+import 'package:flutter_common/components/baixing_life/home/life_home_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
@@ -15,101 +16,100 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'data/life_home_data.dart';
 import 'data/life_home_hot_data.dart';
+import 'life_home_bloc_event.dart';
 
 //百姓生活 首页
-class HomeBxLifeComponent extends StatefulWidget {
+class HomeBxLifeWidget extends StatefulWidget {
   @override
-  _HomeBxLifeComponentState createState() => _HomeBxLifeComponentState();
+  State createState() => _HomeBxLifeWidgetState();
 }
 
-class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
+class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   final int TYPE_LEFT_FLOORF = 0;
   final int TYPE_RIGHT_FLOORF = 1;
-  int _page = 0;
+  int page = 1;
+
+// 是否开启刷新
+  bool _enableRefresh = true;
 
   // 是否开启加载
   bool _enableLoad = true;
-
-  // 控制结束
-  bool _enableControlFinish = false;
-  EasyRefreshController _controller = EasyRefreshController();
-
-  LifeHomeData _lifeHomeData;
   List<LifeGood> liftOfGoods = [];
-
-  final _aMapLocation = AMapLocation();
-  Location location;
+  LifeHomeData _lifeHomeData;
+  EasyRefreshController _controller = EasyRefreshController();
 
   @override
   void initState() {
     super.initState();
-    _aMapLocation.init();
-    _location();
-    _homeHotGoods(_page);
+    BlocProvider.of<LifeHomeBloc>(context).add(LocationEvent());
+    BlocProvider.of<LifeHomeBloc>(context)
+        .add(BlocHttpEvent(url: Api.LIFE_HOME_HOT, params: {'page': page}));
   }
 
   @override
   void dispose() {
     super.dispose();
+    _controller?.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildBodyWidget();
-  }
-
-  Widget _buildBodyWidget() {
-    if (_lifeHomeData == null) {
-      return Column(
-        children: <Widget>[
-          Expanded(
-            child: getLoadingWidget(),
-            flex: 1,
-          )
-        ],
-      );
-    }
     return Container(
-        color: Color(0xFFFAFAFA),
-        child: EasyRefresh.custom(
-          slivers: <Widget>[
-            _buildBannerWidget(_lifeHomeData?.homeData?.slides),
-            _buildCategoriesWidget(_lifeHomeData?.homeData?.category),
-            _buildSliverToBoxAdapterAds(
-                _lifeHomeData?.homeData?.advertesPicture,
-                _lifeHomeData?.homeData?.shopInfo,
-                _lifeHomeData?.homeData?.saoma,
-                _lifeHomeData?.homeData?.integralMallPic,
-                _lifeHomeData?.homeData?.newUser),
-            _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor1Pic,
-                _lifeHomeData?.homeData?.floor1, TYPE_LEFT_FLOORF),
-            _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor2Pic,
-                _lifeHomeData?.homeData?.floor2, TYPE_RIGHT_FLOORF),
-            _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor3Pic,
-                _lifeHomeData?.homeData?.floor3, TYPE_LEFT_FLOORF),
-            _buildHotGoodsWidget(liftOfGoods)
-          ],
-          header: MaterialHeader(),
-          footer: MaterialFooter(),
-          controller: _controller,
-          onRefresh: () async {
-            _controller.callRefresh();
-          },
-          onLoad: _enableLoad
-              ? () async {
-                  await Future.delayed(Duration(milliseconds: 500), () {
-                    if (!_enableControlFinish) {
-                      _controller.resetLoadState();
-                      _controller.finishRefresh();
-                      _homeHotGoods(_page);
+      color: Color(0xFFFAFAFA),
+      child: BlocWidget<LifeHomeBloc>(
+        builder:
+            BlocBuilder<LifeHomeBloc, BlocState>(builder: (context, state) {
+          if (state is BlocSuccess) {
+            if (state.url == null) {
+              _lifeHomeData = LifeHomeData.fromJson(state?.response);
+            } else {
+              liftOfGoods
+                  .addAll(LifeHomeHotData.fromJson(state?.response)?.lifeGood);
+              page += 1;
+            }
+            return EasyRefresh.custom(
+              controller: _controller,
+              header: MaterialHeader(),
+              footer: MaterialFooter(),
+              onRefresh: _enableRefresh ? () async {} : null,
+              onLoad: _enableLoad
+                  ? () async {
+                      BlocProvider.of<LifeHomeBloc>(context).add(BlocHttpEvent(
+                          url: Api.LIFE_HOME_HOT, params: {'page': page}));
                     }
-                  });
-                }
-              : null,
-        ));
+                  : null,
+              slivers: <Widget>[
+                _buildBannerWidget(_lifeHomeData?.homeData?.slides),
+                _buildCategoriesWidget(_lifeHomeData?.homeData?.category),
+                _buildSliverToBoxAdapterAds(
+                    _lifeHomeData?.homeData?.advertesPicture,
+                    _lifeHomeData?.homeData?.shopInfo,
+                    _lifeHomeData?.homeData?.saoma,
+                    _lifeHomeData?.homeData?.integralMallPic,
+                    _lifeHomeData?.homeData?.newUser),
+                _buildSliverToBoxAdapterFloor(
+                    _lifeHomeData?.homeData?.floor1Pic,
+                    _lifeHomeData?.homeData?.floor1,
+                    TYPE_LEFT_FLOORF),
+                _buildSliverToBoxAdapterFloor(
+                    _lifeHomeData?.homeData?.floor2Pic,
+                    _lifeHomeData?.homeData?.floor2,
+                    TYPE_RIGHT_FLOORF),
+                _buildSliverToBoxAdapterFloor(
+                    _lifeHomeData?.homeData?.floor3Pic,
+                    _lifeHomeData?.homeData?.floor3,
+                    TYPE_LEFT_FLOORF),
+                _buildHotGoodsWidget(liftOfGoods)
+              ],
+            );
+          }
+          return Container();
+        }),
+      ),
+    );
   }
 
   Widget _buildBannerWidget(List<Slides> slides) {
@@ -135,12 +135,6 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     fit: BoxFit.fill,
                   );
-//            return Hero(
-//                tag: '${carousels[index].image}',
-//                child: ImageLoadView(
-//                  '${carousels[index].image}',
-//                  fit: BoxFit.fill,
-//                ));
                 },
                 pagination: new SwiperPagination(
                     margin: new EdgeInsets.all(Screen.wScreen10)),
@@ -500,40 +494,5 @@ class _HomeBxLifeComponentState extends State<HomeBxLifeComponent>
               crossAxisSpacing: Screen.wScreen10,
               mainAxisSpacing: Screen.hScree10),
         ));
-  }
-
-  Future<void> _location() async {
-    final options = LocationClientOptions(
-      isOnceLocation: true,
-      locatingWithReGeocode: true,
-    );
-
-    if (await Permissions.requestMapPermission()) {
-      _aMapLocation.getLocation(options).then((value) {
-        location = value;
-        ILifeHttpPostWork().start(url: Api.LIFE_HOME, params: {
-          'lon': location?.longitude == 0.0 ? '115.02932' : location?.longitude,
-          'lat': location?.latitude == 0.0 ? '35.76189' : location?.latitude
-        }).then((onValue) {
-          if (onValue.success) {
-            _lifeHomeData = LifeHomeData.fromJson(onValue.result);
-            setState(() {});
-          } else {}
-        });
-      });
-    } else {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text('权限不足')));
-    }
-  }
-
-  //获取热销商品
-  void _homeHotGoods(int page) {
-    ILifeHttpPostWork()
-        .start(url: Api.LIFE_HOME_HOT, params: {'page': page}).then((onValue) {
-      if (onValue.success) {
-        liftOfGoods.addAll(LifeHomeHotData.fromJson(onValue.result)?.lifeGood);
-        setState(() {});
-      } else {}
-    });
   }
 }
