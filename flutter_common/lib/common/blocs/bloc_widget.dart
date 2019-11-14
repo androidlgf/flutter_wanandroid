@@ -64,7 +64,6 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
           );
           return;
         }
-
         ///展示SnackBar提示
         if (state is BlocShowSnackBar) {
           Scaffold.of(context).showSnackBar(
@@ -74,13 +73,14 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
           );
           return;
         }
-
         ///展示Toast提示
         if (state is BlocShowMessage) {
           Fluttertoast.showToast(msg: '${state.message}');
           return;
         }
       },
+
+      ///state状态 默认处理网络请求失败 空布局 loading三种状态 其它状态外部Builder实现
       child: BlocBuilder<T, BlocState>(builder: (context, state) {
         Widget currentWidget;
         if (state is BlocLoading) {
@@ -95,10 +95,8 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
         } else if (state is BlocEmpty) {
           currentWidget =
               this.emptyWidget ?? _ClassicalNoDataView(emptyTip: this.emptyTip);
-        } else if (state is BlocSuccess) {
-          currentWidget = this.builder.build(context, state);
         } else {
-          currentWidget = Container();
+          currentWidget = this.builder.build(context, state);
         }
         return currentWidget;
       }),

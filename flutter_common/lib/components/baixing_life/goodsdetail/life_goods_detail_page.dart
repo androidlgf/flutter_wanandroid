@@ -16,7 +16,7 @@ class LifeGoodsDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       builder: (BuildContext context) {
-        return BlocCommon(httpWork: ILifeHttpPostWork());
+        return BlocCommon(httpWork: ILifeHttpPostWork(subKey: goodsId));
       },
       child: LifeGoodsDetailWidget(goodsId: goodsId),
     );

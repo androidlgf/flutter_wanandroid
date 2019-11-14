@@ -9,6 +9,7 @@ import 'package:flutter_common/common/utils/route_util.dart';
 import 'package:flutter_common/components/wanandroid/member/wanandroid_member_component.dart';
 import 'package:flutter_common/components/wanandroid/search/wanandroid_search_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'cart/life_goods_cart_page.dart';
 import 'category/life_category_page.dart';
 import 'home/life_home_page.dart';
 
@@ -39,7 +40,7 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
       ..add(CategoryBxLifePage(
         index: '${0}',
       ))
-      ..add(MemberWanAndroidComponent());
+      ..add(LifeGoodsCardPage());
   }
 
   void changePage(int index) {
