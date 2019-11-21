@@ -26,7 +26,7 @@ class OrmHelper {
   void createTable(String tableName, String primaryKey, Map tableKey) {
     Map<String, Field> fields = new Map<String, Field>();
     fields[primaryKey] =
-        Field(FieldType.Integer, primaryKey: true, autoIncrement: true);
+        Field(FieldType.Text, primaryKey: true, autoIncrement: true);
     tableKey.forEach((key, value) {
       fields[key] = Field(value);
     });

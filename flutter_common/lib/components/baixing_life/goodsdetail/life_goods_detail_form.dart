@@ -6,6 +6,7 @@ import 'package:flutter_common/common/blocs/bloc_event.dart';
 import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/utils/loading_util.dart';
+import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_brand_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_card_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_service_dialog.dart';
@@ -15,12 +16,15 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'data/life_goods_detail_data.dart';
+import 'life_add_cart_goods_detail_event.dart';
+import 'life_goods_detail_bloc.dart';
 
 //百姓生活 商品详情
 class LifeGoodsDetailWidget extends StatefulWidget {
   final String goodsId;
+  final LifeGoodsProvider provider;
 
-  LifeGoodsDetailWidget({Key key, this.goodsId})
+  LifeGoodsDetailWidget({Key key, this.goodsId, this.provider})
       : assert(goodsId != null),
         super(key: key);
 
@@ -76,7 +80,7 @@ class _LifeGoodsDetailIBrandComponentState extends State<LifeGoodsDetailWidget>
         setState(() => navAlpha = 1);
       }
     });
-    BlocProvider.of<BlocCommon>(context).add(BlocHttpEvent(
+    BlocProvider.of<LifeGoodsDetailBloc>(context).add(BlocHttpEvent(
         url: Api.LIFE_GOODS_DETAIL, params: {'goodId': '${widget.goodsId}'}));
   }
 
@@ -88,11 +92,16 @@ class _LifeGoodsDetailIBrandComponentState extends State<LifeGoodsDetailWidget>
           title: Text(_lifeGoodsDetailData == null
               ? ''
               : '${_lifeGoodsDetailData.goodsDetailData?.goodInfo?.goodsName}')),
-      body: BlocWidget<BlocCommon>(
-        builder: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
+      body: BlocWidget<LifeGoodsDetailBloc>(
+        builder: BlocBuilder<LifeGoodsDetailBloc, BlocState>(
+            builder: (context, state) {
           if (state is BlocSuccess) {
             _lifeGoodsDetailData =
                 LifeGoodsDetailData.fromJson(state?.response);
+          }
+          if (_lifeGoodsDetailData == null) {
+            return Container();
+          } else {
             GoodsDetailData goodsDetailData =
                 _lifeGoodsDetailData.goodsDetailData;
             GoodInfo goodInfo = goodsDetailData.goodInfo;
@@ -123,12 +132,10 @@ class _LifeGoodsDetailIBrandComponentState extends State<LifeGoodsDetailWidget>
               ],
             );
           }
-          return Container();
         }),
       ),
     );
   }
-
   Widget _buildContentWidget() {
     return Expanded(
         child: Stack(
@@ -477,7 +484,14 @@ class _LifeGoodsDetailIBrandComponentState extends State<LifeGoodsDetailWidget>
             child: Row(
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => showGoodsAddCardDialog(),
+//                  onTap: () => showGoodsAddCardDialog(),
+                  onTap: () {
+                    BlocProvider.of<LifeGoodsDetailBloc>(context).add(
+                        AddCartGoodsEvent(
+                            provider: widget.provider,
+                            goodInfo: _lifeGoodsDetailData
+                                ?.goodsDetailData?.goodInfo));
+                  },
                   child: Container(
                     width: (DeviceUtil.width - Screen.wScreen30) / 3,
                     height: Screen.hScree40,

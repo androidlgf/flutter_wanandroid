@@ -7,6 +7,7 @@ import 'package:flutter_common/common/ui/image_load_view.dart';
 import 'package:flutter_common/common/utils/device_util.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
 import 'package:flutter_common/components/baixing_life/category/life_category_component.dart';
+import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_page.dart';
 import 'package:flutter_common/components/baixing_life/home/life_home_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -20,6 +21,10 @@ import 'life_home_bloc_event.dart';
 
 //百姓生活 首页
 class HomeBxLifeWidget extends StatefulWidget {
+  final LifeGoodsProvider provider;
+
+  HomeBxLifeWidget(this.provider, {Key key}) : super(key: key);
+
   @override
   State createState() => _HomeBxLifeWidgetState();
 }
@@ -123,6 +128,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
                 onTap: (int index) => pushNewPage(
                     context,
                     LifeGoodsDetailPage(
+                      provider: widget.provider,
                       goodsId: '${slides[index].goodsId}',
                     )),
                 autoplay: true,
@@ -223,6 +229,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[0].goodsId}',
                 ));
           },
@@ -236,6 +243,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[1].goodsId}',
                 ));
           },
@@ -250,6 +258,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[2].goodsId}',
                 ));
           },
@@ -263,6 +272,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[3].goodsId}',
                 ));
           },
@@ -276,6 +286,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[4].goodsId}',
                 ));
           },
@@ -291,6 +302,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[0].goodsId}',
                 ));
           },
@@ -304,6 +316,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[1].goodsId}',
                 ));
           },
@@ -318,6 +331,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[2].goodsId}',
                 ));
           },
@@ -331,6 +345,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[3].goodsId}',
                 ));
           },
@@ -344,6 +359,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             pushNewPage(
                 context,
                 LifeGoodsDetailPage(
+                  provider: widget.provider,
                   goodsId: '${floor[4].goodsId}',
                 ));
           },
@@ -444,6 +460,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
                 pushNewPage(
                     context,
                     LifeGoodsDetailPage(
+                      provider: widget.provider,
                       goodsId: '${goods[index].goodsId}',
                     ));
               },

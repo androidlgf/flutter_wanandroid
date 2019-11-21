@@ -1,13 +1,22 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_common/common/blocs/bloc_index.dart';
-import 'package:flutter_common/common/common_index.dart';
-import 'package:flutter_common/components/baixing_life/cart/life_goods_cart_event.dart';
+import 'package:flutter_common/components/baixing_life/goodsdetail/life_add_cart_goods_detail_event.dart';
 
 import 'life_goods_cart_bloc.dart';
 import 'life_goods_cart_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/common/blocs/bloc_index.dart';
+import 'package:flutter_common/components/baixing_life/cart/ui/cart_amount.dart';
+import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
+import 'package:flutter_common/components/baixing_life/cart/life_goods_cart_event.dart';
 
 class LifeGoodsCartWidget extends StatefulWidget {
+  final LifeGoodsProvider provider;
+
+  LifeGoodsCartWidget({Key key, this.provider})
+      : assert(provider != null),
+        super(key: key);
+
   @override
   State createState() => _LifeGoodsCartWidgetState();
 }
@@ -16,6 +25,9 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
   @override
   void initState() {
     super.initState();
+    BlocSupervisor.delegate = SimpleBlocDelegate(widget.provider, context);
+    BlocProvider.of<LifeCartBloc>(context)
+        .add(CartQueryGoodsEvent(provider: widget.provider));
   }
 
   @override
@@ -23,12 +35,12 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
     return BlocWidget<LifeCartBloc>(
       builder: BlocBuilder<LifeCartBloc, BlocState>(
         builder: (context, state) {
-          if (state is BlocInitial || state is CartCheckAllState) {
+          if (state is CartQueryGoodsState) {
             return Container(
               color: Color(0xFFF5F6F8),
               child: Column(
                 children: <Widget>[
-                  _buildCardGoodsWidget(),
+                  _buildCardGoodsWidget(state.cartGoods),
                   _buildCardBottomWidget(state)
                 ],
               ),
@@ -40,11 +52,72 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
     );
   }
 
-  Widget _buildCardGoodsWidget() {
+  Widget _buildCardGoodsWidget(obj) {
     return Expanded(
-        child: ListView(
-            padding: EdgeInsets.only(top: 0),
-            physics: const BouncingScrollPhysics()));
+        child: ListView.separated(
+            itemBuilder: (BuildContext context, int index) {
+              return _buildBodyItemWidget(obj[index], index);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 10.0,
+              );
+            },
+            padding: EdgeInsets.all(Screen.hScree10),
+            itemCount: obj?.length));
+  }
+
+  Widget _buildBodyItemWidget(obj, index) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: Screen.wScreen10),
+      height: Screen.hScree100,
+      //边框设置
+      decoration: new BoxDecoration(
+        //背景
+        color: Colors.white,
+        //设置四周圆角 角度
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        //设置四周边框
+        border: new Border.all(width: 0, color: Colors.white),
+      ),
+      child: Row(
+        children: <Widget>[
+          InkWell(
+            onTap: () => null,
+            child: Icon(
+              Icons.radio_button_unchecked,
+              size: Screen.hScree16,
+              color: grey500Color,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Screen.hScree10),
+            child: ImageLoadView('${obj['comPic']}',
+                width: Screen.hScree80, height: Screen.hScree80),
+          ),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text('${obj['goodsName']}',
+                  style: TextStyle(
+                      color: grey1000Color, fontSize: Screen.spScreen16)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('¥${obj['oriPrice']}',
+                      style: TextStyle(
+                          color: deepOrange300Color,
+                          fontSize: Screen.spScreen14)),
+                  CartAmountView()
+                ],
+              )
+            ],
+          ))
+        ],
+      ),
+    );
   }
 
   Widget _buildCardBottomWidget(BlocState state) {
@@ -109,5 +182,31 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
         ],
       ),
     );
+  }
+}
+
+class SimpleBlocDelegate extends BlocDelegate {
+  final LifeGoodsProvider provider;
+  final BuildContext context;
+
+  SimpleBlocDelegate(this.provider, this.context);
+
+  @override
+  void onEvent(Bloc bloc, Object event) {
+    super.onEvent(bloc, event);
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    if (transition.event is AddCartGoodsEvent) {
+      BlocProvider.of<LifeCartBloc>(context)
+          .add(CartQueryGoodsEvent(provider: provider));
+    }
+  }
+
+  @override
+  void onError(Bloc bloc, Object error, StackTrace stacktrace) {
+    super.onError(bloc, error, stacktrace);
   }
 }

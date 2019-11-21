@@ -11,6 +11,7 @@ import 'package:flutter_common/components/wanandroid/search/wanandroid_search_co
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'cart/life_goods_cart_page.dart';
 import 'category/life_category_page.dart';
+import 'db/life_goods_provider.dart';
 import 'home/life_home_page.dart';
 
 class IndexBxLifeComponent extends StatefulWidget {
@@ -28,19 +29,23 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
   int currentIndex = 0;
 
   List<Widget> listOfWidgetObjects = [];
+  LifeGoodsProvider goodsProvider;
 
   @override
   void initState() {
     super.initState();
+    goodsProvider = LifeGoodsProvider();
     listOfWidgetObjects
-      ..add(HomeBxLifePage())
+      ..add(HomeBxLifePage(goodsProvider))
       ..add(CategoryBxLifePage(
         index: '${0}',
       ))
       ..add(CategoryBxLifePage(
         index: '${0}',
       ))
-      ..add(LifeGoodsCardPage());
+      ..add(LifeGoodsCardPage(
+        provider: goodsProvider,
+      ));
   }
 
   void changePage(int index) {

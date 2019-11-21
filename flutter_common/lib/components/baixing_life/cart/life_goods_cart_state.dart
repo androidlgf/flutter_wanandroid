@@ -10,5 +10,16 @@ class CartCheckAllState extends BlocState {
   List<Object> get props => [isCheckAll];
 
   @override
-  String toString() => 'CartCheckAllEvent {isCheckAll: $isCheckAll }';
+  String toString() => 'CartCheckAllState {isCheckAll: $isCheckAll }';
+}
+class CartQueryGoodsState extends BlocState {
+  final List<dynamic> cartGoods;
+
+  const CartQueryGoodsState({@required this.cartGoods});
+
+  @override
+  List<Object> get props => [cartGoods];
+
+  @override
+  String toString() => 'CartQueryGoodsState {CartQueryGoodsState: $cartGoods }';
 }

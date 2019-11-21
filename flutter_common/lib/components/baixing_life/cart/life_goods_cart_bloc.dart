@@ -16,5 +16,14 @@ class LifeCartBloc extends BlocCommon<BlocEvent, BlocState> {
     if (event is CartCheckAllEvent) {
       yield CartCheckAllState(isCheckAll: event.isCheckAll);
     }
+    if (event is CartQueryGoodsEvent) {
+      var cartGoods = await event.provider.queryGoods();
+      print('===data===' + cartGoods.toString());
+      if (cartGoods == null || cartGoods.length <= 0) {
+        yield BlocEmpty();
+      } else {
+        yield CartQueryGoodsState(cartGoods: cartGoods);
+      }
+    }
   }
 }
