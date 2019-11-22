@@ -8,11 +8,12 @@ part of 'life_goods_detail_data.dart';
 
 LifeGoodsDetailData _$LifeGoodsDetailDataFromJson(Map<String, dynamic> json) {
   return LifeGoodsDetailData(
-      json['code'] as String,
-      json['message'] as String,
-      json['data'] == null
-          ? null
-          : GoodsDetailData.fromJson(json['data'] as Map<String, dynamic>));
+    json['code'] as String,
+    json['message'] as String,
+    json['data'] == null
+        ? null
+        : GoodsDetailData.fromJson(json['data'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$LifeGoodsDetailDataToJson(
@@ -20,46 +21,50 @@ Map<String, dynamic> _$LifeGoodsDetailDataToJson(
     <String, dynamic>{
       'code': instance.code,
       'message': instance.message,
-      'data': instance.goodsDetailData
+      'data': instance.goodsDetailData,
     };
 
 GoodsDetailData _$GoodsDetailDataFromJson(Map<String, dynamic> json) {
   return GoodsDetailData(
-      json['goodInfo'] == null
-          ? null
-          : GoodInfo.fromJson(json['goodInfo'] as Map<String, dynamic>),
-      json['goodComments'] as List,
-      json['advertesPicture'] == null
-          ? null
-          : AdvertesPicture.fromJson(
-              json['advertesPicture'] as Map<String, dynamic>));
+    json['goodInfo'] == null
+        ? null
+        : GoodInfo.fromJson(json['goodInfo'] as Map<String, dynamic>),
+    json['goodComments'] as List,
+    json['advertesPicture'] == null
+        ? null
+        : AdvertesPicture.fromJson(
+            json['advertesPicture'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GoodsDetailDataToJson(GoodsDetailData instance) =>
     <String, dynamic>{
       'goodInfo': instance.goodInfo,
       'goodComments': instance.goodComments,
-      'advertesPicture': instance.advertesPicture
+      'advertesPicture': instance.advertesPicture,
     };
 
 GoodInfo _$GoodInfoFromJson(Map<String, dynamic> json) {
   return GoodInfo(
-      json['image5'] as String,
-      json['amount'] as int,
-      json['image3'] as String,
-      json['image4'] as String,
-      json['goodsId'] as String,
-      json['isOnline'] as String,
-      json['image1'] as String,
-      json['image2'] as String,
-      json['goodsSerialNumber'] as String,
-      (json['oriPrice'] as num)?.toDouble(),
-      json['presentPrice'],
-      json['comPic'] as String,
-      json['state'] as int,
-      json['shopId'] as String,
-      json['goodsName'] as String,
-      json['goodsDetail'] as String);
+    json['image5'] as String,
+    json['amount'] as int,
+    json['image3'] as String,
+    json['image4'] as String,
+    json['goodsId'] as String,
+    json['isOnline'] as String,
+    json['image1'] as String,
+    json['image2'] as String,
+    json['goodsSerialNumber'] as String,
+    (json['oriPrice'] as num)?.toDouble(),
+    json['presentPrice'],
+    json['comPic'] as String,
+    json['state'] as int,
+    json['shopId'] as String,
+    json['goodsName'] as String,
+    json['goodsDetail'] as String,
+    json['isCheck'] as bool,
+    json['goodsCartNum'] as int,
+  );
 }
 
 Map<String, dynamic> _$GoodInfoToJson(GoodInfo instance) => <String, dynamic>{
@@ -78,16 +83,20 @@ Map<String, dynamic> _$GoodInfoToJson(GoodInfo instance) => <String, dynamic>{
       'state': instance.state,
       'shopId': instance.shopId,
       'goodsName': instance.goodsName,
-      'goodsDetail': instance.goodsDetail
+      'goodsDetail': instance.goodsDetail,
+      'goodsCartNum': instance.goodsCartNum,
+      'isCheck': instance.isCheck,
     };
 
 AdvertesPicture _$AdvertesPictureFromJson(Map<String, dynamic> json) {
   return AdvertesPicture(
-      json['PICTURE_ADDRESS'] as String, json['TO_PLACE'] as String);
+    json['PICTURE_ADDRESS'] as String,
+    json['TO_PLACE'] as String,
+  );
 }
 
 Map<String, dynamic> _$AdvertesPictureToJson(AdvertesPicture instance) =>
     <String, dynamic>{
       'PICTURE_ADDRESS': instance.pICTUREADDRESS,
-      'TO_PLACE': instance.tOPLACE
+      'TO_PLACE': instance.tOPLACE,
     };

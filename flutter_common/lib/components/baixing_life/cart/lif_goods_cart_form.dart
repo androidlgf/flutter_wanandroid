@@ -22,31 +22,38 @@ class LifeGoodsCartWidget extends StatefulWidget {
 }
 
 class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
+  List<dynamic> _cartGoods = [];
+
   @override
   void initState() {
     super.initState();
-    BlocSupervisor.delegate = SimpleBlocDelegate(widget.provider, context);
-    BlocProvider.of<LifeCartBloc>(context)
-        .add(CartQueryGoodsEvent(provider: widget.provider));
+//    BlocSupervisor.delegate = SimpleBlocDelegate(widget.provider, context);
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<LifeCartBloc>(context)
+        .add(CartQueryGoodsEvent(provider: widget.provider));
     return BlocWidget<LifeCartBloc>(
       builder: BlocBuilder<LifeCartBloc, BlocState>(
         builder: (context, state) {
           if (state is CartQueryGoodsState) {
+            _cartGoods.clear();
+            _cartGoods.addAll(state?.cartGoods);
+          }
+          if (_cartGoods.length <= 0) {
+            return Container();
+          } else {
             return Container(
               color: Color(0xFFF5F6F8),
               child: Column(
                 children: <Widget>[
-                  _buildCardGoodsWidget(state.cartGoods),
+                  _buildCardGoodsWidget(_cartGoods),
                   _buildCardBottomWidget(state)
                 ],
               ),
             );
           }
-          return Container();
         },
       ),
     );
@@ -110,7 +117,13 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                       style: TextStyle(
                           color: deepOrange300Color,
                           fontSize: Screen.spScreen14)),
-                  CartAmountView()
+                  CartAmountView(
+                      addOnPressed: () {
+                      },
+                      minusOnPressed: () {
+                      },
+                      amount:
+                          obj['goodsCartNum'] == null ? 1 : obj['goodsCartNum'])
                 ],
               )
             ],
@@ -194,19 +207,29 @@ class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);
+    print('==state=onEvent=' + event.toString());
+    if (event is AddCartGoodsEvent) {
+      if (context == null) {
+        print('==state=onEvent==22=');
+      }
+      if (provider == null) {
+        print('==state=onEvent==33=');
+      }
+      print('==state=onEvent==11=');
+//      BlocProvider.of<LifeCartBloc>(context)
+//          .add(CartQueryGoodsEvent(provider: provider));
+    }
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    if (transition.event is AddCartGoodsEvent) {
-      BlocProvider.of<LifeCartBloc>(context)
-          .add(CartQueryGoodsEvent(provider: provider));
-    }
+    print('==state=onTransition=');
   }
 
   @override
   void onError(Bloc bloc, Object error, StackTrace stacktrace) {
     super.onError(bloc, error, stacktrace);
+    print('==state=onError=');
   }
 }

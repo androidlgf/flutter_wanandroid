@@ -23,7 +23,9 @@ class LifeGoodsProvider {
   final String GOODS_IMAGE = 'comPic';
 
   // ignore: non_constant_identifier_names
-  final String GOODS_CART_NUM = 'goodsCartNumber'; //购物车数据
+  final String GOODS_CART_NUM = 'goodsCartNum'; //购物车数量
+  // ignore: non_constant_identifier_names
+  final String GOODS_CART_CHECK = 'isCheck'; //是否选中
   OrmHelper _helper;
 
   LifeGoodsProvider() {
@@ -35,6 +37,7 @@ class LifeGoodsProvider {
     tableKey.putIfAbsent(GOODS_PRESENTPRICE, () => FieldType.Text);
     tableKey.putIfAbsent(GOODS_IMAGE, () => FieldType.Text);
     tableKey.putIfAbsent(GOODS_CART_NUM, () => FieldType.Integer);
+    tableKey.putIfAbsent(GOODS_CART_CHECK, () => FieldType.Boolean);
     _helper.createTable(TABLE_NAME, GOODS_ID, tableKey);
   }
 
@@ -48,19 +51,17 @@ class LifeGoodsProvider {
     if (goodsId == null || goodsId.isEmpty) {
       return;
     }
-    List<dynamic> queryData =
-        await _helper.queryByPrimaryKeyAll(TABLE_NAME, [goodsId]);
-    bool isExist = true;
-    if (queryData == null || queryData.length <= 0) {
-      isExist = false;
-    }
-    if (isExist) {
+    Map<dynamic, dynamic> queryData =
+        await _helper.queryByPrimaryKeyFirst(TABLE_NAME, [goodsId]);
+    if (queryData != null) {
+      info.goodsCartNum = queryData[GOODS_CART_NUM] + 1;
       _helper.updateByPrimaryKey(TABLE_NAME, [goodsId], info?.toJson());
     } else {
+      info.goodsCartNum = 1;
+      info.isCheck = false;
       saveGoods(info);
     }
   }
-
   Future<List<dynamic>> queryGoods() {
     return _helper.queryAll(TABLE_NAME);
   }

@@ -8,12 +8,15 @@ part of 'theme_change_data.dart';
 
 ThemeChangeData _$ThemeChangeDataFromJson(Map<String, dynamic> json) {
   return ThemeChangeData(
-      json['theme'] as String, json['themeName'] as String, json['id'] as int);
+    json['theme'] as String,
+    json['themeName'] as String,
+    json['id'] as int,
+  );
 }
 
 Map<String, dynamic> _$ThemeChangeDataToJson(ThemeChangeData instance) =>
     <String, dynamic>{
       'theme': instance.theme,
       'themeName': instance.themeName,
-      'id': instance.id
+      'id': instance.id,
     };

@@ -73,6 +73,8 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
                   .addAll(LifeHomeHotData.fromJson(state?.response)?.lifeGood);
               page += 1;
             }
+          }
+          if (_lifeHomeData != null) {
             return EasyRefresh.custom(
               controller: _controller,
               header: MaterialHeader(),
