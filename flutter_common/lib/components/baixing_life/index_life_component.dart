@@ -13,6 +13,7 @@ import 'cart/life_goods_cart_page.dart';
 import 'category/life_category_page.dart';
 import 'db/life_goods_provider.dart';
 import 'home/life_home_page.dart';
+import 'member/life_member_page.dart';
 
 class IndexBxLifeComponent extends StatefulWidget {
   IndexBxLifeComponent({Key key}) : super(key: key) {}
@@ -100,10 +101,10 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
                   icon: Icon(Icons.assignment),
                   activeIcon: Icon(Icons.assignment),
                   title: Container()),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_box),
-                  activeIcon: Icon(Icons.account_box),
-                  title: Container()),
+//              BottomNavigationBarItem(
+//                  icon: Icon(Icons.account_box),
+//                  activeIcon: Icon(Icons.account_box),
+//                  title: Container()),
             ]));
   }
 
