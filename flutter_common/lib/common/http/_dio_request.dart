@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:io';
 
@@ -7,7 +5,7 @@ import 'package:dio/dio.dart' as dio;
 
 import '_print.dart';
 import 'communication.dart' as com;
-import 'work_config.dart' as work;
+import 'work_config.dart';
 
 /// 发起请求
 ///
@@ -18,12 +16,16 @@ Future<com.Response> request(String tag, com.Options options) async {
   dio.Response dioResponse;
 
   bool success = false;
-
+  dio.Dio dioHttpClient = BuildDioHttpClient.buildDioHttpClient();
   try {
+    if (options.iterable != null && options.iterable.length > 0) {
+      dioHttpClient.interceptors.addAll(options.iterable);
+    }
     switch (options.method) {
       case com.HttpMethod.download:
         log(tag, "download path:${options.downloadPath}");
-        dioResponse = await work.dio.download(options.url, options.downloadPath,
+        dioResponse = await dioHttpClient.download(
+            options.url, options.downloadPath,
             data: options.params,
             cancelToken: options.cancelToken.data,
             options: dioOptions,
@@ -33,7 +35,7 @@ Future<com.Response> request(String tag, com.Options options) async {
         final params = options.params.map<String, dynamic>((key, value) =>
             MapEntry(key, value is Iterable<String> ? value : "$value"));
 
-        dioResponse = await work.dio.get(
+        dioResponse = await dioHttpClient.get(
           options.url,
           queryParameters: params,
           cancelToken: options.cancelToken.data,
@@ -41,7 +43,7 @@ Future<com.Response> request(String tag, com.Options options) async {
         );
         break;
       case com.HttpMethod.upload:
-        dioResponse = await work.dio.request(
+        dioResponse = await dioHttpClient.request(
           options.url,
           data: _onConvertToDio(options.params),
           cancelToken: options.cancelToken.data,
@@ -50,7 +52,7 @@ Future<com.Response> request(String tag, com.Options options) async {
         );
         break;
       default:
-        dioResponse = await work.dio.request(
+        dioResponse = await dioHttpClient.request(
           options.url,
           data: options.params,
           cancelToken: options.cancelToken.data,
@@ -151,7 +153,9 @@ dio.Options _onConfigOptions(String tag, com.Options options) {
   if (options.headers != null) {
     dioOptions.headers = options.headers;
   }
-
+  if (options.extra != null) {
+    dioOptions.extra = options.extra;
+  }
   if (options.cancelToken.data is! dio.CancelToken) {
     com.CancelToken cancelToken = options.cancelToken;
 

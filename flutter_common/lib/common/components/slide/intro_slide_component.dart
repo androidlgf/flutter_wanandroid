@@ -94,11 +94,11 @@ class _IntroSlideComponentState extends State<IntroSlideComponent> {
 
   void onDonePress() {
     debugPrint('intro silde click with onDonePress');
-    pushAndRemovePage(context, IndexWanAndroidComponent());
+    pushAndRemovePage(context, IndexComponent());
   }
   void onTabChangeCompleted(index) {
     // Index of current tab is focused
-    pushAndRemovePage(context, IndexWanAndroidComponent());
+    pushAndRemovePage(context, IndexComponent());
   }
   Widget renderSkipBtn() {
     return Icon(

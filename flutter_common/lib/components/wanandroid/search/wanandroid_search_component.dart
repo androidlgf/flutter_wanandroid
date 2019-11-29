@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_search_hot_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/wanandroid_http_get_dio.dart';
 import 'data/search_hot_model.dart';
 
 //7.1 搜索页面
@@ -12,18 +13,21 @@ class SearchWanAndroidComponent extends StatefulWidget {
 }
 
 class _SearchWanAndroidComponentState extends State<SearchWanAndroidComponent> {
-  HomeSearchHotWork _searchHotWork;
-  List<SearchData> _listOfSearchModel=[];
+  WanAndroidHttpGetWork _searchHotWork;
+  List<SearchData> _listOfSearchModel = [];
+
   @override
   void initState() {
     super.initState();
     loadSearchHotData();
   }
+
   @override
   void dispose() {
     super.dispose();
     _searchHotWork?.cancel();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +49,7 @@ class _SearchWanAndroidComponentState extends State<SearchWanAndroidComponent> {
         Container(
           alignment: Alignment.topLeft,
           child: Wrap(
-            children: _listOfSearchModel.map((searchModel){
+            children: _listOfSearchModel.map((searchModel) {
               return InkWell(
                 onTap: () {
 //                  pushNewPage(
@@ -70,10 +74,11 @@ class _SearchWanAndroidComponentState extends State<SearchWanAndroidComponent> {
   }
 
   void loadSearchHotData() {
-    if (_searchHotWork == null) _searchHotWork = new HomeSearchHotWork();
-    _searchHotWork.start().then((value) {
+    if (_searchHotWork == null) _searchHotWork = new WanAndroidHttpGetWork();
+    _searchHotWork.start(url: Api.WAN_SEARCH_HOT).then((value) {
       if (value.success) {
-        _listOfSearchModel.addAll(value.result.searchData);
+        _listOfSearchModel
+            .addAll(SearchHotModel.fromJson(value.result).searchData);
         setState(() {});
       }
     });

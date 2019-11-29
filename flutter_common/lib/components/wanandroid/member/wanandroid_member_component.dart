@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/wanandroid/author/author_wanandroid_component.dart';
+import 'package:flutter_common/components/wanandroid/login/login_page.dart';
 import 'package:flutter_common/components/wanandroid/theme/wanandroid_change_theme_component.dart';
 
 //玩android 个人中心
@@ -44,7 +45,7 @@ class _MemberWanAndroidComponentState extends State<MemberWanAndroidComponent> {
           ),
           ListTile(
               title: Text('我的收藏'),
-//              onTap: () => pushNewPage(context, OrderHomePage()),
+              onTap: () => pushNewPage(context, LoginPage()),
               leading: Icon(Icons.favorite),
               trailing: Icon(Icons.keyboard_arrow_right)),
           Gaps.line,

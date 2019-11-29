@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/utils/loading_util.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_project_tab_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/wanandroid_http_get_dio.dart';
 import 'package:flutter_common/components/wanandroid/project/widget/wanandroid_project_list_widget.dart';
 
 import 'data/project_tab_data.dart';
@@ -18,7 +19,7 @@ class _ProjectWanAndroidComponentState extends State<ProjectWanAndroidComponent>
     with SingleTickerProviderStateMixin {
   List<ProjectData> _listOfProjectTab = [];
   List<Widget> _listOfPageWidget = [];
-  HomeProjectTabWork _projectTabWork;
+  WanAndroidHttpGetWork _projectTabWork;
 
   TabController tabController;
   PageController pageController;
@@ -92,11 +93,12 @@ class _ProjectWanAndroidComponentState extends State<ProjectWanAndroidComponent>
     );
   }
 
-  void loadProjectTabData() {
-    if (_projectTabWork == null) _projectTabWork = new HomeProjectTabWork();
-    _projectTabWork.start().then((value) {
+  void loadProjectTabData() async{
+    if (_projectTabWork == null) _projectTabWork = new WanAndroidHttpGetWork();
+    _projectTabWork.start(url: Api.WAN_PROJECT).then((value) {
       if (value.success) {
-        _listOfProjectTab.addAll(value.result.projectData);
+        _listOfProjectTab
+            .addAll(ProjectTabData.fromJson(value.result).projectData);
         _listOfProjectTab.map((childTab) {
           _listOfPageWidget.add(ProjectListWanAndroidWidget(childTab.id));
         }).toList();

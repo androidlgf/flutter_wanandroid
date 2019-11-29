@@ -1,9 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/res/colors.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_system_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/wanandroid_http_get_dio.dart';
 import 'package:flutter_common/components/wanandroid/system/wanandroid_system_article_component.dart';
 
 import 'data/tree_data.dart';
@@ -16,7 +17,7 @@ class SystemWanAndroidComponent extends StatefulWidget {
 }
 
 class _SystemWanAndroidComponentState extends State<SystemWanAndroidComponent> {
-  HomeSystemWork _systemWork;
+  WanAndroidHttpGetWork _systemWork;
   TreeData _systemData;
 
   @override
@@ -112,11 +113,11 @@ class _SystemWanAndroidComponentState extends State<SystemWanAndroidComponent> {
     );
   }
 
-  void getSystemData() {
-    if (_systemWork == null) _systemWork = HomeSystemWork();
-    _systemWork.start().then((value) {
+  void getSystemData() async{
+    if (_systemWork == null) _systemWork = WanAndroidHttpGetWork();
+    _systemWork.start(url: Api.WAN_SYSTEM).then((value) {
       if (value.success) {
-        _systemData = value.result;
+        _systemData = TreeData.fromJson(value.result);
         setState(() {});
       }
     });

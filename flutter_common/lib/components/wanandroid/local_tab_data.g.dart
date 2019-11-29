@@ -8,12 +8,15 @@ part of 'local_tab_data.dart';
 
 LocalTabData _$LocalTabDataFromJson(Map<String, dynamic> json) {
   return LocalTabData(
-      json['tab'] as String, json['imagePath'] as String, json['id'] as int);
+    json['tab'] as String,
+    json['imagePath'] as String,
+    json['id'] as int,
+  );
 }
 
 Map<String, dynamic> _$LocalTabDataToJson(LocalTabData instance) =>
     <String, dynamic>{
       'tab': instance.tab,
       'imagePath': instance.imagePath,
-      'id': instance.id
+      'id': instance.id,
     };

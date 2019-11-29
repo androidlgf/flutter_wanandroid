@@ -38,5 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- 高德地图API_KEY -->
+        <meta-data
+                android:name="com.amap.api.v2.apikey"
+                android:value="009be12ead233ac109ed7e16364dda2f" />
     </application>
 </manifest>

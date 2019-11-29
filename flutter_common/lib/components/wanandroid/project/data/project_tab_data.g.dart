@@ -8,32 +8,33 @@ part of 'project_tab_data.dart';
 
 ProjectTabData _$ProjectTabDataFromJson(Map<String, dynamic> json) {
   return ProjectTabData(
-      (json['data'] as List)
-          ?.map((e) => e == null
-              ? null
-              : ProjectData.fromJson(e as Map<String, dynamic>))
-          ?.toList(),
-      json['errorCode'] as int,
-      json['errorMsg'] as String);
+    (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : ProjectData.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['errorCode'] as int,
+    json['errorMsg'] as String,
+  );
 }
 
 Map<String, dynamic> _$ProjectTabDataToJson(ProjectTabData instance) =>
     <String, dynamic>{
       'data': instance.projectData,
       'errorCode': instance.errorCode,
-      'errorMsg': instance.errorMsg
+      'errorMsg': instance.errorMsg,
     };
 
 ProjectData _$ProjectDataFromJson(Map<String, dynamic> json) {
   return ProjectData(
-      json['children'] as List,
-      json['courseId'] as int,
-      json['id'] as int,
-      json['name'] as String,
-      json['order'] as int,
-      json['parentChapterId'] as int,
-      json['userControlSetTop'] as bool,
-      json['visible'] as int);
+    json['children'] as List,
+    json['courseId'] as int,
+    json['id'] as int,
+    json['name'] as String,
+    json['order'] as int,
+    json['parentChapterId'] as int,
+    json['userControlSetTop'] as bool,
+    json['visible'] as int,
+  );
 }
 
 Map<String, dynamic> _$ProjectDataToJson(ProjectData instance) =>
@@ -45,5 +46,5 @@ Map<String, dynamic> _$ProjectDataToJson(ProjectData instance) =>
       'order': instance.order,
       'parentChapterId': instance.parentChapterId,
       'userControlSetTop': instance.userControlSetTop,
-      'visible': instance.visible
+      'visible': instance.visible,
     };

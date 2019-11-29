@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/ui/web_view.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_system_article_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/wanandroid_http_get_dio.dart';
 import 'package:flutter_common/components/wanandroid/home/data/home_article_data.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -17,8 +18,7 @@ class HomeWanAndroidWidget extends StatefulWidget {
   HomeWanAndroidWidget(this.cid, {Key key}) : super(key: key);
 
   @override
-  _HomeWanAndroidWidgetState createState() =>
-      _HomeWanAndroidWidgetState();
+  _HomeWanAndroidWidgetState createState() => _HomeWanAndroidWidgetState();
 }
 
 class _HomeWanAndroidWidgetState extends State<HomeWanAndroidWidget>
@@ -26,7 +26,7 @@ class _HomeWanAndroidWidgetState extends State<HomeWanAndroidWidget>
   @override
   bool get wantKeepAlive => true;
   int _page = 0;
-  HomeSystemArticleWork _articleWork;
+  WanAndroidHttpGetWork _articleWork;
   List<Datas> _listOfArticleData = [];
 
   @override
@@ -172,10 +172,17 @@ class _HomeWanAndroidWidgetState extends State<HomeWanAndroidWidget>
   }
 
   void loadMore() {
-    _articleWork = HomeSystemArticleWork(_page, widget.cid);
-    _articleWork.start().then((value) {
+    _articleWork = WanAndroidHttpGetWork();
+    _articleWork
+        .start(
+            url: Api.WAN_SYSTEM_ARTICLE +
+                _page.toString() +
+                '/json?cid=' +
+                widget.cid.toString())
+        .then((value) {
       if (value.success) {
-        HomeArticleData homeArticleData = value.result;
+        HomeArticleData homeArticleData =
+            HomeArticleData.fromJson(value.result);
         if (homeArticleData == null) return;
         ArticleData articleData = homeArticleData.articleData;
         if (articleData == null) return;

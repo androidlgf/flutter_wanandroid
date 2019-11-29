@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_common/common/common_index.dart';
 
 void main() async {
+  ///rendering 即开启布局线
+  debugPaintSizeEnabled = !true;
   MainUtil.setCustomErrorPage();
   MainUtil.setTargetPlatformForDesktop();
   await SpUtil.getInstance();

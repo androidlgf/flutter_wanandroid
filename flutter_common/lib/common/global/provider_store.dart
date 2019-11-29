@@ -14,9 +14,6 @@ class Store {
         ChangeNotifierProvider(builder: (_) => UserProvider()),
         ChangeNotifierProvider(builder: (_) => ConfigProvider()),
         ChangeNotifierProvider(builder: (_) => NetworkConnectProvider()),
-//        ChangeNotifierProvider(builder: (_) => ArticleModel()),
-//        ChangeNotifierProvider(builder: (_) => ReaderSettingModel()),
-//        ChangeNotifierProvider(builder: (_) => BookModel()),
       ],
       child: child,
     );

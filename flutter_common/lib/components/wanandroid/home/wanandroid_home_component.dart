@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/ui/web_view.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_article_work.dart';
-import 'package:flutter_common/components/wanandroid/dio/home_banner_work.dart';
+import 'package:flutter_common/components/wanandroid/dio/wanandroid_http_get_dio.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
@@ -26,8 +26,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   @override
   bool get wantKeepAlive => true;
   int _page = 0;
-  HomeBannerWork _bannerWork;
-  HomeArticleWork _articleWork;
+  WanAndroidHttpGetWork _httpGetWork;
   HomeBannerData _bannerData;
   List<Datas> _listOfArticleData = [];
 
@@ -41,8 +40,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
   @override
   void dispose() {
     super.dispose();
-    _bannerWork?.cancel();
-    _articleWork?.cancel();
+    _httpGetWork?.cancel();
   }
 
   @override
@@ -204,21 +202,24 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     );
   }
 
-  void loadBannerData() {
-    if (_bannerWork == null) _bannerWork = HomeBannerWork();
-    _bannerWork.start().then((value) {
+  void loadBannerData() async{
+    if (_httpGetWork == null) _httpGetWork = WanAndroidHttpGetWork();
+    _httpGetWork.start(url: Api.WAN_BANNER).then((value) {
       if (value.success) {
-        _bannerData = value.result;
+        _bannerData = HomeBannerData.fromJson(value.result);
         setState(() {});
       }
     });
   }
 
-  void loadMore() {
-    _articleWork = HomeArticleWork(_page);
-    _articleWork.start().then((value) {
+  void loadMore() async{
+    if (_httpGetWork == null) _httpGetWork = WanAndroidHttpGetWork();
+    _httpGetWork
+        .start(url: Api.WAN_ARTICLE + _page.toString() + '/json')
+        .then((value) {
       if (value.success) {
-        HomeArticleData homeArticleData = value.result;
+        HomeArticleData homeArticleData =
+            HomeArticleData.fromJson(value.result);
         if (homeArticleData == null) return;
         ArticleData articleData = homeArticleData.articleData;
         if (articleData == null) return;

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
@@ -20,6 +18,9 @@ import 'package:flutter_common/common/ui/selected_text.dart';
 import 'package:flutter_common/common/ui/suspension_tag.dart';
 import 'package:flutter_common/common/ui/text_field_item.dart';
 import 'package:flutter_common/common/ui/toolbar.dart';
+import 'package:flutter_common/components/wanandroid/index_wanandroid_component.dart';
+
+import 'baixing_life/index_life_component.dart';
 
 class IndexComponent extends StatefulWidget {
   @override
@@ -28,40 +29,57 @@ class IndexComponent extends StatefulWidget {
 
 class _IndexComponentState extends State<IndexComponent> {
   TextEditingController _passwordController = TextEditingController();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('1111'),
+        title: Text('功能列表'),
       ),
       body: Container(
-        child:Column(
-          children: <Widget>[
-            TextFieldItem(hintText: '请输入',title: '商品',),
-            TextFieldItem(hintText: '请输入',title: '货物',),
-            SelectedText('价格',selected: false,unSelectedTextColor: colorPrimary,),
-            SelectTextItem(
-                title: '我的账户',
-                content: '购买、充值记录',
-                leading: Icon(Icons.print,
-                    size: 20, color: Colors.redAccent)),
-            SelectTextItem(
-                title: '我的任务',
-                content: '绑定手机送买书券',
-                trailing: Icons.arrow_forward_ios,
-                leading: Icon(Icons.access_alarm,
-                    size: 20, color: Colors.yellow),
-               ),
-            Line(color: colorPrimary,),
-            SectionView("电影榜单", hiddenMore: false),
-            LineViewLine(),
-            CustomTextField(isInputPwd: true,hintText:'123456',controller: _passwordController,),
-            LoaderContainer(loaderState: LoaderState.Loading,)
-          ],
+        child: GridView.count(
+            //水平子Widget之间间距
+            crossAxisSpacing: 10.0,
+            //垂直子Widget之间间距
+            mainAxisSpacing: 30.0,
+            //GridView内边距
+            padding: EdgeInsets.all(10.0),
+            //一行的Widget数量
+            crossAxisCount: 2,
+            //子Widget宽高比例
+            childAspectRatio: 2.0,
+            //子Widget列表
+            children: [
+              _buildItemWidget('玩Android项目', 0),
+              _buildItemWidget('电商完整项目', 1),
+            ]),
+      ),
+    );
+  }
+
+  Widget _buildItemWidget(obj, index) {
+    return InkWell(
+      onTap: () {
+        switch (index) {
+          case 0:
+            pushAndRemovePage(context, IndexWanAndroidComponent());
+            break;
+          case 1:
+            pushAndRemovePage(context, IndexBxLifeComponent());
+            break;
+        }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        color: blue700Color,
+        child: Text(
+          '${obj}',
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

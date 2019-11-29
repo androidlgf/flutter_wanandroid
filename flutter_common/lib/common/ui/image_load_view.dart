@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 enum ImageType { network, assets, localFile }
 
@@ -52,7 +52,7 @@ class ImageLoadView extends StatelessWidget {
       case ImageType.network:
         imageWidget = FadeInImage(
             placeholder: AssetImage(placeholder),
-            image: NetworkImage(path),
+            image: CachedNetworkImageProvider(path),
             height: height,
             width: width,
             fit: fit);
