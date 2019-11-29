@@ -34,4 +34,19 @@ class BlocCommon<V extends BlocEvent, T extends BlocState> extends BlocBase {
       return;
     }
   }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+  }
 }

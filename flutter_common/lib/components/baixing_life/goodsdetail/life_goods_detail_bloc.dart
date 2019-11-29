@@ -34,7 +34,7 @@ class LifeGoodsDetailBloc extends BlocCommon<BlocEvent, BlocState> {
       return;
     }
     if (event is AddCartGoodsEvent) {
-      event?.provider?.addCardGoods(event?.goodInfo);
+      event?.provider?.addCartGoods(event?.goodInfo);
       yield BlocShowSnackBar(message: '添加购物车成功');
       return;
     }

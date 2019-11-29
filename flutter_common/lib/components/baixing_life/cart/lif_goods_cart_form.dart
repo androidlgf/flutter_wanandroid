@@ -27,7 +27,6 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
   @override
   void initState() {
     super.initState();
-//    BlocSupervisor.delegate = SimpleBlocDelegate(widget.provider, context);
   }
 
   @override
@@ -38,6 +37,10 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
       builder: BlocBuilder<LifeCartBloc, BlocState>(
         builder: (context, state) {
           if (state is CartQueryGoodsState) {
+            _cartGoods.clear();
+            _cartGoods.addAll(state?.cartGoods);
+          }
+          if (state is CartCheckAllState) {
             _cartGoods.clear();
             _cartGoods.addAll(state?.cartGoods);
           }
@@ -90,11 +93,19 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
       child: Row(
         children: <Widget>[
           InkWell(
-            onTap: () => null,
+            onTap: () {
+              BlocProvider.of<LifeCartBloc>(context).add(
+                  ChangeCartGoodsIsCheckEvent(
+                      provider: widget.provider, queryGoods: obj));
+            },
             child: Icon(
-              Icons.radio_button_unchecked,
+              obj['isCheck'] == LifeGoodsProvider.GOODS_CART_CHECKED
+                  ? Icons.check_circle
+                  : Icons.radio_button_unchecked,
               size: Screen.hScree16,
-              color: grey500Color,
+              color: obj['isCheck'] == LifeGoodsProvider.GOODS_CART_CHECKED
+                  ? deepOrange300Color
+                  : grey500Color,
             ),
           ),
           Padding(
@@ -119,8 +130,14 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                           fontSize: Screen.spScreen14)),
                   CartAmountView(
                       addOnPressed: () {
+                        BlocProvider.of<LifeCartBloc>(context).add(
+                            AddCartNumGoodsEvent(
+                                provider: widget.provider, queryGoods: obj));
                       },
                       minusOnPressed: () {
+                        BlocProvider.of<LifeCartBloc>(context).add(
+                            MinusCartNumGoodsEvent(
+                                provider: widget.provider, queryGoods: obj));
                       },
                       amount:
                           obj['goodsCartNum'] == null ? 1 : obj['goodsCartNum'])
@@ -135,8 +152,13 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
 
   Widget _buildCardBottomWidget(BlocState state) {
     bool isCheck = false;
+    double totalPrice = 0;
     if (state is CartCheckAllState) {
       isCheck = state.isCheckAll != null ? state.isCheckAll : false;
+      totalPrice = state.totalPrice;
+    }
+    if (state is CartQueryGoodsState) {
+      totalPrice = state.totalPrice;
     }
     return Container(
       alignment: Alignment.center,
@@ -154,8 +176,10 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
               if (state is CartCheckAllState) {
                 isCheck = state.isCheckAll == null ? true : !state.isCheckAll;
               }
-              BlocProvider.of<LifeCartBloc>(context)
-                  .add(CartCheckAllEvent(isCheckAll: isCheck));
+              BlocProvider.of<LifeCartBloc>(context).add(CartCheckAllEvent(
+                  isCheckAll: isCheck,
+                  queryGoods: _cartGoods,
+                  provider: widget.provider));
             },
             child: Row(
               children: <Widget>[
@@ -179,7 +203,7 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
               Text('合计:',
                   style: TextStyle(
                       color: grey1000Color, fontSize: Screen.spScreen14)),
-              Text('￥0',
+              Text('￥$totalPrice',
                   style: TextStyle(
                       color: Colors.red, fontSize: Screen.spScreen12)),
               Gaps.hGap10,
