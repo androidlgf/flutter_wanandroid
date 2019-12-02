@@ -15,5 +15,5 @@ abstract class BlocBase<V extends BlocEvent, T extends BlocState>
   void didChangeDependencies();
 
   @override
-  Stream<BlocState> mapEventToState(BlocEvent event);
+  Stream<BlocState> mapEventToState(BlocEvent event);  
 }
