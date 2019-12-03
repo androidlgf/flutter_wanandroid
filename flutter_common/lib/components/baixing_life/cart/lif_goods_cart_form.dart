@@ -1,6 +1,5 @@
+import 'package:flutter_common/components/baixing_life/confirmorder/life_confirm_order_page.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_add_cart_goods_detail_event.dart';
-import 'package:flutter_common/components/baixing_life/settlement/life_confirm_order_page.dart';
-
 import 'life_goods_cart_bloc.dart';
 import 'life_goods_cart_state.dart';
 import 'package:flutter/material.dart';
