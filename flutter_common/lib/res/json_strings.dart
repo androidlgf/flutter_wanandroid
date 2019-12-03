@@ -149,4 +149,28 @@ abstract class JsonStrings {
     "id": 5
   }
 ]''';
+
+  static final String lifeGoodsOrderTabs = '''
+  [
+  {
+    "tab": "首页",
+    "imagePath": "",
+    "id": 1
+  },
+  {
+    "tab": "体系",
+    "imagePath": "",
+    "id": 2
+  },
+  {
+    "tab": "项目",
+    "imagePath": "",
+    "id": 3
+  },
+  {
+    "tab": "用户",
+    "imagePath": "",
+    "id": 4
+  }
+]''';
 }

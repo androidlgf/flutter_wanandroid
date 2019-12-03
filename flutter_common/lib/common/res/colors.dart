@@ -323,4 +323,4 @@ const Color whiteColor = const Color(0xFFFFFFFF);
 const Color colorPrimary = const Color(0xFF6200EE);
 const Color colorPrimaryDark = const Color(0xFF3700B3);
 const Color colorAccent = const Color(0xFFBB86FC);
-const Color scaffoldBackgroundColor=const Color(0xFFFFFFFF);
+const Color scaffoldBackgroundColor = const Color(0xFFF5F5F5);

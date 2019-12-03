@@ -1,4 +1,5 @@
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_add_cart_goods_detail_event.dart';
+import 'package:flutter_common/components/baixing_life/settlement/life_confirm_order_page.dart';
 
 import 'life_goods_cart_bloc.dart';
 import 'life_goods_cart_state.dart';
@@ -208,7 +209,8 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                       color: Colors.red, fontSize: Screen.spScreen12)),
               Gaps.hGap10,
               RaisedButton(
-                  onPressed: () => null,
+                  onPressed: () => pushNewPage(
+                      context, LifeConfirmOrderPage(provider: widget.provider)),
                   shape: StadiumBorder(),
                   color: deepOrange300Color,
                   child: Text('结算',

@@ -46,7 +46,7 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
       ))
       ..add(LifeGoodsCardPage(
         provider: goodsProvider,
-      ));
+      ))..add(MemberLifePage(goodsProvider));
   }
 
   void changePage(int index) {
@@ -101,10 +101,10 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
                   icon: Icon(Icons.assignment),
                   activeIcon: Icon(Icons.assignment),
                   title: Container()),
-//              BottomNavigationBarItem(
-//                  icon: Icon(Icons.account_box),
-//                  activeIcon: Icon(Icons.account_box),
-//                  title: Container()),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_box),
+                  activeIcon: Icon(Icons.account_box),
+                  title: Container()),
             ]));
   }
 

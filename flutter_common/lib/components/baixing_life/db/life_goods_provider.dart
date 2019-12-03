@@ -26,11 +26,17 @@ class LifeGoodsProvider {
   static final String GOODS_CART_NUM = 'goodsCartNum'; //购物车数量
   // ignore: non_constant_identifier_names
   static final String GOODS_CART_CHECK = 'isCheck'; //是否选中
+  // ignore: non_constant_identifier_names
+  static final String GOODS_ASSURE = 'assure'; //无理由退换
+
 // ignore: non_constant_identifier_names
-  static final String GOODS_CART_CHECKED = '1';
+  static final String GOODS_CART_CHECKED = '1'; //选中
 
   // ignore: non_constant_identifier_names
-  static final String GOODS_CART_NO_CHECK = '0';
+  static final String GOODS_CART_NO_CHECK = '0'; //未选中
+
+  // ignore: non_constant_identifier_names
+  static final String GOODS_ASSURE_VALUE = '7天无理由退换';
   OrmHelper _helper;
 
   LifeGoodsProvider() {
@@ -46,11 +52,12 @@ class LifeGoodsProvider {
     _helper.createTable(TABLE_NAME, GOODS_ID, tableKey);
   }
 
+  ///保存购物车操作
   void saveGoods(GoodsProvider info) {
     _helper.insert(TABLE_NAME, info.toMap());
   }
 
-  //添加购物车操作
+  ///添加到购物车操作
   void addCartGoods(GoodInfo info) async {
     String goodsId = info.goodsId;
     if (goodsId == null || goodsId.isEmpty) {
@@ -75,6 +82,7 @@ class LifeGoodsProvider {
     }
   }
 
+  ///购物车减少件数数据库商品操作
   void minusCartNumGoods(Map<dynamic, dynamic> cartData) async {
     if (cartData == null) return;
     GoodsProvider goodsProvider = GoodsProvider.fromMap(cartData);
@@ -93,6 +101,7 @@ class LifeGoodsProvider {
     }
   }
 
+  ///购物车添加件数数据库商品操作
   void addCartNumGoods(Map<dynamic, dynamic> cartData) async {
     if (cartData == null) return;
     GoodsProvider goodsProvider = GoodsProvider.fromMap(cartData);
@@ -109,6 +118,7 @@ class LifeGoodsProvider {
     }
   }
 
+  ///购物车是否选中数据库商品操作
   void changeCartGoodsIsCheck(Map<dynamic, dynamic> cartData) async {
     GoodsProvider goodsProvider = GoodsProvider.fromMap(cartData);
     String goodsId = goodsProvider.goodsId;
@@ -126,6 +136,7 @@ class LifeGoodsProvider {
     }
   }
 
+  ///购物车全选数据库商品操作
   Future<List<dynamic>> checkAllCartGoods(
       bool isCheck, List<dynamic> listOfData) async {
     if (listOfData == null || listOfData.length <= 0) return listOfData;
@@ -143,6 +154,7 @@ class LifeGoodsProvider {
     return listOfData;
   }
 
+  ///查询选购总价
   Future<double> queryTotalPrice(List<dynamic> listOfData) async {
     if (listOfData == null || listOfData.length <= 0) return 0;
     double totalPrice = 0;
@@ -155,12 +167,13 @@ class LifeGoodsProvider {
     return totalPrice.floorToDouble();
   }
 
-  //查询所有购物车
+  ///查询所有购物车
   Future<List<dynamic>> queryGoods() {
     return _helper.queryAll(TABLE_NAME);
   }
 }
 
+//商品数据库存储
 class GoodsProvider {
   String goodsId;
   String goodsName;
@@ -170,6 +183,7 @@ class GoodsProvider {
   String comPic;
   int goodsCartNum;
   String isCheck;
+  String assure;
 
   GoodsProvider(
       {this.goodsId,
@@ -179,7 +193,8 @@ class GoodsProvider {
       this.presentPrice,
       this.comPic,
       this.goodsCartNum,
-      this.isCheck});
+      this.isCheck,
+      this.assure});
 
   static GoodsProvider fromMap(Map<dynamic, dynamic> map) {
     if (map == null) return null;
