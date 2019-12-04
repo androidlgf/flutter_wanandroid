@@ -173,4 +173,27 @@ abstract class JsonStrings {
     "id": 4
   }
 ]''';
+  static final String lifeAddressTagJson = '''
+  [
+    {
+        "title": "默认显示姓名,可输入自定义标签",
+        "path": "images/life/icon_member.png",
+        "id": 0
+    },
+    {
+        "title": "家",
+        "path": "images/life/icon_home.png",
+        "id": 1
+    },
+    {
+        "title": "公司",
+        "path": "images/life/icon_company.png",
+        "id": 2
+    },
+    {
+        "title": "学校",
+        "path": "images/life/icon_school.png",
+        "id": 3
+    }
+]''';
 }

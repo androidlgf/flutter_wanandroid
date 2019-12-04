@@ -84,6 +84,8 @@ dependencies:
   flutter_orm_plugin: ^1.0.13
   flutter_bloc: ^2.0.0
   equatable: ^0.6.1
+  native_contact_picker: ^0.0.6
+  city_pickers: ^0.1.29
 
 dev_dependencies:
   build_runner: ^1.0.0
@@ -140,6 +142,7 @@ flutter:
     - assets/data/
     - images/
     - images/common/
+    - images/life/
     - packages/flutter_orm_plugin/lua/DB.lua
     - packages/flutter_orm_plugin/lua/orm/model.lua
     - packages/flutter_orm_plugin/lua/orm/cache.lua
