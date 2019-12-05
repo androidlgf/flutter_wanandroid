@@ -11,6 +11,7 @@ import 'package:flutter_common/components/wanandroid/search/wanandroid_search_co
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'cart/life_goods_cart_page.dart';
 import 'category/life_category_page.dart';
+import 'db/life_address_provider.dart';
 import 'db/life_goods_provider.dart';
 import 'home/life_home_page.dart';
 import 'member/life_member_page.dart';
@@ -31,11 +32,12 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
 
   List<Widget> listOfWidgetObjects = [];
   LifeGoodsProvider goodsProvider;
-
+  LifeAddressProvider addressProvider;
   @override
   void initState() {
     super.initState();
     goodsProvider = LifeGoodsProvider();
+    addressProvider=LifeAddressProvider();
     listOfWidgetObjects
       ..add(HomeBxLifePage(goodsProvider))
       ..add(CategoryBxLifePage(

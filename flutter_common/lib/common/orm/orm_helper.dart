@@ -140,3 +140,24 @@ class OrmHelper {
     return Query(tableName).primaryKey(primaryKey).delete();
   }
 }
+
+abstract class BaseOrmProvider {
+  bool isTableExits = false;
+  OrmHelper _helper;
+
+  //获取表名
+  String tableName();
+
+  //获取主键Key
+  String primaryKey();
+
+  //获取OrmHelper
+  OrmHelper ormHelper() => _initOrmHelper();
+
+  OrmHelper _initOrmHelper() {
+    if (_helper == null) {
+      _helper = OrmHelper.getInstance();
+    }
+    return _helper;
+  }
+}

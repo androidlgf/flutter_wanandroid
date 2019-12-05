@@ -16,8 +16,8 @@ import 'life_add_address_state.dart';
 ///添加购物地址列表
 class LifeAddAddressForm extends StatefulWidget {
   final LifeGoodsProvider provider;
-
-  LifeAddAddressForm({Key key, this.provider})
+  final LifeGoodsProvider addressProvider;
+  LifeAddAddressForm({Key key, this.provider,this.addressProvider})
       : assert(provider != null),
         super(key: key);
 
@@ -55,7 +55,20 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
             }
           }
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              title: Text('添加收货地址'),
+              actions: <Widget>[
+                RaisedButton(
+//                    onPressed: () => pushNewPage(
+//                        context, LifeConfirmOrderPage(provider: widget.provider)),
+                    shape: StadiumBorder(),
+                    color: Colors.transparent,
+                    disabledColor: Colors.transparent,
+                    child: Text('保存',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: Screen.spScreen16)))
+              ],
+            ),
             body: SingleChildScrollView(
               child: _buildBodyWidget(),
             ),

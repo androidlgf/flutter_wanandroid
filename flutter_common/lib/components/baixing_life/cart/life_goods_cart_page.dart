@@ -9,8 +9,9 @@ import 'life_goods_cart_bloc.dart';
 ///我的购物车界面
 class LifeGoodsCardPage extends StatelessWidget {
   final LifeGoodsProvider provider;
+  final LifeGoodsProvider addressProvider;
 
-  LifeGoodsCardPage({Key key, this.provider})
+  LifeGoodsCardPage({Key key, this.provider, this.addressProvider})
       : assert(provider != null),
         super(key: key);
 

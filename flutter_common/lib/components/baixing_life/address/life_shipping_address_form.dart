@@ -6,8 +6,8 @@ import 'package:flutter_common/components/baixing_life/db/life_goods_provider.da
 ///我的购物地址列表
 class LifeShippingAddressForm extends StatefulWidget {
   final LifeGoodsProvider provider;
-
-  LifeShippingAddressForm({Key key, this.provider})
+  final LifeGoodsProvider addressProvider;
+  LifeShippingAddressForm({Key key, this.provider,this.addressProvider})
       : assert(provider != null),
         super(key: key);
 

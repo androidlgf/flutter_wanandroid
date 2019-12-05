@@ -12,8 +12,9 @@ import 'package:flutter_common/components/baixing_life/cart/life_goods_cart_even
 
 class LifeGoodsCartWidget extends StatefulWidget {
   final LifeGoodsProvider provider;
+  final LifeGoodsProvider addressProvider;
 
-  LifeGoodsCartWidget({Key key, this.provider})
+  LifeGoodsCartWidget({Key key, this.provider, this.addressProvider})
       : assert(provider != null),
         super(key: key);
 

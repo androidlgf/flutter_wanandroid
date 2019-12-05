@@ -9,8 +9,9 @@ import 'life_shipping_address_form.dart';
 ///我的购物地址列表
 class LifeShippingAddressPage extends StatelessWidget {
   final LifeGoodsProvider provider;
+  final LifeGoodsProvider addressProvider;
 
-  LifeShippingAddressPage({Key key, this.provider})
+  LifeShippingAddressPage({Key key, this.provider, this.addressProvider})
       : assert(provider != null),
         super(key: key);
 
@@ -20,7 +21,10 @@ class LifeShippingAddressPage extends StatelessWidget {
       builder: (context) {
         return LifeShippingAddressBloc(httpWork: ILifeHttpPostWork());
       },
-      child: LifeShippingAddressForm(provider: provider),
+      child: LifeShippingAddressForm(
+        provider: provider,
+        addressProvider: addressProvider,
+      ),
     );
   }
 }
