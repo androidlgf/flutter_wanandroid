@@ -21,9 +21,21 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get BaiXinLife => "Civilian living area";
   String get get_reload => "reload";
   String get get_search => "search";
   String get get_v_code => "get code";
+  String get life_add_address_consignee_hint => "收货人";
+  String get life_add_address_default_hint => "设置默认地址";
+  String get life_add_address_edit_title => "edit";
+  String get life_add_address_location_details_hint => "详细地址：如街道、门牌号、小区、楼栋号、单元室等";
+  String get life_add_address_location_hint => "所在地区";
+  String get life_add_address_phone_hint => "手机号码";
+  String get life_add_address_save => "save";
+  String get life_add_address_ship_title => "My shipping address";
+  String get life_add_address_tag_hint => "地址标签";
+  String get life_add_address_title => "Add shipping address";
+  String get life_add_new_address_title => "Add a new address";
   String get no_data => "Countless according to oh~";
   String get no_network_connect => "Ah oh, network is not very smooth oh ~";
 }
@@ -35,15 +47,39 @@ class $en_US extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get no_network_connect => "Ah oh, network is not very smooth oh ~";
+  String get life_add_address_ship_title => "My shipping address";
   @override
-  String get get_v_code => "get code";
+  String get life_add_address_location_details_hint => "详细地址：如街道、门牌号、小区、楼栋号、单元室等";
+  @override
+  String get life_add_address_default_hint => "设置默认地址";
   @override
   String get no_data => "Countless according to oh~";
+  @override
+  String get life_add_address_save => "save";
+  @override
+  String get life_add_address_tag_hint => "地址标签";
+  @override
+  String get life_add_address_edit_title => "edit";
   @override
   String get get_reload => "reload";
   @override
   String get get_search => "search";
+  @override
+  String get life_add_address_phone_hint => "手机号码";
+  @override
+  String get BaiXinLife => "Civilian living area";
+  @override
+  String get life_add_address_consignee_hint => "收货人";
+  @override
+  String get no_network_connect => "Ah oh, network is not very smooth oh ~";
+  @override
+  String get life_add_address_location_hint => "所在地区";
+  @override
+  String get get_v_code => "get code";
+  @override
+  String get life_add_new_address_title => "Add a new address";
+  @override
+  String get life_add_address_title => "Add shipping address";
 }
 
 class $en extends S {
@@ -57,15 +93,39 @@ class $zh_CN extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get no_network_connect => "啊哦,网络不太顺畅哦~";
+  String get life_add_address_ship_title => "我的收货地址";
   @override
-  String get get_v_code => "获取验证码";
+  String get life_add_address_location_details_hint => "详细地址：如街道、门牌号、小区、楼栋号、单元室等";
+  @override
+  String get life_add_address_default_hint => "设置默认地址";
   @override
   String get no_data => "暂无数据哦~";
+  @override
+  String get life_add_address_save => "保存";
+  @override
+  String get life_add_address_tag_hint => "地址标签";
+  @override
+  String get life_add_address_edit_title => "编辑";
   @override
   String get get_reload => "重新加载";
   @override
   String get get_search => "搜索";
+  @override
+  String get life_add_address_phone_hint => "手机号码";
+  @override
+  String get BaiXinLife => "百姓生活区域";
+  @override
+  String get life_add_address_consignee_hint => "收货人";
+  @override
+  String get no_network_connect => "啊哦,网络不太顺畅哦~";
+  @override
+  String get life_add_address_location_hint => "所在地区";
+  @override
+  String get get_v_code => "获取验证码";
+  @override
+  String get life_add_new_address_title => "添加新地址";
+  @override
+  String get life_add_address_title => "添加收货地址";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

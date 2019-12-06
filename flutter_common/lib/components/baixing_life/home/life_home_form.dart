@@ -447,7 +447,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             );
           }, childCount: categories.length - 1),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5, childAspectRatio: 0.9)),
+              crossAxisCount: 5, childAspectRatio: 0.8)),
     );
   }
 

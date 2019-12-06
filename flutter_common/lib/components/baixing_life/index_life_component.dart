@@ -33,11 +33,12 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
   List<Widget> listOfWidgetObjects = [];
   LifeGoodsProvider goodsProvider;
   LifeAddressProvider addressProvider;
+
   @override
   void initState() {
     super.initState();
     goodsProvider = LifeGoodsProvider();
-    addressProvider=LifeAddressProvider();
+    addressProvider = LifeAddressProvider();
     listOfWidgetObjects
       ..add(HomeBxLifePage(goodsProvider))
       ..add(CategoryBxLifePage(
@@ -47,8 +48,8 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
         index: '${0}',
       ))
       ..add(LifeGoodsCardPage(
-        provider: goodsProvider,
-      ))..add(MemberLifePage(goodsProvider));
+          provider: goodsProvider, addressProvider: addressProvider))
+      ..add(MemberLifePage(goodsProvider));
   }
 
   void changePage(int index) {

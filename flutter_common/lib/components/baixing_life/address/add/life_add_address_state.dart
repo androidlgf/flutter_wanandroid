@@ -51,3 +51,26 @@ class SwitchDefaultAddressState extends BlocState {
   @override
   String toString() => 'SwitchDefaultAddressState {isSwitch: $isSwitch}';
 }
+class SaveAddressState extends BlocState {
+  final bool isSuccess;
+
+  const SaveAddressState({@required this.isSuccess});
+
+  @override
+  List<Object> get props => [isSuccess];
+
+  @override
+  String toString() => 'SaveAddressState {isSuccess: $isSuccess}';
+}
+
+class UpdateAddressState extends BlocState {
+  final bool isSuccess;
+
+  const UpdateAddressState({@required this.isSuccess});
+
+  @override
+  List<Object> get props => [isSuccess];
+
+  @override
+  String toString() => 'UpdateAddressState {isSuccess: $isSuccess}';
+}

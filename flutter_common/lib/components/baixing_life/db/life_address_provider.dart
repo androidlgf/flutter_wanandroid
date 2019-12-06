@@ -20,6 +20,8 @@ class LifeAddressProvider extends BaseOrmProvider {
 
   static String addressArea() => 'area';
 
+  static String addressPrimaryId() => 'address_Id';
+
   @override
   String tableName() {
     return 'address_table';
@@ -27,24 +29,61 @@ class LifeAddressProvider extends BaseOrmProvider {
 
   @override
   String primaryKey() {
-    return 'id';
+    return 'address_Id';
   }
 
   LifeAddressProvider() {
     Map<String, dynamic> tableKey = {};
-    tableKey.putIfAbsent(addressId(), () => FieldType.Text);
     tableKey.putIfAbsent(addressName(), () => FieldType.Text);
+    tableKey.putIfAbsent(addressId(), () => FieldType.Text);
     tableKey.putIfAbsent(addressPhone(), () => FieldType.Text);
+    tableKey.putIfAbsent(addressDetails(), () => FieldType.Text);
     tableKey.putIfAbsent(addressIsDefault(), () => FieldType.Boolean);
     tableKey.putIfAbsent(addressProvince(), () => FieldType.Text);
-    tableKey.putIfAbsent(addressCity(), () => FieldType.Integer);
+    tableKey.putIfAbsent(addressCity(), () => FieldType.Text);
     tableKey.putIfAbsent(addressArea(), () => FieldType.Text);
+    tableKey.putIfAbsent(addressTag(), () => FieldType.Text);
     ormHelper().createTable(tableName(), primaryKey(), tableKey);
+  }
+
+  void saveAddress(Address address) {
+    if (address == null) {
+      return;
+    }
+    String primaryValue = address?.id;
+    if (primaryValue == null || primaryValue.isEmpty) {
+      return;
+    }
+    address.primaryId = primaryValue;
+    ormHelper().insert(tableName(), address?.toMap());
+  }
+
+  void updateAddress(Address address) async {
+    if (address == null) {
+      return;
+    }
+    String primaryValue = address.id;
+    if (primaryValue == null || primaryValue.isEmpty) {
+      return;
+    }
+    var queryData =
+        await ormHelper().queryByPrimaryKeyFirst(tableName(), [primaryValue]);
+    if (queryData != null) {
+      ormHelper()
+          .updateByPrimaryKey(tableName(), [primaryValue], address?.toMap());
+    } else {
+      ormHelper().insert(tableName(), address?.toMap());
+    }
+  }
+
+  Future<List> queryAddress() {
+    return ormHelper().queryAll(tableName());
   }
 }
 
 class Address {
   String id;
+  String primaryId;
   String name;
   String phone;
   bool isDefault;
@@ -69,6 +108,7 @@ class Address {
     if (map == null) return null;
     Address addressBean = Address();
     addressBean.id = map[LifeAddressProvider.addressId()];
+    addressBean.primaryId = map[LifeAddressProvider.addressPrimaryId()];
     addressBean.name = map[LifeAddressProvider.addressName()];
     addressBean.phone = map[LifeAddressProvider.addressPhone()];
     addressBean.isDefault = map[LifeAddressProvider.addressIsDefault()] == 1;
@@ -88,6 +128,8 @@ class Address {
         '${LifeAddressProvider.addressTag()}': tag,
         '${LifeAddressProvider.addressDetails()}': address,
         '${LifeAddressProvider.addressArea()}': area,
+        '${LifeAddressProvider.addressId()}': id,
+        '${LifeAddressProvider.addressPrimaryId()}': id,
         '${LifeAddressProvider.addressIsDefault()}': isDefault ? 1 : 0
       };
 

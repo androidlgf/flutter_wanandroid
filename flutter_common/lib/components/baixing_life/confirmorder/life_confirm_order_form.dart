@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/baixing_life/address/add/life_add_address_page.dart';
 import 'package:flutter_common/components/baixing_life/address/life_shipping_address_page.dart';
+import 'package:flutter_common/components/baixing_life/db/life_address_provider.dart';
 import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
 
 ///购物结算界面
 class LifeConfirmOrderForm extends StatefulWidget {
   final LifeGoodsProvider provider;
-
-  LifeConfirmOrderForm({Key key, this.provider})
+  final LifeAddressProvider addressProvider;
+  LifeConfirmOrderForm({Key key, this.provider,this.addressProvider})
       : assert(provider != null),
         super(key: key);
 
@@ -41,7 +42,7 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
 
   Widget _buildAddressWidget() {
     return InkWell(
-      onTap: () => pushNewPage(context, LifeAddAddressPage(provider: widget.provider)),
+      onTap: () => pushNewPage(context, LifeShippingAddressPage(provider: widget.provider,addressProvider: widget.addressProvider)),
       child: Container(
         margin: EdgeInsets.all(Screen.wScreen10),
         height: Screen.hScree100,

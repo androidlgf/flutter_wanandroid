@@ -1,0 +1,19 @@
+{
+  "get_v_code": "获取验证码",
+  "get_reload": "重新加载",
+  "get_search": "搜索",
+  "no_data": "暂无数据哦~",
+  "no_network_connect": "啊哦,网络不太顺畅哦~",
+  "BaiXinLife": "百姓生活区域",
+  "life_add_address_ship_title": "我的收货地址",
+  "life_add_new_address_title": "添加新地址",
+  "life_add_address_edit_title": "编辑",
+  "life_add_address_title": "添加收货地址",
+  "life_add_address_save": "保存",
+  "life_add_address_consignee_hint": "收货人",
+  "life_add_address_phone_hint": "手机号码",
+  "life_add_address_location_hint": "所在地区",
+  "life_add_address_location_details_hint": "详细地址：如街道、门牌号、小区、楼栋号、单元室等",
+  "life_add_address_tag_hint": "地址标签",
+  "life_add_address_default_hint": "设置默认地址"
+}

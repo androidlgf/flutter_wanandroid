@@ -64,6 +64,7 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
           );
           return;
         }
+
         ///展示SnackBar提示
         if (state is BlocShowSnackBar) {
           Scaffold.of(context).showSnackBar(
@@ -73,6 +74,7 @@ class BlocWidget<T extends Bloc<dynamic, BlocState>> extends StatelessWidget {
           );
           return;
         }
+
         ///展示Toast提示
         if (state is BlocShowMessage) {
           Fluttertoast.showToast(msg: '${state.message}');

@@ -1,4 +1,5 @@
 import 'package:flutter_common/components/baixing_life/confirmorder/life_confirm_order_page.dart';
+import 'package:flutter_common/components/baixing_life/db/life_address_provider.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_add_cart_goods_detail_event.dart';
 import 'life_goods_cart_bloc.dart';
 import 'life_goods_cart_state.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_common/components/baixing_life/cart/life_goods_cart_even
 
 class LifeGoodsCartWidget extends StatefulWidget {
   final LifeGoodsProvider provider;
-  final LifeGoodsProvider addressProvider;
+  final LifeAddressProvider addressProvider;
 
   LifeGoodsCartWidget({Key key, this.provider, this.addressProvider})
       : assert(provider != null),
@@ -210,7 +211,7 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
               Gaps.hGap10,
               RaisedButton(
                   onPressed: () => pushNewPage(
-                      context, LifeConfirmOrderPage(provider: widget.provider)),
+                      context, LifeConfirmOrderPage(provider: widget.provider,addressProvider: widget.addressProvider,)),
                   shape: StadiumBorder(),
                   color: deepOrange300Color,
                   child: Text('结算',

@@ -3,5 +3,17 @@
   "get_reload": "reload",
   "get_search": "search",
   "no_data": "Countless according to oh~",
-  "no_network_connect": "Ah oh, network is not very smooth oh ~"
+  "no_network_connect": "Ah oh, network is not very smooth oh ~",
+  "BaiXinLife": "Civilian living area",
+  "life_add_address_title": "Add shipping address",
+  "life_add_address_ship_title": "My shipping address",
+  "life_add_new_address_title": "Add a new address",
+  "life_add_address_edit_title": "edit",
+  "life_add_address_save": "save",
+  "life_add_address_consignee_hint": "收货人",
+  "life_add_address_phone_hint": "手机号码",
+  "life_add_address_location_hint": "所在地区",
+  "life_add_address_location_details_hint": "详细地址：如街道、门牌号、小区、楼栋号、单元室等",
+  "life_add_address_tag_hint": "地址标签",
+  "life_add_address_default_hint": "设置默认地址"
 }
