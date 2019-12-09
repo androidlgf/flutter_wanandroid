@@ -36,6 +36,7 @@ class S implements WidgetsLocalizations {
   String get life_add_address_tag_hint => "地址标签";
   String get life_add_address_title => "Add shipping address";
   String get life_add_new_address_title => "Add a new address";
+  String get life_cart_account => "account";
   String get life_cart_check_all => "checkAll";
   String get life_cart_summation => "summation";
   String get no_data => "Countless according to oh~";
@@ -68,6 +69,8 @@ class $en_US extends S {
   String get get_reload => "reload";
   @override
   String get get_search => "search";
+  @override
+  String get life_cart_account => "account";
   @override
   String get life_add_address_phone_hint => "手机号码";
   @override
@@ -118,6 +121,8 @@ class $zh_CN extends S {
   String get get_reload => "重新加载";
   @override
   String get get_search => "搜索";
+  @override
+  String get life_cart_account => "结算";
   @override
   String get life_add_address_phone_hint => "手机号码";
   @override

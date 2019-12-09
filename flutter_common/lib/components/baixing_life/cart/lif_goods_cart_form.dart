@@ -1,6 +1,5 @@
 import 'package:flutter_common/components/baixing_life/confirmorder/life_confirm_order_page.dart';
 import 'package:flutter_common/components/baixing_life/db/life_address_provider.dart';
-import 'package:flutter_common/components/baixing_life/goodsdetail/life_add_cart_goods_detail_event.dart';
 import 'life_goods_cart_bloc.dart';
 import 'life_goods_cart_state.dart';
 import 'package:flutter/material.dart';
@@ -101,18 +100,20 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                       provider: widget.provider, queryGoods: obj));
             },
             child: Icon(
-              obj['isCheck'] == LifeGoodsProvider.GOODS_CART_CHECKED
+              obj[LifeGoodsProvider.goodsIsCheck()] ==
+                      LifeGoodsProvider.goodsChecked()
                   ? Icons.check_circle
                   : Icons.radio_button_unchecked,
               size: Screen.hScree16,
-              color: obj['isCheck'] == LifeGoodsProvider.GOODS_CART_CHECKED
+              color: obj[LifeGoodsProvider.goodsIsCheck()] ==
+                      LifeGoodsProvider.goodsChecked()
                   ? deepOrange300Color
                   : grey500Color,
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Screen.hScree10),
-            child: ImageLoadView('${obj['comPic']}',
+            child: ImageLoadView('${obj[LifeGoodsProvider.goodsComPic()]}',
                 width: Screen.hScree80, height: Screen.hScree80),
           ),
           Expanded(
@@ -120,13 +121,13 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text('${obj['goodsName']}',
+              Text('${obj[LifeGoodsProvider.goodsName()]}',
                   style: TextStyle(
                       color: grey1000Color, fontSize: Screen.spScreen16)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('¥${obj['oriPrice']}',
+                  Text('¥${obj[LifeGoodsProvider.goodsOriPrice()]}',
                       style: TextStyle(
                           color: deepOrange300Color,
                           fontSize: Screen.spScreen14)),
@@ -141,8 +142,9 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                             MinusCartNumGoodsEvent(
                                 provider: widget.provider, queryGoods: obj));
                       },
-                      amount:
-                          obj['goodsCartNum'] == null ? 1 : obj['goodsCartNum'])
+                      amount: obj[LifeGoodsProvider.goodsCartNum()] == null
+                          ? 1
+                          : obj[LifeGoodsProvider.goodsCartNum()])
                 ],
               )
             ],
@@ -218,7 +220,7 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                       )),
                   shape: StadiumBorder(),
                   color: deepOrange300Color,
-                  child: Text('结算',
+                  child: Text('${S.of(context).life_cart_account}',
                       style: TextStyle(
                           color: Colors.white, fontSize: Screen.spScreen14)))
             ],
@@ -238,29 +240,15 @@ class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);
-    print('==state=onEvent=' + event.toString());
-    if (event is AddCartGoodsEvent) {
-      if (context == null) {
-        print('==state=onEvent==22=');
-      }
-      if (provider == null) {
-        print('==state=onEvent==33=');
-      }
-      print('==state=onEvent==11=');
-//      BlocProvider.of<LifeCartBloc>(context)
-//          .add(CartQueryGoodsEvent(provider: provider));
-    }
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    print('==state=onTransition=');
   }
 
   @override
   void onError(Bloc bloc, Object error, StackTrace stacktrace) {
     super.onError(bloc, error, stacktrace);
-    print('==state=onError=');
   }
 }

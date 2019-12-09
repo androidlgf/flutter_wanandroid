@@ -17,5 +17,6 @@
   "life_add_address_tag_hint": "地址标签",
   "life_add_address_default_hint": "设置默认地址",
   "life_cart_check_all": "全选",
-  "life_cart_summation": "合计"
+  "life_cart_summation": "合计",
+  "life_cart_account": "结算"
 }

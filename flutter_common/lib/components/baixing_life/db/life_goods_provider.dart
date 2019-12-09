@@ -2,59 +2,56 @@ import 'package:flutter_common/common/orm/orm_helper.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/data/life_goods_detail_data.dart';
 import 'package:flutter_orm_plugin/flutter_orm_plugin.dart';
 
-class LifeGoodsProvider {
-  // ignore: non_constant_identifier_names
-  static final String TABLE_NAME = 'cart_table';
+class LifeGoodsProvider extends BaseOrmProvider {
+  static String goodsId() => 'goodsId';
 
-// ignore: non_constant_identifier_names
-  static final String GOODS_ID = 'goodsId';
+  static String goodsName() => 'goodsName';
 
-  // ignore: non_constant_identifier_names
-  static final String GOODS_NAME = 'goodsName';
+  static String goodsAmount() => 'amount';
 
-  // ignore: non_constant_identifier_names
-  static final String GOODS_AMOUNT = 'amount';
+  static String goodsOriPrice() => 'oriPrice';
 
-  // ignore: non_constant_identifier_names
-  static final String GOODS_ORIPRICE = 'oriPrice'; //市场价
-  // ignore: non_constant_identifier_names
-  static final String GOODS_PRESENTPRICE = 'presentPrice'; //市场价
-  // ignore: non_constant_identifier_names
-  static final String GOODS_IMAGE = 'comPic';
+  static String goodsPresentPrice() => 'presentPrice';
 
-  // ignore: non_constant_identifier_names
-  static final String GOODS_CART_NUM = 'goodsCartNum'; //购物车数量
-  // ignore: non_constant_identifier_names
-  static final String GOODS_CART_CHECK = 'isCheck'; //是否选中
-  // ignore: non_constant_identifier_names
-  static final String GOODS_ASSURE = 'assure'; //无理由退换
+  static String goodsComPic() => 'comPic';
 
-// ignore: non_constant_identifier_names
-  static final String GOODS_CART_CHECKED = '1'; //选中
+  static String goodsCartNum() => 'cartNum';
 
-  // ignore: non_constant_identifier_names
-  static final String GOODS_CART_NO_CHECK = '0'; //未选中
+  static String goodsIsCheck() => 'isCheck';
 
-  // ignore: non_constant_identifier_names
-  static final String GOODS_ASSURE_VALUE = '7天无理由退换';
+  static String goodsChecked() => '1'; //选中
+  static String goodsUnChecked() => '0'; //未选中
+  static String goodsAssure() => 'assure'; //无理由退换
+  static String goodsAssureValue() => '7天无理由退换'; //7天无理由退换
+
+  @override
+  String tableName() {
+    return 'cart_table';
+  }
+
+  @override
+  String primaryKey() {
+    return 'goodsId';
+  }
+
   OrmHelper _helper;
 
   LifeGoodsProvider() {
     _helper = OrmHelper.getInstance();
     Map<String, dynamic> tableKey = {};
-    tableKey.putIfAbsent(GOODS_NAME, () => FieldType.Text);
-    tableKey.putIfAbsent(GOODS_AMOUNT, () => FieldType.Text);
-    tableKey.putIfAbsent(GOODS_ORIPRICE, () => FieldType.Text);
-    tableKey.putIfAbsent(GOODS_PRESENTPRICE, () => FieldType.Text);
-    tableKey.putIfAbsent(GOODS_IMAGE, () => FieldType.Text);
-    tableKey.putIfAbsent(GOODS_CART_NUM, () => FieldType.Integer);
-    tableKey.putIfAbsent(GOODS_CART_CHECK, () => FieldType.Text);
-    _helper.createTable(TABLE_NAME, GOODS_ID, tableKey);
+    tableKey.putIfAbsent(goodsName(), () => FieldType.Text);
+    tableKey.putIfAbsent(goodsAmount(), () => FieldType.Text);
+    tableKey.putIfAbsent(goodsOriPrice(), () => FieldType.Text);
+    tableKey.putIfAbsent(goodsPresentPrice(), () => FieldType.Text);
+    tableKey.putIfAbsent(goodsComPic(), () => FieldType.Text);
+    tableKey.putIfAbsent(goodsCartNum(), () => FieldType.Integer);
+    tableKey.putIfAbsent(goodsIsCheck(), () => FieldType.Text);
+    _helper.createTable(tableName(), primaryKey(), tableKey);
   }
 
   ///保存购物车操作
   void saveGoods(GoodsProvider info) {
-    _helper.insert(TABLE_NAME, info.toMap());
+    _helper.insert(tableName(), info.toMap());
   }
 
   ///添加到购物车操作
@@ -71,13 +68,14 @@ class LifeGoodsProvider {
         presentPrice: info?.presentPrice,
         comPic: info?.comPic);
     Map<dynamic, dynamic> queryData =
-        await _helper.queryByPrimaryKeyFirst(TABLE_NAME, [goodsId]);
+        await _helper.queryByPrimaryKeyFirst(tableName(), [goodsId]);
     if (queryData != null) {
-      goodsProvider.goodsCartNum = queryData[GOODS_CART_NUM] + 1;
-      _helper.updateByPrimaryKey(TABLE_NAME, [goodsId], goodsProvider?.toMap());
+      goodsProvider.goodsCartNum = queryData[goodsCartNum()] + 1;
+      _helper.updateByPrimaryKey(
+          tableName(), [goodsId], goodsProvider?.toMap());
     } else {
       goodsProvider.goodsCartNum = 1;
-      goodsProvider.isCheck = GOODS_CART_NO_CHECK;
+      goodsProvider.isCheck = goodsUnChecked();
       saveGoods(goodsProvider);
     }
   }
@@ -91,12 +89,12 @@ class LifeGoodsProvider {
       return;
     }
     Map<dynamic, dynamic> queryData =
-        await _helper.queryByPrimaryKeyFirst(TABLE_NAME, [goodsId]);
+        await _helper.queryByPrimaryKeyFirst(tableName(), [goodsId]);
     if (queryData != null) {
-      goodsProvider.goodsCartNum = (queryData[GOODS_CART_NUM] - 1) > 0
-          ? queryData[GOODS_CART_NUM] - 1
+      goodsProvider.goodsCartNum = (queryData[goodsCartNum()] - 1) > 0
+          ? queryData[goodsCartNum()] - 1
           : 1;
-      _helper.updateByPrimaryKey(TABLE_NAME, [goodsId],
+      _helper.updateByPrimaryKey(tableName(), [goodsId],
           Map<String, dynamic>.from(goodsProvider?.toMap()));
     }
   }
@@ -110,10 +108,10 @@ class LifeGoodsProvider {
       return;
     }
     Map<dynamic, dynamic> queryData =
-        await _helper.queryByPrimaryKeyFirst(TABLE_NAME, [goodsId]);
+        await _helper.queryByPrimaryKeyFirst(tableName(), [goodsId]);
     if (queryData != null) {
-      goodsProvider.goodsCartNum = queryData[GOODS_CART_NUM] + 1;
-      _helper.updateByPrimaryKey(TABLE_NAME, [goodsId],
+      goodsProvider.goodsCartNum = queryData[goodsCartNum()] + 1;
+      _helper.updateByPrimaryKey(tableName(), [goodsId],
           Map<String, dynamic>.from(goodsProvider?.toMap()));
     }
   }
@@ -126,12 +124,12 @@ class LifeGoodsProvider {
       return;
     }
     Map<dynamic, dynamic> queryData =
-        await _helper.queryByPrimaryKeyFirst(TABLE_NAME, [goodsId]);
+        await _helper.queryByPrimaryKeyFirst(tableName(), [goodsId]);
     if (queryData != null) {
-      goodsProvider.isCheck = queryData[GOODS_CART_CHECK] == GOODS_CART_NO_CHECK
-          ? GOODS_CART_CHECKED
-          : GOODS_CART_NO_CHECK;
-      _helper.updateByPrimaryKey(TABLE_NAME, [goodsId],
+      goodsProvider.isCheck = queryData[goodsIsCheck()] == goodsUnChecked()
+          ? goodsChecked()
+          : goodsUnChecked();
+      _helper.updateByPrimaryKey(tableName(), [goodsId],
           Map<String, dynamic>.from(goodsProvider?.toMap()));
     }
   }
@@ -146,9 +144,8 @@ class LifeGoodsProvider {
       if (goodsId == null || goodsId.isEmpty) {
         break;
       }
-      goodsProvider.isCheck =
-          isCheck ? GOODS_CART_CHECKED : GOODS_CART_NO_CHECK;
-      _helper.updateByPrimaryKey(TABLE_NAME, [goodsId],
+      goodsProvider.isCheck = isCheck ? goodsChecked() : goodsUnChecked();
+      _helper.updateByPrimaryKey(tableName(), [goodsId],
           Map<String, dynamic>.from(goodsProvider?.toMap()));
     }
     return listOfData;
@@ -160,7 +157,7 @@ class LifeGoodsProvider {
     double totalPrice = 0;
     for (dynamic value in listOfData) {
       GoodsProvider goodsProvider = GoodsProvider.fromMap(value);
-      if (goodsProvider.isCheck == GOODS_CART_CHECKED) {
+      if (goodsProvider.isCheck == goodsChecked()) {
         totalPrice += goodsProvider.goodsCartNum * goodsProvider.oriPrice;
       }
     }
@@ -169,7 +166,7 @@ class LifeGoodsProvider {
 
   ///查询所有购物车
   Future<List<dynamic>> queryGoods() {
-    return _helper.queryAll(TABLE_NAME);
+    return _helper.queryAll(tableName());
   }
 }
 
@@ -199,28 +196,28 @@ class GoodsProvider {
   static GoodsProvider fromMap(Map<dynamic, dynamic> map) {
     if (map == null) return null;
     GoodsProvider goodsProvider = GoodsProvider();
-    goodsProvider.goodsId = map[LifeGoodsProvider.GOODS_ID];
-    goodsProvider.goodsName = map[LifeGoodsProvider.GOODS_NAME];
-    goodsProvider.amount = int.parse(map[LifeGoodsProvider.GOODS_AMOUNT]);
+    goodsProvider.goodsId = map[LifeGoodsProvider.goodsId()];
+    goodsProvider.goodsName = map[LifeGoodsProvider.goodsName()];
+    goodsProvider.amount = int.parse(map[LifeGoodsProvider.goodsAmount()]);
     goodsProvider.oriPrice =
-        double.parse(map[LifeGoodsProvider.GOODS_ORIPRICE]);
+        double.parse(map[LifeGoodsProvider.goodsOriPrice()]);
     goodsProvider.presentPrice =
-        double.parse(map[LifeGoodsProvider.GOODS_PRESENTPRICE]);
-    goodsProvider.comPic = map[LifeGoodsProvider.GOODS_IMAGE];
-    goodsProvider.goodsCartNum = map[LifeGoodsProvider.GOODS_CART_NUM];
-    goodsProvider.isCheck = map[LifeGoodsProvider.GOODS_CART_CHECK];
+        double.parse(map[LifeGoodsProvider.goodsPresentPrice()]);
+    goodsProvider.comPic = map[LifeGoodsProvider.goodsComPic()];
+    goodsProvider.goodsCartNum = map[LifeGoodsProvider.goodsCartNum()];
+    goodsProvider.isCheck = map[LifeGoodsProvider.goodsIsCheck()];
     return goodsProvider;
   }
 
   Map<dynamic, dynamic> toMap() => {
-        '${LifeGoodsProvider.GOODS_ID}': goodsId,
-        '${LifeGoodsProvider.GOODS_NAME}': goodsName,
-        '${LifeGoodsProvider.GOODS_AMOUNT}': amount,
-        '${LifeGoodsProvider.GOODS_ORIPRICE}': oriPrice,
-        '${LifeGoodsProvider.GOODS_PRESENTPRICE}': presentPrice,
-        '${LifeGoodsProvider.GOODS_IMAGE}': comPic,
-        '${LifeGoodsProvider.GOODS_CART_NUM}': goodsCartNum,
-        '${LifeGoodsProvider.GOODS_CART_CHECK}': isCheck
+        '${LifeGoodsProvider.goodsId()}': goodsId,
+        '${LifeGoodsProvider.goodsName()}': goodsName,
+        '${LifeGoodsProvider.goodsAmount()}': amount,
+        '${LifeGoodsProvider.goodsOriPrice()}': oriPrice,
+        '${LifeGoodsProvider.goodsPresentPrice()}': presentPrice,
+        '${LifeGoodsProvider.goodsComPic()}': comPic,
+        '${LifeGoodsProvider.goodsCartNum()}': goodsCartNum,
+        '${LifeGoodsProvider.goodsIsCheck()}': isCheck
       };
 
   @override
