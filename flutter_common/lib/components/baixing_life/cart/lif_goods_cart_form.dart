@@ -191,7 +191,7 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                   color: isCheck ? deepOrange300Color : grey500Color,
                 ),
                 Gaps.hGap10,
-                Text('全选',
+                Text('${S.of(context).life_cart_check_all}',
                     style: TextStyle(
                         color: grey500Color, fontSize: Screen.spScreen14))
               ],
@@ -202,7 +202,7 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Text('合计:',
+              Text('${S.of(context).life_cart_summation}:',
                   style: TextStyle(
                       color: grey1000Color, fontSize: Screen.spScreen14)),
               Text('￥$totalPrice',
@@ -211,7 +211,11 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
               Gaps.hGap10,
               RaisedButton(
                   onPressed: () => pushNewPage(
-                      context, LifeConfirmOrderPage(provider: widget.provider,addressProvider: widget.addressProvider,)),
+                      context,
+                      LifeConfirmOrderPage(
+                        provider: widget.provider,
+                        addressProvider: widget.addressProvider,
+                      )),
                   shape: StadiumBorder(),
                   color: deepOrange300Color,
                   child: Text('结算',

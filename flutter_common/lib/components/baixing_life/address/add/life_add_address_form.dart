@@ -80,6 +80,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
                 } else {
                   BlocProvider.of<LifeAddAddressBloc>(context).add(
                       UpdateAddressEvent(
+                          context: this.context,
                           provider: widget.addressProvider,
                           id: widget?.address?.id,
                           name: _nameController.text,
@@ -100,7 +101,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
       ),
       body: BlocWidget<LifeAddAddressBloc>(
         builder: BlocBuilder<LifeAddAddressBloc, BlocState>(
-          builder: (context, state) {
+          builder: (ctx, state) {
             if (state is SelectContactState) {
               _nameController.text = state.fullName;
               _phoneController.text = state.phoneNumber;
@@ -119,7 +120,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
               }
             }
             if (state is SaveAddressState || state is UpdateAddressState) {
-              Navigator.of(context).pop();
+              Navigator.of(this.context).pop();
             }
             return SingleChildScrollView(
               child: _buildBodyWidget(),

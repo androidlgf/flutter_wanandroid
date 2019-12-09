@@ -54,6 +54,7 @@ class _LifeSettlementFormState extends State<LifeShippingAddressForm> {
       body: BlocWidget<LifeShippingAddressBloc>(
         builder: BlocBuilder<LifeShippingAddressBloc, BlocState>(
             builder: (context, state) {
+              print('==state==');
           if (state is QueryAddressState) {
             _listOfAddress.clear();
             _listOfAddress.addAll(state?.listOfAddress);

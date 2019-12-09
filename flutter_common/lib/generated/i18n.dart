@@ -36,6 +36,8 @@ class S implements WidgetsLocalizations {
   String get life_add_address_tag_hint => "地址标签";
   String get life_add_address_title => "Add shipping address";
   String get life_add_new_address_title => "Add a new address";
+  String get life_cart_check_all => "checkAll";
+  String get life_cart_summation => "summation";
   String get no_data => "Countless according to oh~";
   String get no_network_connect => "Ah oh, network is not very smooth oh ~";
 }
@@ -50,6 +52,8 @@ class $en_US extends S {
   String get life_add_address_ship_title => "My shipping address";
   @override
   String get life_add_address_location_details_hint => "详细地址：如街道、门牌号、小区、楼栋号、单元室等";
+  @override
+  String get life_cart_check_all => "checkAll";
   @override
   String get life_add_address_default_hint => "设置默认地址";
   @override
@@ -75,6 +79,8 @@ class $en_US extends S {
   @override
   String get life_add_address_location_hint => "所在地区";
   @override
+  String get life_cart_summation => "summation";
+  @override
   String get get_v_code => "get code";
   @override
   String get life_add_new_address_title => "Add a new address";
@@ -96,6 +102,8 @@ class $zh_CN extends S {
   String get life_add_address_ship_title => "我的收货地址";
   @override
   String get life_add_address_location_details_hint => "详细地址：如街道、门牌号、小区、楼栋号、单元室等";
+  @override
+  String get life_cart_check_all => "全选";
   @override
   String get life_add_address_default_hint => "设置默认地址";
   @override
@@ -120,6 +128,8 @@ class $zh_CN extends S {
   String get no_network_connect => "啊哦,网络不太顺畅哦~";
   @override
   String get life_add_address_location_hint => "所在地区";
+  @override
+  String get life_cart_summation => "合计";
   @override
   String get get_v_code => "获取验证码";
   @override

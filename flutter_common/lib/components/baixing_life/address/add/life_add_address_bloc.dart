@@ -113,7 +113,8 @@ class LifeAddAddressBloc extends BlocCommon<BlocEvent, BlocState> {
           area: event?.area,
           tag: event?.tag);
       event?.provider?.updateAddress(address);
-      yield UpdateAddressState(isSuccess: true);
+//      yield UpdateAddressState(isSuccess: true);
+      Navigator.of(event?.context).pop();
       return;
     }
   }

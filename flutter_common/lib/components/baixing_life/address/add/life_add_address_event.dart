@@ -70,6 +70,7 @@ class SaveAddressEvent extends BlocEvent {
 
 class UpdateAddressEvent extends BlocEvent {
   final LifeAddressProvider provider;
+  final BuildContext context;
   final String id;
   final String name;
   final String phone;
@@ -82,6 +83,7 @@ class UpdateAddressEvent extends BlocEvent {
 
   const UpdateAddressEvent(
       {@required this.id,
+        this.context,
         this.provider,
         this.name,
         this.phone,
