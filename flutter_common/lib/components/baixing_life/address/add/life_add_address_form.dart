@@ -69,6 +69,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
                   BlocProvider.of<LifeAddAddressBloc>(context).add(
                       SaveAddressEvent(
                           provider: widget.addressProvider,
+                          context: this.context,
                           name: _nameController.text,
                           phone: _phoneController.text,
                           address: _addressController.text,
@@ -118,9 +119,6 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
               if (buffer.toString().isNotEmpty) {
                 _region = buffer.toString();
               }
-            }
-            if (state is SaveAddressState || state is UpdateAddressState) {
-              Navigator.of(this.context).pop();
             }
             return SingleChildScrollView(
               child: _buildBodyWidget(),

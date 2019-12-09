@@ -38,6 +38,7 @@ class SwitchDefaultAddressEvent extends BlocEvent {
 
 class SaveAddressEvent extends BlocEvent {
   final LifeAddressProvider provider;
+  final BuildContext context;
   final String id;
   final String name;
   final String phone;
@@ -50,6 +51,7 @@ class SaveAddressEvent extends BlocEvent {
 
   const SaveAddressEvent(
       {@required this.id,
+      this.context,
       this.provider,
       this.name,
       this.phone,
@@ -62,7 +64,7 @@ class SaveAddressEvent extends BlocEvent {
 
   @override
   List<Object> get props =>
-      [id, name, phone, isDefault, tag, address, province, city, area];
+      [id, name, phone, isDefault, tag, address, province, city, area,context];
 
   @override
   String toString() => 'SaveAddressEvent';
@@ -83,21 +85,21 @@ class UpdateAddressEvent extends BlocEvent {
 
   const UpdateAddressEvent(
       {@required this.id,
-        this.context,
-        this.provider,
-        this.name,
-        this.phone,
-        this.isDefault,
-        this.tag,
-        this.address,
-        this.province,
-        this.city,
-        this.area});
+      this.context,
+      this.provider,
+      this.name,
+      this.phone,
+      this.isDefault,
+      this.tag,
+      this.address,
+      this.province,
+      this.city,
+      this.area});
 
   @override
   List<Object> get props =>
-      [id, name, phone, isDefault, tag, address, province, city, area];
+      [id, name, phone, isDefault, tag, address, province, city, area,context];
 
   @override
-  String toString() => 'SaveAddressEvent';
+  String toString() => 'UpdateAddressEvent';
 }
