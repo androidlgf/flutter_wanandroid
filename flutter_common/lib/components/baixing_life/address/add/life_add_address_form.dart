@@ -49,7 +49,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
       _addressController.text = widget?.address?.address;
       _region = widget?.address?.province;
       _tag = AddressTagData.fromJson(json.decode(widget?.address?.tag));
-      _isDefault = widget?.address?.isDefault;
+      _isDefault = widget?.address?.isDefault==LifeAddressProvider.addressDefault();
     }
   }
 
@@ -108,6 +108,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
               _phoneController.text = state.phoneNumber;
             }
             if (state is SwitchDefaultAddressState) {
+              print('==state=isSwitch='+state.isSwitch.toString());
               _isDefault = state.isSwitch;
             }
             if (state is SelectCityState) {
@@ -211,7 +212,7 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
                     value: _isDefault,
                     onChanged: (value) =>
                         BlocProvider.of<LifeAddAddressBloc>(context)
-                            .add(SwitchDefaultAddressEvent(isSwitch: value))),
+                            .add(SwitchDefaultAddressEvent(isSwitch: !value))),
               )
             ],
           ),

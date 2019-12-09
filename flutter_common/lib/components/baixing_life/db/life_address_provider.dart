@@ -12,6 +12,10 @@ class LifeAddressProvider extends BaseOrmProvider {
 
   static String addressIsDefault() => 'isDefault';
 
+  static String addressDefault() => '1';
+
+  static String addressUnDefault() => '0';
+
   static String addressDetails() => 'address';
 
   static String addressProvince() => 'province';
@@ -38,7 +42,7 @@ class LifeAddressProvider extends BaseOrmProvider {
     tableKey.putIfAbsent(addressId(), () => FieldType.Text);
     tableKey.putIfAbsent(addressPhone(), () => FieldType.Text);
     tableKey.putIfAbsent(addressDetails(), () => FieldType.Text);
-    tableKey.putIfAbsent(addressIsDefault(), () => FieldType.Boolean);
+    tableKey.putIfAbsent(addressIsDefault(), () => FieldType.Text);
     tableKey.putIfAbsent(addressProvince(), () => FieldType.Text);
     tableKey.putIfAbsent(addressCity(), () => FieldType.Text);
     tableKey.putIfAbsent(addressArea(), () => FieldType.Text);
@@ -86,7 +90,7 @@ class Address {
   String primaryId;
   String name;
   String phone;
-  bool isDefault;
+  String isDefault;
   String tag;
   String address;
   String province;
@@ -111,7 +115,7 @@ class Address {
     addressBean.primaryId = map[LifeAddressProvider.addressPrimaryId()];
     addressBean.name = map[LifeAddressProvider.addressName()];
     addressBean.phone = map[LifeAddressProvider.addressPhone()];
-    addressBean.isDefault = map[LifeAddressProvider.addressIsDefault()] == 1;
+    addressBean.isDefault = map[LifeAddressProvider.addressIsDefault()];
     addressBean.tag = map[LifeAddressProvider.addressTag()];
     addressBean.address = map[LifeAddressProvider.addressDetails()];
     addressBean.province = map[LifeAddressProvider.addressProvince()];
@@ -130,7 +134,7 @@ class Address {
         '${LifeAddressProvider.addressArea()}': area,
         '${LifeAddressProvider.addressId()}': id,
         '${LifeAddressProvider.addressPrimaryId()}': id,
-        '${LifeAddressProvider.addressIsDefault()}': isDefault ? 1 : 0
+        '${LifeAddressProvider.addressIsDefault()}': isDefault
       };
 
   @override

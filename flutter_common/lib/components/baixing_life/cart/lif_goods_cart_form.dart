@@ -49,7 +49,6 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
             return Container();
           } else {
             return Container(
-              color: Color(0xFFF5F6F8),
               child: Column(
                 children: <Widget>[
                   _buildCardGoodsWidget(_cartGoods),

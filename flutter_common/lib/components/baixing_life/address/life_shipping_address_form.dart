@@ -119,12 +119,13 @@ class _LifeSettlementFormState extends State<LifeShippingAddressForm> {
                     ])),
                 RichText(
                     text: TextSpan(
-                        text: obj[LifeAddressProvider.addressIsDefault()]
+                        text: obj[LifeAddressProvider.addressIsDefault()] ==
+                                LifeAddressProvider.addressDefault()
                             ? '默认    '
                             : '',
                         style: TextStyle(
                             color: deepOrange300Color,
-                            fontSize: Screen.spScreen16),
+                            fontSize: Screen.spScreen14),
                         children: <TextSpan>[
                       TextSpan(
                           text: '${obj[LifeAddressProvider.addressProvince()]}' +
@@ -148,7 +149,8 @@ class _LifeSettlementFormState extends State<LifeShippingAddressForm> {
                   LifeAddAddressPage(
                       provider: widget.provider,
                       addressProvider: widget.addressProvider,
-                      address: Address.fromMap(Map<String, dynamic>.from(obj)))),
+                      address:
+                          Address.fromMap(Map<String, dynamic>.from(obj)))),
               child: Container(
                 width: Screen.wScreen50 - 1,
                 alignment: Alignment.center,

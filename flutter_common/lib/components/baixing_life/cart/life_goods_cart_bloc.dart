@@ -34,19 +34,19 @@ class LifeCartBloc extends BlocCommon<BlocEvent, BlocState> {
       }
     }
     if (event is AddCartNumGoodsEvent) {
-      await event.provider.addCartNumGoods(event.queryGoods);
+      event.provider.addCartNumGoods(event.queryGoods);
       var cartGoods = await event.provider.queryGoods();
       var totalPrice = await event.provider.queryTotalPrice(cartGoods);
       yield CartQueryGoodsState(cartGoods: cartGoods, totalPrice: totalPrice);
     }
     if (event is MinusCartNumGoodsEvent) {
-      await event.provider.minusCartNumGoods(event.queryGoods);
+      event.provider.minusCartNumGoods(event.queryGoods);
       var cartGoods = await event.provider.queryGoods();
       var totalPrice = await event.provider.queryTotalPrice(cartGoods);
       yield CartQueryGoodsState(cartGoods: cartGoods, totalPrice: totalPrice);
     }
     if (event is ChangeCartGoodsIsCheckEvent) {
-      await event.provider.changeCartGoodsIsCheck(event.queryGoods);
+      event.provider.changeCartGoodsIsCheck(event.queryGoods);
       var cartGoods = await event.provider.queryGoods();
       var totalPrice = await event.provider.queryTotalPrice(cartGoods);
       yield CartQueryGoodsState(cartGoods: cartGoods, totalPrice: totalPrice);
