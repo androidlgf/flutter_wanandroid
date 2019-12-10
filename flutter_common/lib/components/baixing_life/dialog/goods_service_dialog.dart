@@ -22,7 +22,6 @@ class _GoodsServiceDialogState extends State<GoodsServiceDialog> {
     final listOfLocalServiceObjects = localServiceObjects.toList();
 
     return GestureDetector(
-//      onTap: () => Navigator.pop(context), //关闭对话框
       child: Material(
         type: MaterialType.transparency, //创建透明层
         borderRadius: BorderRadius.only(
@@ -75,23 +74,6 @@ class _GoodsServiceDialogState extends State<GoodsServiceDialog> {
                 fontSize: Screen.spScreen18,
                 fontWeight: FontWeight.w900)));
   }
-
-  Widget _buildBodyWidget(List listOfObj) {
-    return ListView.separated(
-      itemBuilder: (BuildContext context, index) {
-        return _buildBodyItemWidget(listOfObj[index], index);
-      },
-      separatorBuilder: (BuildContext context, index) {
-        return Container(
-          height: 10.0,
-          color: grey300Color,
-        );
-      },
-      itemCount: listOfObj?.length,
-      physics: NeverScrollableScrollPhysics(),
-    );
-  }
-
   Widget _buildBodyItemWidget(obj, int index) {
     return Padding(
       padding: EdgeInsets.only(

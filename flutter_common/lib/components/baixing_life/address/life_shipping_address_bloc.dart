@@ -22,5 +22,10 @@ class LifeShippingAddressBloc extends BlocCommon<BlocEvent, BlocState> {
       yield QueryAddressState(listOfAddress: listOfAddress);
       return;
     }
+    if (event is SelectAddressEvent) {
+      await event?.provider?.updateDefaultAddress(event?.selectAddress);
+      Navigator.of(event?.context).pop();
+      return;
+    }
   }
 }

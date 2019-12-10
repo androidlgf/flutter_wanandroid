@@ -1,16 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/components/baixing_life/address/add/life_add_address_page.dart';
 import 'package:flutter_common/components/baixing_life/address/life_shipping_address_page.dart';
+import 'package:flutter_common/components/baixing_life/confirmorder/life_confirm_order_state.dart';
 import 'package:flutter_common/components/baixing_life/db/life_address_provider.dart';
 import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
+import 'package:flutter_common/components/baixing_life/dialog/mode_of_distribution_dialog.dart';
+
+import 'life_confirm_order_bloc.dart';
+import 'life_confirm_order_event.dart';
 
 ///购物结算界面
 class LifeConfirmOrderForm extends StatefulWidget {
   final LifeGoodsProvider provider;
   final LifeAddressProvider addressProvider;
-  LifeConfirmOrderForm({Key key, this.provider,this.addressProvider})
+
+  LifeConfirmOrderForm({Key key, this.provider, this.addressProvider})
       : assert(provider != null),
         super(key: key);
 
@@ -19,30 +27,106 @@ class LifeConfirmOrderForm extends StatefulWidget {
 }
 
 class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
+  Address _address;
+  final List<GoodsProvider> _listOfGoods = [];
+  double _totalPrice = 0.0;
+  int _totleNum = 0;
+
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<LifeConfirmOrderBloc>(context).add(
+        ConfirmOrderQueryGoodsEvent(
+            provider: widget.provider,
+            addressProvider: widget.addressProvider));
     return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    _buildAddressWidget(),
-                    _buildGoodsItemWidget()
-                  ],
+      appBar: AppBar(
+        title: Text('${S.of(context).life_confirm_order_title}'),
+      ),
+      body: BlocWidget<LifeConfirmOrderBloc>(
+        builder: BlocBuilder<LifeConfirmOrderBloc, BlocState>(
+          builder: (context, state) {
+            if (state is ConfirmOrderQueryGoodsState) {
+              _address = state?.address;
+              _listOfGoods.clear();
+              _listOfGoods.addAll(state?.checkGoods);
+              _totalPrice = state?.totalPrice;
+              _totleNum = state?.totalCartNum;
+            }
+            return Column(
+              children: <Widget>[
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        _buildAddressWidget(_address),
+                        _buildBodyWidget(_listOfGoods)
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            _buildBottomSubmitOrderWidget()
-          ],
-        ));
+                _buildBottomSubmitOrderWidget()
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 
-  Widget _buildAddressWidget() {
+  Widget _buildBodyWidget(List<GoodsProvider> listOfGoods) {
+    return ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return _buildGoodsItemWidget(listOfGoods[index], index);
+        },
+        separatorBuilder: (context, index) {
+          return Gaps.vGap(15.0);
+        },
+        itemCount: listOfGoods?.length);
+  }
+
+  Widget _buildAddressWidget(Address address) {
+    if (address == null) {
+      return InkWell(
+        onTap: () => pushNewPage(
+            context,
+            LifeAddAddressPage(
+                provider: widget.provider,
+                addressProvider: widget.addressProvider)),
+        child: Container(
+          margin: EdgeInsets.all(Screen.wScreen10),
+          padding: EdgeInsets.only(left: Screen.wScreen10),
+          height: Screen.hScree40,
+          //边框设置
+          decoration: new BoxDecoration(
+            //背景
+            color: Colors.white,
+            //设置四周圆角 角度
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            //设置四周边框
+            border: new Border.all(width: 0, color: Colors.white),
+          ),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.add_box, color: Colors.red),
+              SizedBox(
+                width: Screen.wScreen10,
+              ),
+              Text('${S.of(context).life_confirm_order_manually_add_address}',
+                  style: TextStyle(
+                      color: grey1000Color, fontSize: Screen.spScreen14))
+            ],
+          ),
+        ),
+      );
+    }
     return InkWell(
-      onTap: () => pushNewPage(context, LifeShippingAddressPage(provider: widget.provider,addressProvider: widget.addressProvider)),
+      onTap: () => pushNewPage(
+          context,
+          LifeShippingAddressPage(
+              provider: widget.provider,
+              addressProvider: widget.addressProvider)),
       child: Container(
         margin: EdgeInsets.all(Screen.wScreen10),
         height: Screen.hScree100,
@@ -85,23 +169,26 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
                 children: <Widget>[
                   RichText(
                       text: TextSpan(
-                          text: '刘先生',
+                          text: '${address.name}',
                           style: TextStyle(
                               color: grey1000Color,
                               fontSize: Screen.spScreen16),
                           children: <TextSpan>[
                         TextSpan(text: '    '),
                         TextSpan(
-                            text: '17602177793',
+                            text: '${address.phone}',
                             style: TextStyle(
                                 color: grey500Color,
                                 fontSize: Screen.spScreen12))
                       ])),
-                  Text('上海市浦东新区三林镇杨思路1201东方吉苑22号1304室',
-                      style: TextStyle(
-                          color: grey900Color, fontSize: Screen.spScreen12),
-                      maxLines: 2),
-                  Text('收货不方便时,可选择免费暂存服务',
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: Screen.hScree5),
+                    child: Text('${address.province}' + '${address.address}',
+                        style: TextStyle(
+                            color: grey900Color, fontSize: Screen.spScreen12),
+                        maxLines: 2),
+                  ),
+                  Text('${address.temporaryServer}',
                       style: TextStyle(
                           color: deepOrange300Color,
                           fontSize: Screen.spScreen12)),
@@ -116,7 +203,7 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
     );
   }
 
-  Widget _buildGoodsItemWidget() {
+  Widget _buildGoodsItemWidget(GoodsProvider goods, index) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: Screen.wScreen10),
       padding: EdgeInsets.symmetric(horizontal: Screen.wScreen10),
@@ -145,7 +232,7 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
                   size: Screen.wScreen15,
                 ),
                 SizedBox(width: Screen.wScreen10),
-                Text('优衣库旗舰店',
+                Text('${goods.storeName}',
                     style: TextStyle(
                         color: grey900Color, fontSize: Screen.spScreen14),
                     maxLines: 1),
@@ -158,23 +245,23 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
             child: Row(
               children: <Widget>[
                 ImageLoadView(
-                  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575296473002&di=d6b4b5b283f3b005374e75078cee7411&imgtype=0&src=http%3A%2F%2Fpic45.nipic.com%2F20140715%2F10657291_172631119640_2.jpg',
+                  '${goods.comPic}',
                   width: Screen.wScreen80,
                   height: Screen.wScreen80,
                 ),
                 Container(
                   padding: EdgeInsets.only(left: Screen.wScreen10),
-                  width: Screen.wScreen210,
+                  width: Screen.wScreen200,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('大码女装胖妹妹mm羊羔毛外套秋冬2019新款宽松显瘦网红千鸟格外套',
+                      Text('${goods.goodsName}',
                           style: TextStyle(
                               color: grey900Color, fontSize: Screen.spScreen14),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis),
-                      Text('七天无理由退换',
+                      Text('${goods.assure}',
                           style: TextStyle(
                               color: deepOrange300Color,
                               fontSize: Screen.spScreen14),
@@ -183,18 +270,18 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
                   ),
                 ),
                 Container(
-                  width: Screen.wScreen45,
+                  width: Screen.wScreen55,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Text('¥199.00',
+                      Text('¥${goods.oriPrice}',
                           style: TextStyle(
                               color: grey900Color, fontSize: Screen.spScreen14),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis),
                       Padding(
                         padding: EdgeInsets.only(top: Screen.hScree5),
-                        child: Text('x1',
+                        child: Text('x${goods.goodsCartNum}',
                             style: TextStyle(
                                 color: grey500Color,
                                 fontSize: Screen.spScreen12),
@@ -210,43 +297,52 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
             height: Screen.wScreen220,
             child: Column(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: Screen.wScreen25),
-                  height: Screen.wScreen44,
-                  child: Row(
-                    children: <Widget>[
-                      Text('配送方式',
-                          style: TextStyle(
-                              color: grey900Color, fontSize: Screen.spScreen14),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis),
-                      Padding(
-                        padding: EdgeInsets.only(left: Screen.wScreen10),
-                        child: Text('普通配送',
+                InkWell(
+                  onTap: () => showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (ctx) => ModeOfDistributionDialog(
+                            onTap: (value) {},
+                          )),
+                  child: Container(
+                    margin: EdgeInsets.only(left: Screen.wScreen25),
+                    height: Screen.wScreen44,
+                    child: Row(
+                      children: <Widget>[
+                        Text('配送方式',
                             style: TextStyle(
-                                color: grey500Color,
+                                color: grey900Color,
                                 fontSize: Screen.spScreen14),
-                            maxLines: 1),
-                      ),
-                      Expanded(
-                          child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Text('快递 免邮',
-                                style: TextStyle(
-                                    color: grey900Color,
-                                    fontSize: Screen.spScreen14),
-                                maxLines: 1),
-                            SizedBox(
-                              width: Screen.wScreen10,
-                            ),
-                            Icon(Icons.arrow_forward_ios,
-                                size: Screen.hScree14, color: grey400Color)
-                          ],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
+                        Padding(
+                          padding: EdgeInsets.only(left: Screen.wScreen10),
+                          child: Text('普通配送',
+                              style: TextStyle(
+                                  color: grey500Color,
+                                  fontSize: Screen.spScreen14),
+                              maxLines: 1),
                         ),
-                      ))
-                    ],
+                        Expanded(
+                            child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text('快递 免邮',
+                                  style: TextStyle(
+                                      color: grey900Color,
+                                      fontSize: Screen.spScreen14),
+                                  maxLines: 1),
+                              SizedBox(
+                                width: Screen.wScreen10,
+                              ),
+                              Icon(Icons.arrow_forward_ios,
+                                  size: Screen.hScree14, color: grey400Color)
+                            ],
+                          ),
+                        ))
+                      ],
+                    ),
                   ),
                 ),
                 Container(
@@ -349,17 +445,17 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
                       right: Screen.wScreen10, bottom: Screen.wScreen10),
                   child: RichText(
                       text: TextSpan(
-                          text: '共1件 ',
+                          text: '共${goods.goodsCartNum}件',
                           style: TextStyle(
                               color: grey500Color, fontSize: Screen.spScreen12),
                           children: <TextSpan>[
                         TextSpan(
-                          text: '小计:',
+                          text: '${S.of(context).life_confirm_order_subtotal}',
                           style: TextStyle(
                               color: grey900Color, fontSize: Screen.spScreen14),
                         ),
                         TextSpan(
-                            text: '¥199.00',
+                            text: '${goods.oriPrice}',
                             style: TextStyle(
                                 color: deepOrange300Color,
                                 fontSize: Screen.spScreen12))
@@ -385,28 +481,39 @@ class _LifeSettlementFormState extends State<LifeConfirmOrderForm> {
         children: <Widget>[
           RichText(
               text: TextSpan(
-                  text: '共1件 ',
+                  text: '共' + _totleNum.toString() + '件 ',
                   style: TextStyle(
                       color: grey500Color, fontSize: Screen.spScreen12),
                   children: <TextSpan>[
                 TextSpan(
-                  text: '合计:',
+                  text: '${S.of(context).life_cart_summation}',
                   style: TextStyle(
                       color: grey900Color, fontSize: Screen.spScreen14),
                 ),
                 TextSpan(
-                    text: '¥199.00',
+                    text: '¥' + _totalPrice?.toString(),
                     style: TextStyle(
                         color: deepOrange300Color, fontSize: Screen.spScreen14))
               ])),
           Padding(padding: EdgeInsets.only(left: Screen.wScreen10)),
-          RaisedButton(
-              onPressed: () => null,
-              shape: StadiumBorder(),
-              color: deepOrange300Color,
-              child: Text('提交订单',
+          InkWell(
+            onTap: () => null,
+            child: Container(
+              height: Screen.hScree30,
+              padding: EdgeInsets.symmetric(horizontal: Screen.wScreen10),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                gradient:
+                    LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
+                //设置四周圆角 角度
+                borderRadius:
+                    BorderRadius.all(Radius.circular(Screen.hScree15)),
+              ),
+              child: Text('${S.of(context).life_confirm_submit_order_subtotal}',
                   style: TextStyle(
-                      color: Colors.white, fontSize: Screen.spScreen14)))
+                      color: Colors.white, fontSize: Screen.spScreen14)),
+            ),
+          )
         ],
       ),
     );

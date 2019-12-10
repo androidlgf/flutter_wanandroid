@@ -13,3 +13,18 @@ class QueryAddressEvent extends BlocEvent {
   @override
   String toString() => 'QueryAddressEvent';
 }
+
+class SelectAddressEvent extends BlocEvent {
+  final BuildContext context;
+  final LifeAddressProvider provider;
+  final Map<dynamic, dynamic> selectAddress;
+
+  const SelectAddressEvent(
+      {@required this.context, this.provider, this.selectAddress});
+
+  @override
+  List<Object> get props => [provider, selectAddress];
+
+  @override
+  String toString() => 'SelectAddressEvent';
+}

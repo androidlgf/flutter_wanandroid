@@ -9,21 +9,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'data/address_tag_data.dart';
 import 'data/goods_server_data.dart';
 
-//地址标签选择
-class AddressTagDialog extends StatefulWidget {
+//配送方式Dialog
+class ModeOfDistributionDialog extends StatefulWidget {
   final Function onTap;
   final double height;
   final int index;
 
-  const AddressTagDialog(
-      {Key key, @required this.height, this.index = 0, this.onTap})
+  const ModeOfDistributionDialog(
+      {Key key, @required this.height, this.onTap, this.index = 0})
       : super(key: key);
 
   @override
-  State createState() => _AddressTagState();
+  State createState() => _ModeOfDistributionState();
 }
 
-class _AddressTagState extends State<AddressTagDialog> {
+class _ModeOfDistributionState extends State<ModeOfDistributionDialog> {
   int _index;
 
   @override
@@ -34,7 +34,8 @@ class _AddressTagState extends State<AddressTagDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final localAddressJson = json.decode(JsonStrings.lifeAddressTagJson);
+    final localAddressJson =
+        json.decode(JsonStrings.lifeModeOfDistributionJson);
     final localAddressObjects =
         localAddressJson.map((o) => AddressTagData.fromJson(o));
     final listOfLocalAddressObjects = localAddressObjects.toList();
@@ -70,8 +71,7 @@ class _AddressTagState extends State<AddressTagDialog> {
                 Container(
                   alignment: Alignment.center,
                   height: Screen.hScree40,
-                  child: Text(
-                      '${S.of(context).life_select_address_label_title_dialog}',
+                  child: Text('${S.of(context).life_shipping_address_title_dialog}',
                       style: TextStyle(
                           color: grey900Color, fontSize: Screen.spScreen14)),
                 ),
@@ -107,12 +107,6 @@ class _AddressTagState extends State<AddressTagDialog> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Image.asset(
-                  '${obj.path}',
-                  width: Screen.hScree25,
-                  height: Screen.hScree25,
-                ),
-                Gaps.hGap10,
                 Text('${obj.title}',
                     style: TextStyle(
                         color: grey900Color, fontSize: Screen.spScreen14)),
@@ -121,7 +115,7 @@ class _AddressTagState extends State<AddressTagDialog> {
             Offstage(
               offstage: _index != index,
               child: Icon(
-                Icons.check,
+                Icons.check_circle,
                 size: Screen.hScree15,
                 color: Colors.deepOrange,
               ),
@@ -144,7 +138,7 @@ class _AddressTagState extends State<AddressTagDialog> {
         width: DeviceUtil.width,
         height: Screen.hScree40,
         margin: EdgeInsets.only(
-            top: Screen.hScree30,
+            top: Screen.hScree180,
             left: Screen.wScreen10,
             right: Screen.wScreen10),
         alignment: Alignment.center,

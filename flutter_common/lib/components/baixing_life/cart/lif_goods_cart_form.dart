@@ -210,18 +210,32 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                   style: TextStyle(
                       color: Colors.red, fontSize: Screen.spScreen12)),
               Gaps.hGap10,
-              RaisedButton(
-                  onPressed: () => pushNewPage(
+              InkWell(
+                onTap: (){
+                  if (totalPrice == 0.0) return;
+                  pushNewPage(
                       context,
                       LifeConfirmOrderPage(
                         provider: widget.provider,
                         addressProvider: widget.addressProvider,
-                      )),
-                  shape: StadiumBorder(),
-                  color: deepOrange300Color,
+                      ));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(vertical: Screen.hScree8),
+                  padding: EdgeInsets.symmetric(horizontal: Screen.wScreen15,vertical: Screen.hScree4),
+                  decoration: BoxDecoration(
+                    gradient:
+                    LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
+                    //设置四周圆角 角度
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(Screen.hScree15)),
+                  ),
                   child: Text('${S.of(context).life_cart_account}',
                       style: TextStyle(
-                          color: Colors.white, fontSize: Screen.spScreen14)))
+                          color: Colors.white, fontSize: Screen.spScreen14)),
+                )
+              )
             ],
           ))
         ],

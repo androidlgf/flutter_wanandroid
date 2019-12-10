@@ -196,4 +196,12 @@ abstract class JsonStrings {
         "id": 3
     }
 ]''';
+  static final String lifeModeOfDistributionJson = '''
+  [
+    {
+        "title": "普通配送    快递 免邮",
+        "path": "images/life/icon_member.png",
+        "id": 0
+    }
+]''';
 }
