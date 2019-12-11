@@ -61,22 +61,22 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-//          leading: InkWell(
-//            child: Icon(Icons.list),
-//          ),
-          title: Text('SIMPLY'),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                    pushNewPage(context, SearchWanAndroidComponent()))
-          ],
-        ),
+//        appBar: AppBar(
+////          leading: InkWell(
+////            child: Icon(Icons.list),
+////          ),
+//          title: Text('SIMPLY'),
+//          centerTitle: true,
+//          actions: <Widget>[
+//            IconButton(
+//                icon: Icon(
+//                  Icons.search,
+//                  color: Colors.white,
+//                ),
+//                onPressed: () =>
+//                    pushNewPage(context, SearchWanAndroidComponent()))
+//          ],
+//        ),
         drawer: Drawer(child: _buildDrawerWidget()),
         body: IndexedStack(
           index: currentIndex,

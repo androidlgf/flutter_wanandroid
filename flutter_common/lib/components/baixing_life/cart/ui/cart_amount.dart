@@ -14,7 +14,7 @@ class CartAmountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(width: 1.0, color: Colors.grey),
+          border: Border.all(width: 0.5, color: Colors.grey),
           borderRadius: BorderRadius.all(Radius.circular(8.0))),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -24,7 +24,7 @@ class CartAmountView extends StatelessWidget {
               child: Icon(Icons.remove,
                   size: 25, color: amount > 1 ? Colors.black : Colors.grey),
               onTap: minusOnPressed),
-          Container(width: 1.0, color: Colors.grey, height: 25),
+          Container(width: 0.5, color: Colors.grey, height: 25),
           Container(
               child: Text(' $amount '),
               width: 35.0,
