@@ -20,16 +20,16 @@ import 'data/life_home_hot_data.dart';
 import 'life_home_bloc_event.dart';
 
 //百姓生活 首页
-class HomeBxLifeWidget extends StatefulWidget {
+class HomeBxLifeForm extends StatefulWidget {
   final LifeGoodsProvider provider;
 
-  HomeBxLifeWidget(this.provider, {Key key}) : super(key: key);
+  HomeBxLifeForm(this.provider, {Key key}) : super(key: key);
 
   @override
   State createState() => _HomeBxLifeWidgetState();
 }
 
-class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
+class _HomeBxLifeWidgetState extends State<HomeBxLifeForm>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -60,31 +60,30 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFFAFAFA),
-      child: BlocWidget<LifeHomeBloc>(
-        builder:
-            BlocBuilder<LifeHomeBloc, BlocState>(builder: (context, state) {
-          if (state is BlocSuccess) {
-            if (state.url == null) {
-              _lifeHomeData = LifeHomeData.fromJson(state?.response);
-            } else {
-              liftOfGoods
-                  .addAll(LifeHomeHotData.fromJson(state?.response)?.lifeGood);
-              page += 1;
-            }
+    return BlocWidget<LifeHomeBloc>(
+      builder: BlocBuilder<LifeHomeBloc, BlocState>(builder: (context, state) {
+        if (state is BlocSuccess) {
+          if (state.url == null) {
+            _lifeHomeData = LifeHomeData.fromJson(state?.response);
+          } else {
+            liftOfGoods
+                .addAll(LifeHomeHotData.fromJson(state?.response)?.lifeGood);
+            page += 1;
           }
-          if (_lifeHomeData != null) {
-            return EasyRefresh.custom(
+        }
+        if (_lifeHomeData != null) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: EasyRefresh.custom(
               controller: _controller,
               header: MaterialHeader(),
               footer: MaterialFooter(),
               onRefresh: _enableRefresh ? () async {} : null,
               onLoad: _enableLoad
                   ? () async {
-                      BlocProvider.of<LifeHomeBloc>(context).add(BlocHttpEvent(
-                          url: Api.LIFE_HOME_HOT, params: {'page': page}));
-                    }
+                BlocProvider.of<LifeHomeBloc>(context).add(BlocHttpEvent(
+                    url: Api.LIFE_HOME_HOT, params: {'page': page}));
+              }
                   : null,
               slivers: <Widget>[
                 _buildBannerWidget(_lifeHomeData?.homeData?.slides),
@@ -95,24 +94,30 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
                     _lifeHomeData?.homeData?.saoma,
                     _lifeHomeData?.homeData?.integralMallPic,
                     _lifeHomeData?.homeData?.newUser),
-                _buildSliverToBoxAdapterFloor(
-                    _lifeHomeData?.homeData?.floor1Pic,
-                    _lifeHomeData?.homeData?.floor1,
-                    FloorType.Left),
-                _buildSliverToBoxAdapterFloor(
-                    _lifeHomeData?.homeData?.floor2Pic,
-                    _lifeHomeData?.homeData?.floor2,
-                    FloorType.Right),
-                _buildSliverToBoxAdapterFloor(
-                    _lifeHomeData?.homeData?.floor3Pic,
-                    _lifeHomeData?.homeData?.floor3,
-                    FloorType.Left),
+                _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor1Pic,
+                    _lifeHomeData?.homeData?.floor1, FloorType.Left),
+                _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor2Pic,
+                    _lifeHomeData?.homeData?.floor2, FloorType.Right),
+                _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor3Pic,
+                    _lifeHomeData?.homeData?.floor3, FloorType.Left),
                 _buildHotGoodsWidget(liftOfGoods)
               ],
-            );
-          }
-          return Container();
-        }),
+            ),
+          );
+        }
+        return Container();
+      }),
+    );
+  }
+
+  Widget _buildTopBar() {
+    return SliverToBoxAdapter(
+      child: Container(
+        width: DeviceUtil.width,
+        height: DeviceUtil.navigationBarHeight,
+        decoration: BoxDecoration(
+            gradient:
+                LinearGradient(colors: [Colors.orange, Colors.deepOrange])),
       ),
     );
   }

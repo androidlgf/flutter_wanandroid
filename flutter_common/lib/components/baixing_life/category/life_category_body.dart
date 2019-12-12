@@ -46,49 +46,52 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BlocCommon, BlocState>(
-      listener: (context, state) {
-        if (state is BlocFailure) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${state.error}'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      },
-      child: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
-        if (state is BlocLoading) {
-          return Column(
-            children: <Widget>[
-              Expanded(
-                child: getLoadingWidget(),
-                flex: 1,
-              )
-            ],
-          );
-        }
-        if (state is BlocSuccess) {
-          return Container(
-            color: Color(0xFFF5F6F8),
-            child: Row(
+    return Scaffold(
+      appBar: AppBar(),
+      body: BlocListener<BlocCommon, BlocState>(
+        listener: (context, state) {
+          if (state is BlocFailure) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.error}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        child: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
+          if (state is BlocLoading) {
+            return Column(
               children: <Widget>[
                 Expanded(
-                  child: _leftListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
-                  flex: 3,
-                ),
-                Expanded(
-                  child: _rightListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
-                  flex: 7,
+                  child: getLoadingWidget(),
+                  flex: 1,
                 )
               ],
-            ),
+            );
+          }
+          if (state is BlocSuccess) {
+            return Container(
+              color: Color(0xFFF5F6F8),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: _leftListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
+                    flex: 3,
+                  ),
+                  Expanded(
+                    child: _rightListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
+                    flex: 7,
+                  )
+                ],
+              ),
+            );
+          }
+          return Container(
+            color: Color(0xFFF5F6F8),
           );
-        }
-        return Container(
-          color: Color(0xFFF5F6F8),
-        );
-      }),
+        }),
+      ),
     );
   }
 
