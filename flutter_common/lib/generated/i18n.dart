@@ -38,7 +38,10 @@ class S implements WidgetsLocalizations {
   String get life_add_new_address_title => "Add a new address";
   String get life_cart_account => "account";
   String get life_cart_check_all => "checkAll";
+  String get life_cart_management => "management";
+  String get life_cart_setting => "setting";
   String get life_cart_summation => "summation";
+  String get life_cart_title => "The shopping cart";
   String get life_complete_dialog => "complete";
   String get life_confirm_order_manually_add_address => "Manually add shipping address";
   String get life_confirm_order_subtotal => "subtotal:";
@@ -56,6 +59,8 @@ class $en_US extends S {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  @override
+  String get life_cart_management => "management";
   @override
   String get life_add_address_location_details_hint => "Detailed address: such as street, house number, community, building pillars, cell room";
   @override
@@ -75,6 +80,8 @@ class $en_US extends S {
   @override
   String get BaiXinLife => "Civilian living area";
   @override
+  String get life_cart_title => "The shopping cart";
+  @override
   String get life_add_address_location_hint => "In the area";
   @override
   String get get_v_code => "get code";
@@ -84,6 +91,8 @@ class $en_US extends S {
   String get life_confirm_order_subtotal => "subtotal:";
   @override
   String get life_add_address_title => "Add shipping address";
+  @override
+  String get life_cart_setting => "setting";
   @override
   String get life_add_address_ship_title => "My shipping address";
   @override
@@ -123,6 +132,8 @@ class $zh_CN extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
+  String get life_cart_management => "管理";
+  @override
   String get life_add_address_location_details_hint => "详细地址：如街道、门牌号、小区、楼栋号、单元室等";
   @override
   String get life_complete_dialog => "完成";
@@ -141,6 +152,8 @@ class $zh_CN extends S {
   @override
   String get BaiXinLife => "百姓生活区域";
   @override
+  String get life_cart_title => "购物车";
+  @override
   String get life_add_address_location_hint => "所在地区";
   @override
   String get get_v_code => "获取验证码";
@@ -150,6 +163,8 @@ class $zh_CN extends S {
   String get life_confirm_order_subtotal => "小计:";
   @override
   String get life_add_address_title => "添加收货地址";
+  @override
+  String get life_cart_setting => "设置";
   @override
   String get life_add_address_ship_title => "我的收货地址";
   @override

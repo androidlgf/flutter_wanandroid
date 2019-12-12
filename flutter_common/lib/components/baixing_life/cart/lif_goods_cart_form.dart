@@ -23,6 +23,10 @@ class LifeGoodsCartWidget extends StatefulWidget {
 }
 
 class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
+  bool _isShowFloatingTopBar = false;
+  double _topBarOpacity = 1;
+  double _lastScrollPixels = 0;
+
   List<dynamic> _cartGoods = [];
 
   @override
@@ -48,33 +52,148 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
           if (_cartGoods.length <= 0) {
             return Container();
           } else {
-            return Container(
-              child: Column(
-                children: <Widget>[
-                  _buildCardGoodsWidget(_cartGoods),
-                  _buildCardBottomWidget(state)
-                ],
-              ),
-            );
+            return MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: NotificationListener(
+                  onNotification: _onScroll,
+                  child: Stack(
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: _buildBodyWidget(_cartGoods),
+                            ),
+                          ),
+                          _buildCardBottomWidget(state)
+                        ],
+                      ),
+                      Offstage(
+                        offstage: !_isShowFloatingTopBar,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [Colors.orange, Colors.deepOrange])),
+                          width: DeviceUtil.width,
+                          height: DeviceUtil.topSafeHeight + Screen.hScree40,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: DeviceUtil.topSafeHeight,
+                              ),
+                              Container(
+                                height: Screen.hScree40,
+                                child: _buildFloatingTopBar(_cartGoods),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ));
           }
         },
       ),
     );
   }
 
-  Widget _buildCardGoodsWidget(obj) {
-    return Expanded(
-        child: ListView.separated(
-            itemBuilder: (BuildContext context, int index) {
-              return _buildBodyItemWidget(obj[index], index);
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 10.0,
-              );
-            },
-            padding: EdgeInsets.all(Screen.hScree10),
-            itemCount: obj?.length));
+  Widget _buildBodyWidget(List<dynamic> obj) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          width: DeviceUtil.width,
+          height: DeviceUtil.height / 4,
+          decoration: BoxDecoration(
+              gradient:
+                  LinearGradient(colors: [Colors.orange, Colors.deepOrange])),
+          child: Opacity(opacity: _topBarOpacity, child: _buildTopBar(obj)),
+        ),
+        Container(
+          margin:
+              EdgeInsets.only(top: Screen.hScree77 + DeviceUtil.topSafeHeight),
+          child: ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return _buildBodyItemWidget(obj[index], index);
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 10.0,
+                );
+              },
+              padding: EdgeInsets.all(Screen.hScree10),
+              itemCount: obj?.length),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTopBar(obj) {
+    return Container(
+        margin:
+            EdgeInsets.only(top: DeviceUtil.topSafeHeight + Screen.hScree10),
+        padding: EdgeInsets.symmetric(horizontal: Screen.wScreen10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  '${S.of(context).life_cart_title}',
+                  style: TextStyle(
+                      fontSize: Screen.spScreen24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                Text(
+                  '${S.of(context).life_cart_management}',
+                  style: TextStyle(
+                      fontSize: Screen.spScreen18, color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(height: Screen.hScree10),
+            Text('共' + '${obj?.length}' + '件宝贝',
+                style:
+                    TextStyle(fontSize: Screen.spScreen15, color: Colors.white))
+          ],
+        ));
+  }
+
+  Widget _buildFloatingTopBar(obj) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              GestureDetector(
+                  child: Text(
+                '${S.of(context).life_cart_setting}',
+                style:
+                    TextStyle(color: Colors.white, fontSize: Screen.spScreen16),
+              )),
+              SizedBox(
+                width: 8,
+              ),
+            ],
+          ),
+        ),
+        Center(
+          child: Text('购物车(' + '${obj?.length})',
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(color: Colors.white, fontSize: Screen.spScreen16)),
+        ),
+      ],
+    );
   }
 
   Widget _buildBodyItemWidget(obj, index) {
@@ -211,36 +330,70 @@ class _LifeGoodsCartWidgetState extends State<LifeGoodsCartWidget> {
                       color: Colors.red, fontSize: Screen.spScreen12)),
               Gaps.hGap10,
               InkWell(
-                onTap: (){
-                  if (totalPrice == 0.0) return;
-                  pushNewPage(
-                      context,
-                      LifeConfirmOrderPage(
-                        provider: widget.provider,
-                        addressProvider: widget.addressProvider,
-                      ));
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(vertical: Screen.hScree8),
-                  padding: EdgeInsets.symmetric(horizontal: Screen.wScreen15,vertical: Screen.hScree4),
-                  decoration: BoxDecoration(
-                    gradient:
-                    LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
-                    //设置四周圆角 角度
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(Screen.hScree15)),
-                  ),
-                  child: Text('${S.of(context).life_cart_account}',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: Screen.spScreen14)),
-                )
-              )
+                  onTap: () {
+                    if (totalPrice == 0.0) return;
+                    pushNewPage(
+                        context,
+                        LifeConfirmOrderPage(
+                          provider: widget.provider,
+                          addressProvider: widget.addressProvider,
+                        ));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(vertical: Screen.hScree8),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Screen.wScreen15, vertical: Screen.hScree4),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.orange, Colors.deepOrange]),
+                      //设置四周圆角 角度
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(Screen.hScree15)),
+                    ),
+                    child: Text('${S.of(context).life_cart_account}',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: Screen.spScreen14)),
+                  ))
             ],
           ))
         ],
       ),
     );
+  }
+
+  bool _onScroll(ScrollNotification scroll) {
+    double limitExtent = Screen.hScree40;
+    // 当前滑动距离
+    double currentExtent = scroll.metrics.pixels;
+    //向下滚动
+    if (currentExtent - _lastScrollPixels > 0) {
+      if (currentExtent <= limitExtent) {
+        setState(() {
+          double opacity = 1 - currentExtent / limitExtent;
+          _topBarOpacity = opacity > 1 ? 1 : opacity;
+        });
+      } else {
+        if (!_isShowFloatingTopBar) {
+          setState(() {
+            _isShowFloatingTopBar = true;
+          });
+        }
+      }
+    }
+    //往上滚动
+    if (currentExtent - _lastScrollPixels < 0) {
+      if (currentExtent <= limitExtent) {
+        setState(() {
+          double opacity = 1 - currentExtent / limitExtent;
+          _topBarOpacity = opacity > 1 ? 1 : opacity;
+          _isShowFloatingTopBar = false;
+        });
+      }
+    }
+    _lastScrollPixels = currentExtent;
+    // 返回false，继续向上传递,返回true则不再向上传递
+    return false;
   }
 }
 
