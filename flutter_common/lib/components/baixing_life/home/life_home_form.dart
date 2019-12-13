@@ -75,7 +75,14 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeForm>
         if (_lifeHomeData != null) {
           return Scaffold(
             appBar: GradientChangeAppBar(
-                colors: [Colors.orange, Colors.deepOrange]),
+                colors: [Colors.orange, Colors.deepOrange],rotation: Rotation.LR,title: Text(
+              '首页',
+              style: TextStyle(
+                  fontSize: Screen.spScreen24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+              titleSpacing: Screen.wScreen10),
             body: EasyRefresh.custom(
               controller: _controller,
               header: MaterialHeader(),

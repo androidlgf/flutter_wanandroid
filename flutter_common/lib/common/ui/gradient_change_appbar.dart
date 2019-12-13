@@ -21,6 +21,7 @@ class GradientChangeAppBar extends StatefulWidget
   final Widget title;
   final Widget leading;
   final List<Widget> actions;
+  final Widget customBody;
 
   GradientChangeAppBar(
       {Key key,
@@ -33,7 +34,8 @@ class GradientChangeAppBar extends StatefulWidget
       this.tileMode = TileMode.clamp,
       this.title,
       this.leading,
-      this.actions})
+      this.actions,
+      this.customBody})
       : assert(tileMode != null),
         assert(rotation != null),
         super(key: key);
@@ -192,6 +194,6 @@ class _GradientChangeAppBarState extends State<GradientChangeAppBar> {
                 end: end,
                 stops: widget.stops,
                 tileMode: widget.tileMode)),
-        child: toolbar);
+        child: widget.customBody ?? toolbar);
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/blocs/bloc_state.dart';
 import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/ui/gradient_change_appbar.dart';
+import 'package:flutter_common/common/ui/gradient_change_appbar.dart' as prefix0;
 import 'package:flutter_common/components/baixing_life/category/data/life_goods_category_data.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/life_category_goods_component.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -50,6 +51,7 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
     return Scaffold(
       appBar: GradientChangeAppBar(
         colors: [Colors.orange, Colors.deepOrange],
+        rotation: prefix0.Rotation.LR,
         title: Text(
           '${S.of(context).life_category_title}',
           style: TextStyle(
