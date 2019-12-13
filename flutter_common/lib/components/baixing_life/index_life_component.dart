@@ -6,6 +6,7 @@ import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/custom/shape/arc_circle.dart';
 import 'package:flutter_common/common/custom/shape_of_view.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
+import 'package:flutter_common/components/baixing_life/res/tao_style.dart';
 import 'package:flutter_common/components/wanandroid/member/wanandroid_member_component.dart';
 import 'package:flutter_common/components/wanandroid/search/wanandroid_search_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -89,25 +90,25 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
             elevation: 8,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  activeIcon: Icon(Icons.home),
-                  title: Container()),
+                  icon: Icon(TaoIcon.home),
+                  activeIcon: Icon(TaoIcon.home_fill),
+                  title: Text('首页')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
-                  activeIcon: Icon(Icons.favorite_border),
-                  title: Container()),
+                  icon: Icon(TaoIcon.we_tao),
+                  activeIcon: Icon(TaoIcon.we_tao_fill),
+                  title: Text('微淘')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.add_shopping_cart),
-                  activeIcon: Icon(Icons.add_shopping_cart),
-                  title: Container()),
+                  icon: Icon(TaoIcon.message),
+                  activeIcon: Icon(TaoIcon.message_fill),
+                  title: Text('消息')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment),
-                  activeIcon: Icon(Icons.assignment),
-                  title: Container()),
+                  icon: Icon(TaoIcon.cart),
+                  activeIcon: Icon(TaoIcon.cart_fill),
+                  title: Text('购物车')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.account_box),
-                  activeIcon: Icon(Icons.account_box),
-                  title: Container()),
+                  icon: Icon(TaoIcon.my),
+                  activeIcon: Icon(TaoIcon.my_fill),
+                  title: Text('我的淘宝')),
             ]));
   }
 

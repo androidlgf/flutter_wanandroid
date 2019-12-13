@@ -58,10 +58,10 @@ dependencies:
     # Feather 地址：https://feathericons.com/
     # EvilIcons 地址：https://evil-icons.io/
     # AntDesign 地址：https://ant.design/components/icon/
-    # Ionicons 地址：https://ionicons.com
-    # Fontisto 地址：https://fontisto.com/icons
-    # Foundation 地址：https://zurb:com/playground/foundation-icon-fonts-3
-    # Octicons 地址：https://octicons.github.com/
+  # Ionicons 地址：https://ionicons.com
+  # Fontisto 地址：https://fontisto.com/icons
+  # Foundation 地址：https://zurb:com/playground/foundation-icon-fonts-3
+  # Octicons 地址：https://octicons.github.com/
   # SimpleLineIcons 地址：https://simplelineicons.github.io/
   flutter_vector_icons: ^0.2.1
   # 刷新加载控件
@@ -157,3 +157,9 @@ flutter:
     - packages/flutter_orm_plugin/lua/orm/class/select.lua
     - packages/flutter_orm_plugin/lua/orm/class/table.lua
     - packages/flutter_orm_plugin/lua/orm/class/type.lua
+
+  fonts:
+    - family: taobaoIconFont
+      fonts:
+        - asset: assets/fonts/taobao/taobaoIconFont.ttf
+
