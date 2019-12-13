@@ -42,6 +42,7 @@ class S implements WidgetsLocalizations {
   String get life_cart_setting => "setting";
   String get life_cart_summation => "summation";
   String get life_cart_title => "The shopping cart";
+  String get life_category_title => "Classification of goods";
   String get life_complete_dialog => "complete";
   String get life_confirm_order_manually_add_address => "Manually add shipping address";
   String get life_confirm_order_subtotal => "subtotal:";
@@ -119,6 +120,8 @@ class $en_US extends S {
   String get no_network_connect => "Ah oh, network is not very smooth oh ~";
   @override
   String get life_cart_summation => "summation";
+  @override
+  String get life_category_title => "Classification of goods";
 }
 
 class $en extends S {
@@ -191,6 +194,8 @@ class $zh_CN extends S {
   String get no_network_connect => "啊哦,网络不太顺畅哦~";
   @override
   String get life_cart_summation => "合计";
+  @override
+  String get life_category_title => "商品分类";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

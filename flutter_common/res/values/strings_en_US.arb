@@ -16,6 +16,7 @@
   "life_add_address_location_details_hint": "Detailed address: such as street, house number, community, building pillars, cell room",
   "life_add_address_tag_hint": "Address labels",
   "life_add_address_default_hint": "Set the default address",
+  "life_category_title": "Classification of goods",
   "life_cart_check_all": "checkAll",
   "life_cart_summation": "summation",
   "life_cart_title": "The shopping cart",

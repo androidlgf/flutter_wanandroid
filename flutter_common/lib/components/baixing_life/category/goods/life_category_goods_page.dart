@@ -10,6 +10,7 @@ import 'package:flutter_common/common/blocs/bloc_event.dart';
 import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/blocs/bloc_widget.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/common/ui/gradient_change_appbar.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/data/life_goods_category_data.dart';
 import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_page.dart';
@@ -27,7 +28,7 @@ class CategoryGoodsBxLifePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 0, title: Text('分类商品')),
+      appBar: GradientChangeAppBar(title: Text('分类商品')),
       body: BlocProvider(
           builder: (BuildContext context) {
             return BlocCommon(httpWork: ILifeHttpPostWork());

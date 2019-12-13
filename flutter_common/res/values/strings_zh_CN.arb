@@ -16,6 +16,7 @@
   "life_add_address_location_details_hint": "详细地址：如街道、门牌号、小区、楼栋号、单元室等",
   "life_add_address_tag_hint": "地址标签",
   "life_add_address_default_hint": "设置默认地址",
+  "life_category_title": "商品分类",
   "life_cart_check_all": "全选",
   "life_cart_summation": "合计",
   "life_cart_title": "购物车",

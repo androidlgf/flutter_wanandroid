@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/res/styles.dart';
+import 'package:flutter_common/common/ui/gradient_change_appbar.dart';
 import 'package:flutter_common/common/ui/image_load_view.dart';
 import 'package:flutter_common/common/utils/device_util.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
@@ -73,7 +74,8 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeForm>
         }
         if (_lifeHomeData != null) {
           return Scaffold(
-            appBar: AppBar(),
+            appBar: GradientChangeAppBar(
+                colors: [Colors.orange, Colors.deepOrange]),
             body: EasyRefresh.custom(
               controller: _controller,
               header: MaterialHeader(),
@@ -81,9 +83,9 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeForm>
               onRefresh: _enableRefresh ? () async {} : null,
               onLoad: _enableLoad
                   ? () async {
-                BlocProvider.of<LifeHomeBloc>(context).add(BlocHttpEvent(
-                    url: Api.LIFE_HOME_HOT, params: {'page': page}));
-              }
+                      BlocProvider.of<LifeHomeBloc>(context).add(BlocHttpEvent(
+                          url: Api.LIFE_HOME_HOT, params: {'page': page}));
+                    }
                   : null,
               slivers: <Widget>[
                 _buildBannerWidget(_lifeHomeData?.homeData?.slides),
@@ -94,12 +96,18 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeForm>
                     _lifeHomeData?.homeData?.saoma,
                     _lifeHomeData?.homeData?.integralMallPic,
                     _lifeHomeData?.homeData?.newUser),
-                _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor1Pic,
-                    _lifeHomeData?.homeData?.floor1, FloorType.Left),
-                _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor2Pic,
-                    _lifeHomeData?.homeData?.floor2, FloorType.Right),
-                _buildSliverToBoxAdapterFloor(_lifeHomeData?.homeData?.floor3Pic,
-                    _lifeHomeData?.homeData?.floor3, FloorType.Left),
+                _buildSliverToBoxAdapterFloor(
+                    _lifeHomeData?.homeData?.floor1Pic,
+                    _lifeHomeData?.homeData?.floor1,
+                    FloorType.Left),
+                _buildSliverToBoxAdapterFloor(
+                    _lifeHomeData?.homeData?.floor2Pic,
+                    _lifeHomeData?.homeData?.floor2,
+                    FloorType.Right),
+                _buildSliverToBoxAdapterFloor(
+                    _lifeHomeData?.homeData?.floor3Pic,
+                    _lifeHomeData?.homeData?.floor3,
+                    FloorType.Left),
                 _buildHotGoodsWidget(liftOfGoods)
               ],
             ),
