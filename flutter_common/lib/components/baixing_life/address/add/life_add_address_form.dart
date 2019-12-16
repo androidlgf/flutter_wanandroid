@@ -94,10 +94,10 @@ class _LifeSettlementFormState extends State<LifeAddAddressForm> {
                           tag: jsonEncode(_tag.toJson())));
                 }
               },
-              color: colorPrimary,
+              color: Color(Store.value<ConfigProvider>(context).theme),
               child: Text('${S.of(context).life_add_address_save}',
                   style: TextStyle(
-                      fontSize: Screen.spScreen16, color: Colors.white)))
+                      fontSize: Screen.spScreen16)))
         ],
       ),
       body: BlocWidget<LifeAddAddressBloc>(

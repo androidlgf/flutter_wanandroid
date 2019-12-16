@@ -45,10 +45,10 @@ class _LifeSettlementFormState extends State<LifeShippingAddressForm> {
                   LifeAddAddressPage(
                       provider: widget.provider,
                       addressProvider: widget.addressProvider)),
-              color: colorPrimary,
+              color: Color(Store.value<ConfigProvider>(context).theme),
               child: Text('${S.of(context).life_add_new_address_title}',
                   style: TextStyle(
-                      fontSize: Screen.spScreen16, color: Colors.white)))
+                      fontSize: Screen.spScreen16)))
         ],
       ),
       body: BlocWidget<LifeShippingAddressBloc>(
