@@ -16,6 +16,9 @@ class MemberLifePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MemberLifeWidget(this.provider);
+    return Container(
+      color: Color(0xFFF5F6F8),
+      child: MemberLifeWidget(this.provider),
+    );
   }
 }

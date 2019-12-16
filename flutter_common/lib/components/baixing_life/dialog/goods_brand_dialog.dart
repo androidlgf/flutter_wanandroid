@@ -1,12 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
-import 'package:flutter_common/res/json_strings.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'data/goods_server_data.dart';
 
 //商品品牌Dialog
 class GoodsBrandDialog extends StatefulWidget {

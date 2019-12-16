@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_common/api/api.dart';
-import 'package:flutter_common/common/blocs/bloc_common.dart';
 import 'package:flutter_common/common/blocs/bloc_event.dart';
 import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/common_index.dart';
-import 'package:flutter_common/common/utils/loading_util.dart';
 import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_brand_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_card_dialog.dart';
 import 'package:flutter_common/components/baixing_life/dialog/goods_service_dialog.dart';
-import 'package:flutter_common/components/baixing_life/dio/life_http_post_dio.dart';
-import 'package:flutter_common/components/baixing_life/home/life_home_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 

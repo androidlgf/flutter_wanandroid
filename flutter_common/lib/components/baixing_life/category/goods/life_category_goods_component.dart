@@ -58,7 +58,7 @@ class _CategoryGoodsBxLifeComponentState
   }
 
   Widget _buildBodyWidget() {
-    if (categoryGoodsData == null) {
+    if (categoryGoodsData == null || categoryGoodsData.length <= 0) {
       return Column(
         children: <Widget>[
           Expanded(
@@ -82,7 +82,7 @@ class _CategoryGoodsBxLifeComponentState
         },
         child: StaggeredGridView.countBuilder(
           crossAxisCount: 2,
-          itemCount: categoryGoodsData.length,
+          itemCount: categoryGoodsData?.length,
           itemBuilder: (BuildContext context, int index) =>
               _buildItemWidget(categoryGoodsData[index], index),
           padding: EdgeInsets.symmetric(

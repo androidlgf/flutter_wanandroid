@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/api/api.dart';
 import 'package:flutter_common/common/blocs/bloc_index.dart';
+import 'package:flutter_common/common/common_index.dart' as prefix0;
 import 'package:flutter_common/common/res/styles.dart';
+import 'package:flutter_common/common/ui/gradient_change_appbar.dart';
 import 'package:flutter_common/common/ui/image_load_view.dart';
 import 'package:flutter_common/common/utils/device_util.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_common/components/baixing_life/category/life_category_co
 import 'package:flutter_common/components/baixing_life/db/life_goods_provider.dart';
 import 'package:flutter_common/components/baixing_life/goodsdetail/life_goods_detail_page.dart';
 import 'package:flutter_common/components/baixing_life/home/life_home_bloc.dart';
+import 'package:flutter_common/components/baixing_life/res/tao_style.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
@@ -20,16 +23,16 @@ import 'data/life_home_hot_data.dart';
 import 'life_home_bloc_event.dart';
 
 //百姓生活 首页
-class HomeBxLifeWidget extends StatefulWidget {
+class HomeBxLifeForm extends StatefulWidget {
   final LifeGoodsProvider provider;
 
-  HomeBxLifeWidget(this.provider, {Key key}) : super(key: key);
+  HomeBxLifeForm(this.provider, {Key key}) : super(key: key);
 
   @override
   State createState() => _HomeBxLifeWidgetState();
 }
 
-class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
+class _HomeBxLifeWidgetState extends State<HomeBxLifeForm>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -60,22 +63,66 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFFAFAFA),
-      child: BlocWidget<LifeHomeBloc>(
-        builder:
-            BlocBuilder<LifeHomeBloc, BlocState>(builder: (context, state) {
-          if (state is BlocSuccess) {
-            if (state.url == null) {
-              _lifeHomeData = LifeHomeData.fromJson(state?.response);
-            } else {
-              liftOfGoods
-                  .addAll(LifeHomeHotData.fromJson(state?.response)?.lifeGood);
-              page += 1;
-            }
+    return BlocWidget<LifeHomeBloc>(
+      builder: BlocBuilder<LifeHomeBloc, BlocState>(builder: (context, state) {
+        if (state is BlocSuccess) {
+          if (state.url == null) {
+            _lifeHomeData = LifeHomeData.fromJson(state?.response);
+          } else {
+            liftOfGoods
+                .addAll(LifeHomeHotData.fromJson(state?.response)?.lifeGood);
+            page += 1;
           }
-          if (_lifeHomeData != null) {
-            return EasyRefresh.custom(
+        }
+        if (_lifeHomeData != null) {
+          Widget appBar = Container(
+            padding: EdgeInsets.symmetric(horizontal: Screen.wScreen10),
+            child: Row(
+              children: <Widget>[
+                Icon(TaoIcon.scan, size: Screen.hScree25, color: Colors.white),
+                SizedBox(width: Screen.wScreen10),
+                Expanded(
+                    child: Container(
+                  height: double.infinity,
+                  margin: EdgeInsets.symmetric(vertical: Screen.hScree5),
+                  //边框设置
+                  decoration: new BoxDecoration(
+                    //背景
+                    color: Colors.white,
+                    //设置四周圆角 角度
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    //设置四周边框
+                    border: new Border.all(width: 2, color: Colors.deepOrange),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Screen.wScreen10),
+                          child: Icon(Icons.search,
+                              size: Screen.hScree20, color: Color(0xFFcfd8dc))),
+                      Expanded(child: Text('优衣库旗舰店')),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Screen.wScreen10),
+                        child: Icon(TaoIcon.camera,
+                            size: Screen.hScree20, color: Color(0xFFcfd8dc)),
+                      )
+                    ],
+                  ),
+                )),
+                SizedBox(width: Screen.wScreen10),
+                Icon(TaoIcon.qr_code,
+                    size: Screen.hScree25, color: Colors.white)
+              ],
+            ),
+          );
+          return Scaffold(
+            appBar: GradientChangeAppBar(
+                colors: [Colors.orange, Colors.deepOrange],
+                rotation: Rotation.LR,
+                customBody: appBar),
+            body: EasyRefresh.custom(
               controller: _controller,
               header: MaterialHeader(),
               footer: MaterialFooter(),
@@ -109,10 +156,22 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
                     FloorType.Left),
                 _buildHotGoodsWidget(liftOfGoods)
               ],
-            );
-          }
-          return Container();
-        }),
+            ),
+          );
+        }
+        return Container();
+      }),
+    );
+  }
+
+  Widget _buildTopBar() {
+    return SliverToBoxAdapter(
+      child: Container(
+        width: DeviceUtil.width,
+        height: DeviceUtil.navigationBarHeight,
+        decoration: BoxDecoration(
+            gradient:
+                LinearGradient(colors: [Colors.orange, Colors.deepOrange])),
       ),
     );
   }
@@ -447,7 +506,7 @@ class _HomeBxLifeWidgetState extends State<HomeBxLifeWidget>
             );
           }, childCount: categories.length - 1),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5, childAspectRatio: 0.9)),
+              crossAxisCount: 5, childAspectRatio: 0.8)),
     );
   }
 

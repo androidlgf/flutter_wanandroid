@@ -21,7 +21,7 @@ class HomeBxLifePage extends StatelessWidget {
         return LifeHomeBloc(
             httpWork: ILifeHttpPostWork(), location: AMapLocation());
       },
-      child: HomeBxLifeWidget(provider),
+      child: HomeBxLifeForm(provider),
     );
   }
 }

@@ -8,6 +8,8 @@ import 'package:flutter_common/common/blocs/bloc_common.dart';
 import 'package:flutter_common/common/blocs/bloc_index.dart';
 import 'package:flutter_common/common/blocs/bloc_state.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/common/ui/gradient_change_appbar.dart';
+import 'package:flutter_common/common/ui/gradient_change_appbar.dart' as prefix0;
 import 'package:flutter_common/components/baixing_life/category/data/life_goods_category_data.dart';
 import 'package:flutter_common/components/baixing_life/category/goods/life_category_goods_component.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -46,49 +48,67 @@ class _CategoryBxLifeBodyState extends State<CategoryBxLifeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BlocCommon, BlocState>(
-      listener: (context, state) {
-        if (state is BlocFailure) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${state.error}'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      },
-      child: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
-        if (state is BlocLoading) {
-          return Column(
-            children: <Widget>[
-              Expanded(
-                child: getLoadingWidget(),
-                flex: 1,
-              )
-            ],
-          );
-        }
-        if (state is BlocSuccess) {
-          return Container(
-            color: Color(0xFFF5F6F8),
-            child: Row(
+    return Scaffold(
+      appBar: GradientChangeAppBar(
+        colors: [Colors.orange, Colors.deepOrange],
+        rotation: prefix0.Rotation.LR,
+        title: Text(
+          '${S.of(context).life_category_title}',
+          style: TextStyle(
+              fontSize: Screen.spScreen24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+        titleSpacing: Screen.wScreen10,
+      ),
+      body: BlocListener<BlocCommon, BlocState>(
+        listener: (context, state) {
+          if (state is BlocFailure) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.error}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        child: BlocBuilder<BlocCommon, BlocState>(builder: (context, state) {
+          if (state is BlocLoading) {
+            return Column(
               children: <Widget>[
                 Expanded(
-                  child: _leftListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
-                  flex: 3,
-                ),
-                Expanded(
-                  child: _rightListWidget(LifeGoodsCategoryData.fromJson(state.response)?.categoryData),
-                  flex: 7,
+                  child: getLoadingWidget(),
+                  flex: 1,
                 )
               ],
-            ),
+            );
+          }
+          if (state is BlocSuccess) {
+            return Container(
+              color: Color(0xFFF5F6F8),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: _leftListWidget(
+                        LifeGoodsCategoryData.fromJson(state.response)
+                            ?.categoryData),
+                    flex: 3,
+                  ),
+                  Expanded(
+                    child: _rightListWidget(
+                        LifeGoodsCategoryData.fromJson(state.response)
+                            ?.categoryData),
+                    flex: 7,
+                  )
+                ],
+              ),
+            );
+          }
+          return Container(
+            color: Color(0xFFF5F6F8),
           );
-        }
-        return Container(
-          color: Color(0xFFF5F6F8),
-        );
-      }),
+        }),
+      ),
     );
   }
 

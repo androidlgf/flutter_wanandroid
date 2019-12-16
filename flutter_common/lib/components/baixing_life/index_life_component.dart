@@ -6,11 +6,13 @@ import 'package:flutter_common/common/common_index.dart';
 import 'package:flutter_common/common/custom/shape/arc_circle.dart';
 import 'package:flutter_common/common/custom/shape_of_view.dart';
 import 'package:flutter_common/common/utils/route_util.dart';
+import 'package:flutter_common/components/baixing_life/res/tao_style.dart';
 import 'package:flutter_common/components/wanandroid/member/wanandroid_member_component.dart';
 import 'package:flutter_common/components/wanandroid/search/wanandroid_search_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'cart/life_goods_cart_page.dart';
 import 'category/life_category_page.dart';
+import 'db/life_address_provider.dart';
 import 'db/life_goods_provider.dart';
 import 'home/life_home_page.dart';
 import 'member/life_member_page.dart';
@@ -31,11 +33,13 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
 
   List<Widget> listOfWidgetObjects = [];
   LifeGoodsProvider goodsProvider;
+  LifeAddressProvider addressProvider;
 
   @override
   void initState() {
     super.initState();
     goodsProvider = LifeGoodsProvider();
+    addressProvider = LifeAddressProvider();
     listOfWidgetObjects
       ..add(HomeBxLifePage(goodsProvider))
       ..add(CategoryBxLifePage(
@@ -45,8 +49,8 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
         index: '${0}',
       ))
       ..add(LifeGoodsCardPage(
-        provider: goodsProvider,
-      ));
+          provider: goodsProvider, addressProvider: addressProvider))
+      ..add(MemberLifePage(goodsProvider));
   }
 
   void changePage(int index) {
@@ -58,22 +62,22 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-//          leading: InkWell(
-//            child: Icon(Icons.list),
-//          ),
-          title: Text('SIMPLY'),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                    pushNewPage(context, SearchWanAndroidComponent()))
-          ],
-        ),
+//        appBar: AppBar(
+////          leading: InkWell(
+////            child: Icon(Icons.list),
+////          ),
+//          title: Text('SIMPLY'),
+//          centerTitle: true,
+//          actions: <Widget>[
+//            IconButton(
+//                icon: Icon(
+//                  Icons.search,
+//                  color: Colors.white,
+//                ),
+//                onPressed: () =>
+//                    pushNewPage(context, SearchWanAndroidComponent()))
+//          ],
+//        ),
         drawer: Drawer(child: _buildDrawerWidget()),
         body: IndexedStack(
           index: currentIndex,
@@ -86,25 +90,25 @@ class _IndexBxLifeComponentState extends State<IndexBxLifeComponent>
             elevation: 8,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  activeIcon: Icon(Icons.home),
-                  title: Container()),
+                  icon: Icon(TaoIcon.home),
+                  activeIcon: Icon(TaoIcon.home_fill),
+                  title: Text('首页')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
-                  activeIcon: Icon(Icons.favorite_border),
-                  title: Container()),
+                  icon: Icon(TaoIcon.we_tao),
+                  activeIcon: Icon(TaoIcon.we_tao_fill),
+                  title: Text('微淘')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.add_shopping_cart),
-                  activeIcon: Icon(Icons.add_shopping_cart),
-                  title: Container()),
+                  icon: Icon(TaoIcon.message),
+                  activeIcon: Icon(TaoIcon.message_fill),
+                  title: Text('消息')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment),
-                  activeIcon: Icon(Icons.assignment),
-                  title: Container()),
-//              BottomNavigationBarItem(
-//                  icon: Icon(Icons.account_box),
-//                  activeIcon: Icon(Icons.account_box),
-//                  title: Container()),
+                  icon: Icon(TaoIcon.cart),
+                  activeIcon: Icon(TaoIcon.cart_fill),
+                  title: Text('购物车')),
+              BottomNavigationBarItem(
+                  icon: Icon(TaoIcon.my),
+                  activeIcon: Icon(TaoIcon.my_fill),
+                  title: Text('我的淘宝')),
             ]));
   }
 
