@@ -60,3 +60,43 @@ void pushReplacementName(BuildContext context, String routeName) {
 void popPage(BuildContext context) {
   Navigator.of(context).pop();
 }
+
+void pushSlideUpInNewPage(BuildContext context, Widget routePage) {
+  Navigator.push(
+      context,
+      PageRouteBuilder<SlideTransition>(
+          pageBuilder: (BuildContext context, Animation<double> animation,
+                  Animation<double> secondaryAnimation) =>
+              routePage,
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
+            var tween =
+                Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero);
+            var curveTween = CurveTween(curve: Curves.ease);
+            return SlideTransition(
+                position: animation.drive(curveTween).drive(tween),
+                child: child);
+          }));
+}
+
+void pushSlideLeftInNewPage(BuildContext context, Widget routePage) {
+  Navigator.push(
+      context,
+      PageRouteBuilder<SlideTransition>(
+          pageBuilder: (BuildContext context, Animation<double> animation,
+                  Animation<double> secondaryAnimation) =>
+              routePage,
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
+            var tween =
+                Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset.zero);
+            var curveTween = CurveTween(curve: Curves.ease);
+            return SlideTransition(
+                position: animation.drive(curveTween).drive(tween),
+                child: child);
+          }));
+}

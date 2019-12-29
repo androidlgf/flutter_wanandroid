@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_common/common/common_index.dart';
+import 'package:flutter_common/components/animation/index_animation.dart';
 import 'package:flutter_common/components/wanandroid/index_wanandroid_component.dart';
 
 import 'baixing_life/index_life_component.dart';
@@ -11,8 +12,6 @@ class IndexComponent extends StatefulWidget {
 }
 
 class _IndexComponentState extends State<IndexComponent> {
-  TextEditingController _passwordController = TextEditingController();
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -40,6 +39,7 @@ class _IndexComponentState extends State<IndexComponent> {
             children: [
               _buildItemWidget('玩Android项目', 0),
               _buildItemWidget('电商完整项目', 1),
+              _buildItemWidget('动画', 2),
             ]),
       ),
     );
@@ -55,13 +55,16 @@ class _IndexComponentState extends State<IndexComponent> {
           case 1:
             pushAndRemovePage(context, IndexBxLifeComponent());
             break;
+          case 2:
+            pushAndRemovePage(context, IndexAnimationComponent());
+            break;
         }
       },
       child: Container(
         alignment: Alignment.center,
         color: blue700Color,
         child: Text(
-          '${obj}',
+          obj,
           style: TextStyle(color: Colors.white),
         ),
       ),
