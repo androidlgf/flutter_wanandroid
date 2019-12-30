@@ -11,6 +11,8 @@ import 'misc/carousel_page.dart';
 import 'misc/expand_card_page.dart';
 import 'misc/focus_image_page.dart';
 import 'misc/repeating_animation_page.dart';
+import 'vignettes/basketball/basketball_page.dart';
+import 'vignettes/ticket_fold/ticket_fold_page.dart';
 
 class Item {
   final String name;
@@ -83,11 +85,11 @@ final miscItems = [
       name: 'Repeating Animation',
 //      route: RepeatingAnimationDemo.routeName,
       builder: (context) => RepeatingAnimationPage()),
-//  Item(
-//    name: 'Spring Physics',
-////      route: PhysicsCardDragDemo.routeName,
-////      builder: (context) => PhysicsCardDragDemo()
-//  ),
+  Item(
+    name: 'Spring Physics',
+//      route: PhysicsCardDragDemo.routeName,
+      builder: (context) => TicketFoldPage()
+  ),
 ];
 
 class ItemWidget extends StatelessWidget {

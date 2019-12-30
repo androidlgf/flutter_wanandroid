@@ -143,6 +143,8 @@ flutter:
     - images/
     - images/common/
     - images/life/
+    - images/basketball/
+    - images/ticket_fold/
     - packages/flutter_orm_plugin/lua/DB.lua
     - packages/flutter_orm_plugin/lua/orm/model.lua
     - packages/flutter_orm_plugin/lua/orm/cache.lua

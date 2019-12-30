@@ -108,7 +108,7 @@ class _FoldingTicketState extends State<FoldingTicket>
   void _updateFromWidget() {
     _entries = widget.entries;
     _controller.duration =
-        widget.duration ?? Duration(milliseconds: 4000 * (_entries.length - 1));
+        widget.duration ?? Duration(milliseconds: 400 * (_entries.length - 1));
   }
 
   void _tick() {
