@@ -39,8 +39,8 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
 
   @override
   void dispose() {
-    super.dispose();
     _httpGetWork?.cancel();
+    super.dispose();
   }
 
   @override
@@ -202,7 +202,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     );
   }
 
-  void loadBannerData() async{
+  void loadBannerData() async {
     if (_httpGetWork == null) _httpGetWork = WanAndroidHttpGetWork();
     _httpGetWork.start(url: Api.WAN_BANNER).then((value) {
       if (value.success) {
@@ -212,7 +212,7 @@ class _HomeWanAndroidComponentState extends State<HomeWanAndroidComponent>
     });
   }
 
-  void loadMore() async{
+  void loadMore() async {
     if (_httpGetWork == null) _httpGetWork = WanAndroidHttpGetWork();
     _httpGetWork
         .start(url: Api.WAN_ARTICLE + _page.toString() + '/json')
