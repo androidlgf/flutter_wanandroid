@@ -5,6 +5,9 @@ wanAndroid Flutter 版本客户端..
 
 ## [Android APK 下载地址>>](http://d.7short.com/63rc)
 
+![](https://github.com/androidlgf/FlutterCommon/blob/master/flutter_common/down.png)
+``
+
 
 
 `声明：本项目仅供学习，不可用于商业用途。`
