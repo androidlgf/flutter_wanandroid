@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_common/common/mvp/mvp_view.dart';
+import 'package:flutter_common/common/utils/network_connect_util.dart';
+import 'package:flutter_common/common/widget/load_dialog.dart';
 import 'i_presenter.dart';
 
-abstract class MvpStatefulWidget extends StatefulWidget {}
-
-abstract class MvpState<V extends MvpStatefulWidget> extends State<V>
+abstract class MvpState<V extends StatefulWidget> extends State<V>
     implements MvpView {
   IPresenter presenter;
 
@@ -55,26 +56,32 @@ abstract class MvpState<V extends MvpStatefulWidget> extends State<V>
   //显示网络加载loading/
   @override
   void showLoading() {
-    // TODO: implement showLoading
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return LoadDialog();
+        });
   }
 
   //隐藏网络加载loading/
   @override
   void hideLoading() {
-    // TODO: implement build
+    Navigator.pop(context);
   }
 
+  //关闭键盘/
   @override
   void hideKeyboard() {
-    // TODO: implement hideKeyboard
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 
+  //网络是否可用/
   @override
-  bool isNetworkConnected() {
-    // TODO: implement isNetworkConnected
-    return true;
+  Future<bool> isNetworkConnected() {
+    return NetworkConnectUtil.isNetworkConnected();
   }
 
+//底部错误提示/
   @override
   void onError(String message) {
     Scaffold.of(context).showSnackBar(

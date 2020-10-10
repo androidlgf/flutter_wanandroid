@@ -9,7 +9,7 @@ abstract class MvpView {
 
   void showMessage(String message);
 
-  bool isNetworkConnected();
+  Future<bool> isNetworkConnected();
 
   void hideKeyboard();
 }
