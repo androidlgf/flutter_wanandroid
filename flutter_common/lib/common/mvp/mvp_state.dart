@@ -12,6 +12,7 @@ abstract class MvpState<V extends StatefulWidget> extends State<V>
 
   IPresenter createPresenter();
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     presenter = createPresenter();
@@ -56,11 +57,13 @@ abstract class MvpState<V extends StatefulWidget> extends State<V>
   //显示网络加载loading/
   @override
   void showLoading() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return LoadDialog();
-        });
+    Future.delayed(Duration.zero, () {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return LoadDialog();
+          });
+    });
   }
 
   //隐藏网络加载loading/
@@ -84,7 +87,7 @@ abstract class MvpState<V extends StatefulWidget> extends State<V>
 //底部错误提示/
   @override
   void onError(String message) {
-    Scaffold.of(context).showSnackBar(
+    scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(message),
       ),
@@ -98,7 +101,7 @@ abstract class MvpState<V extends StatefulWidget> extends State<V>
 
   @override
   void showMessage(String message) {
-    Scaffold.of(context).showSnackBar(
+    scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(message),
       ),
